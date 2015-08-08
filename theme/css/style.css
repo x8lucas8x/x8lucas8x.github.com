@@ -30,9 +30,7 @@ body {
 }
 #contents {
     height: auto;
-	padding-bottom: 10px;
 }
-
 
 /* =Header
 ----------------------------------------------- */
@@ -73,7 +71,7 @@ body {
 	border-bottom: 1px solid #ddd;
 	border-top: 1px solid #ddd;
 	margin-bottom: 25px;
-	padding: 10px;
+	padding: 10px 20px;
 	text-align: centre;
 	width: auto;
 }
@@ -806,7 +804,7 @@ article.comment {
 	font-size: 11px;
 	font-weight: bold;
 	height: auto;
-	margin: 50px 0 30px;
+	margin: 25px 0 25px;
 	padding-top: 25px;
 	text-align: center;
 	width: auto;
@@ -824,7 +822,7 @@ article.comment {
 @media screen and (max-width:1024px) {
     .hentry .main {
         margin-left: 180px;
-        padding: 10px;
+        padding: 15px;
     }
 
     .hentry .entry-meta {
@@ -833,10 +831,14 @@ article.comment {
 }
 
 @media screen and (max-width:600px) {
+	#menu {
+		padding: 10px 0px;
+	}
+
     .hentry .main {
         width: auto;
         margin: 10px 10px;
-        padding: 5px;
+        padding: 15px;
     }
 
     .hentry .entry-meta {
