@@ -1,13 +1,6 @@
 /*
-Theme Name: Chunk
-Theme URI: http://theme.wordpress.com/themes/chunk/
-Author: Automattic
-Author URI: http://automattic.com
-Description: A straightforward theme with bold typography designed by <a href="http://twitter.com/#!/thisistran/">Tran N</a>. Featuring multiple post formats, custom background, custom menu, and custom header. Also comes with an optional footer widget area.
-Version: 1.0-wpcom
-License: GNU General Public License
-License URI: license.txt
-Tags: light, white, fixed-width, one-column, custom-background, custom-header, custom-menu, post-formats, rtl-language-support, sticky-post, translation-ready, art, blog, cartoon, holiday, journal, lifestream, photography, tumblelog, bright, clean, contemporary, flamboyant, modern
+Theme Name: Lucas Refuge
+Author: Lucas Lira Gomes <x8lucas8x@gmail.com>
 */
 
 @import url("pygment.css");
@@ -15,9 +8,9 @@ Tags: light, white, fixed-width, one-column, custom-background, custom-header, c
 /* =Base
 ----------------------------------------------- */
 body {
-	/*background-color: #000;
+	background-color: #000;
     background-image: -moz-linear-gradient( rgba(0,0,0,0.22), rgba(255,255,255,0) 80px );
-	background-image: -webkit-linear-gradient( rgba(0,0,0,0.22), rgba(255,255,255,0) 80px );*/
+	background-image: -webkit-linear-gradient( rgba(0,0,0,0.22), rgba(255,255,255,0) 80px );
     background-image: url(../images/body_background.png);
 	color: #555;
 	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -184,8 +177,8 @@ body {
 
 	border-bottom: 1px dashed #ddd;
 	line-height: 175%;
-	padding: 30px 5px 15px 15px;
-	text-align: left;
+	padding: 15px;
+	text-align: justify;
     margin-left: 280px;
     margin-right: 30px;
 }
@@ -831,6 +824,7 @@ article.comment {
 @media screen and (max-width:1024px) {
     .hentry .main {
         margin-left: 180px;
+        padding: 10px;
     }
 
     .hentry .entry-meta {
@@ -842,6 +836,7 @@ article.comment {
     .hentry .main {
         width: auto;
         margin: 10px 10px;
+        padding: 5px;
     }
 
     .hentry .entry-meta {
