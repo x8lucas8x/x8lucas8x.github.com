@@ -177,8 +177,7 @@ body {
 	line-height: 175%;
 	padding: 15px;
 	text-align: justify;
-    margin-left: 280px;
-    margin-right: 30px;
+    margin: 25px 30px 0px 280px;
 }
 .hentry .entry-meta {
 	font-family: 'Oswald', Helvetica, Arial, sans-serif;
@@ -278,6 +277,9 @@ a {
 }
 a:hover {
 	color: #C83838;
+}
+.entry-content {
+	min-height: 73px;
 }
 .entry-content a img {
 	border: 10px solid #ddd;
@@ -394,7 +396,6 @@ ul ul, ol ol, ul ol, ol ul {
 	margin-top: 2px;
 }
 
-
 /* =Post Formats
 -------------------------------------------------------------- */
 
@@ -429,7 +430,6 @@ ul ul, ol ol, ul ol, ol ul {
 .format-chat .entry-content p:nth-child(odd) {
 	font-weight: bold;
 }
-
 
 /* =Images
 -------------------------------------------------------------- */
@@ -494,7 +494,6 @@ img.alignright {
 .attachment .navigation a:hover img {
 	border-color: #000;
 }
-
 
 /* =Comments
 ----------------------------------------------- */
@@ -645,7 +644,6 @@ article.comment {
 	font-size: 18px;
 }
 
-
 /* =Widgets
 ----------------------------------------------- */
 #widgets {
@@ -794,7 +792,6 @@ article.comment {
 	vertical-align: middle;
 }
 
-
 /* =Footer
 ----------------------------------------------- */
 #footer {
@@ -804,12 +801,11 @@ article.comment {
 	font-size: 11px;
 	font-weight: bold;
 	height: auto;
-	margin: 25px 0 25px;
-	padding-top: 25px;
+	padding: 25px 0px;
+	margin-top: 25px;
 	text-align: center;
 	width: auto;
 }
-
 
 /* =WP.com
 ----------------------------------------------- */
@@ -852,4 +848,3 @@ article.comment {
         margin: 10px 10px;
     }
 }
-
