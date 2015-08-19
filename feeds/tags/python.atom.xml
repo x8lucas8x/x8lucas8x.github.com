@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Lucas' Refuge</title><link href="http://www.x8lucas8x.com/" rel="alternate"></link><link href="http://www.x8lucas8x.com/feeds/tags/python.atom.xml" rel="self"></link><id>http://www.x8lucas8x.com/</id><updated>2015-08-18T20:40:00-03:00</updated><entry><title>Zeroless</title><link href="http://www.x8lucas8x.com/zeroless.html" rel="alternate"></link><updated>2015-08-18T20:40:00-03:00</updated><author><name>x8lucas8x</name></author><id>tag:www.x8lucas8x.com,2015-08-18:zeroless.html</id><summary type="html">&lt;p&gt;Using &lt;a href="http://zeromq.org/"&gt;ZeroMQ&lt;/a&gt; in Python with &lt;a href="https://github.com/zeromq/pyzmq"&gt;PyZMQ&lt;/a&gt;, however, always made me feel like I&amp;#8217;m coding in
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Lucas' Refuge</title><link href="http://www.x8lucas8x.com/" rel="alternate"></link><link href="http://www.x8lucas8x.com/feeds/tags/python.atom.xml" rel="self"></link><id>http://www.x8lucas8x.com/</id><updated>2015-08-18T21:16:00-03:00</updated><entry><title>Zeroless</title><link href="http://www.x8lucas8x.com/zeroless.html" rel="alternate"></link><updated>2015-08-18T21:16:00-03:00</updated><author><name>x8lucas8x</name></author><id>tag:www.x8lucas8x.com,2015-08-18:zeroless.html</id><summary type="html">&lt;p&gt;Using &lt;a href="http://zeromq.org/"&gt;ZeroMQ&lt;/a&gt; in Python with &lt;a href="https://github.com/zeromq/pyzmq"&gt;PyZMQ&lt;/a&gt;, however, always made me feel like I&amp;#8217;m coding in
 C/C++, which I also love by the way. Unfortunately, that lack of &lt;a href="https://github.com/zeromq/pyzmq"&gt;PyZMQ&lt;/a&gt; &lt;span class="caps"&gt;API&lt;/span&gt;&amp;#8217;s, if I
 may say, &amp;#8220;pythonicity&amp;#8221;, just felt wrong to me. And by the end of last January, I
 decided to do something about it. So that is how &lt;a href="https://github.com/zmqless/python-zeroless"&gt;Zeroless&lt;/a&gt; was&amp;nbsp;born.&lt;/p&gt;
@@ -7,7 +7,7 @@ decided to do something about it. So that is how &lt;a href="https://github.com/
 Something more aligned with the python way of doing things. And, to a certain degree,
 I have succeeded. However, I have never made a comprehensive effort to publicise
 &lt;a href="https://github.com/zmqless/python-zeroless"&gt;Zeroless&lt;/a&gt; in any way so, in this post, I hope not only to explain how &lt;a href="https://github.com/zmqless/python-zeroless"&gt;Zeroless&lt;/a&gt;
-differs from &lt;a href="https://github.com/zeromq/pyzmq"&gt;PyZMQ&lt;/a&gt; but also to reach a greater audicence, that may be as enthusiastic
+differs from &lt;a href="https://github.com/zeromq/pyzmq"&gt;PyZMQ&lt;/a&gt; but also to reach a greater audience, that may be as enthusiastic
 about &lt;a href="http://zeromq.org/"&gt;ZeroMQ&lt;/a&gt; as myself. Therefore, without further ado, here goes some of the design
 decisions I have made for &lt;a href="https://github.com/zmqless/python-zeroless"&gt;Zeroless&lt;/a&gt;:&lt;/p&gt;
 &lt;h1&gt;&lt;span class="caps"&gt;TCP&lt;/span&gt; only for the&amp;nbsp;win&lt;/h1&gt;
@@ -21,7 +21,7 @@ only. As for &lt;span class="caps"&gt;INPROC&lt;/span&gt;&amp;#8217;s particular
 hindered by the Python&amp;#8217;s &lt;span class="caps"&gt;GIL&lt;/span&gt;, I do not see why bother with&amp;nbsp;it.&lt;/p&gt;
 &lt;p&gt;Nevertheless, I have a feeling that the vast majority of the users, like myself,
 are quite good with just &lt;span class="caps"&gt;TCP&lt;/span&gt;. Which is exactly what you need when building really
-horinzontally scalable networked services, especially in this time of a renewed
+horizontally scalable networked services, especially in this time of a renewed
 vision for &lt;span class="caps"&gt;SOA&lt;/span&gt;, with microservices having a lot of attention. So let us just use
 &lt;span class="caps"&gt;TCP&lt;/span&gt; and free our minds to think about other&amp;nbsp;matters.&lt;/p&gt;
 &lt;h1&gt;No more&amp;nbsp;contexts&lt;/h1&gt;
@@ -51,8 +51,8 @@ contexts ;). For instance, in order to instantiate a client you&amp;nbsp;would:&
 &lt;p&gt;Finally, note that no real connect/bind will occur unless you instantiate a
 messaging pattern, which are the subject of our next&amp;nbsp;topic.&lt;/p&gt;
 &lt;h1&gt;Like a factory method&amp;nbsp;pattern&lt;/h1&gt;
-&lt;p&gt;One thing I never liked about &lt;a href="https://github.com/zeromq/pyzmq"&gt;PyZMQ&lt;/a&gt; sockets&amp;#8217;s instantiation is why we have to call
-a method called socket, that receives an enum representing the type of the socket.
+&lt;p&gt;One thing I never liked about &lt;a href="https://github.com/zeromq/pyzmq"&gt;PyZMQ&lt;/a&gt; sockets&amp;#8217;s instantiation is that we have to call
+a method called socket, which receives an enum representing the type of the socket.
 Why don&amp;#8217;t they just provide a separate method for every socket possible, like as if
 it was a factory method pattern kind of interface. That would allow a more
 straightforward experience for developers, that could then rely on their favourite
@@ -77,8 +77,8 @@ no way to know which sockets are connected to your server without building
 some sort of infrastructure for that&amp;nbsp;yourself.&lt;/p&gt;
 &lt;h1&gt;Subscribe should not be&amp;nbsp;tricky&lt;/h1&gt;
 &lt;p&gt;In terms of interface, the subscribe case is particularly problematic in &lt;a href="https://github.com/zeromq/pyzmq"&gt;PyZMQ&lt;/a&gt;.
-One must use the not so intuitive setsockopt method, in order to define the topics
-it subscribes to. Like in the following&amp;nbsp;snippet:&lt;/p&gt;
+One must use the not so intuitive &lt;a href="https://zeromq.github.io/pyzmq/api/zmq.html#zmq.Context.setsockopt"&gt;setsockopt()&lt;/a&gt; method, in
+order to define the topics it subscribes to. Like in the following&amp;nbsp;snippet:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;socket&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;context&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;socket&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;zmq&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;&lt;span class="caps"&gt;SUB&lt;/span&gt;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="n"&gt;socket&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;setsockopt&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;zmq&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;&lt;span class="caps"&gt;SUBSCRIBE&lt;/span&gt;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="c"&gt;# Subscribe to all topics&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;

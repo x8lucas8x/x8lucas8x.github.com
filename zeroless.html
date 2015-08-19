@@ -56,7 +56,7 @@ August<br>2015</a>
     <p>I have been an enthusiast of ZeroMQ for quite some time. If there was an opportunity
 that required some sockets on steroids, I would not think twice. Ah, how those three
 messaging pattern were useful (i.e. Request/Reply, Push/Pull, Publish/Subscribe).
-They had the amazing trait of being able to drasticaly streamline the development of
+They had the amazing trait of being able to drastically streamline the development of
 distributed systems. And its portability, with wrappers for more than 30 languages,
 brokerlessness and amazing documentation made it a no brainer for me to favour ZeroMQ
 over other messaging&nbsp;alternatives.</p>
@@ -68,7 +68,7 @@ decided to do something about it. So that is how <a href="https://github.com/zmq
 Something more aligned with the python way of doing things. And, to a certain degree,
 I have succeeded. However, I have never made a comprehensive effort to publicise
 <a href="https://github.com/zmqless/python-zeroless">Zeroless</a> in any way so, in this post, I hope not only to explain how <a href="https://github.com/zmqless/python-zeroless">Zeroless</a>
-differs from <a href="https://github.com/zeromq/pyzmq">PyZMQ</a> but also to reach a greater audicence, that may be as enthusiastic
+differs from <a href="https://github.com/zeromq/pyzmq">PyZMQ</a> but also to reach a greater audience, that may be as enthusiastic
 about <a href="http://zeromq.org/">ZeroMQ</a> as myself. Therefore, without further ado, here goes some of the design
 decisions I have made for <a href="https://github.com/zmqless/python-zeroless">Zeroless</a>:</p>
 <h1><span class="caps">TCP</span> only for the&nbsp;win</h1>
@@ -82,7 +82,7 @@ only. As for <span class="caps">INPROC</span>&#8217;s particular case, which eff
 hindered by the Python&#8217;s <span class="caps">GIL</span>, I do not see why bother with&nbsp;it.</p>
 <p>Nevertheless, I have a feeling that the vast majority of the users, like myself,
 are quite good with just <span class="caps">TCP</span>. Which is exactly what you need when building really
-horinzontally scalable networked services, especially in this time of a renewed
+horizontally scalable networked services, especially in this time of a renewed
 vision for <span class="caps">SOA</span>, with microservices having a lot of attention. So let us just use
 <span class="caps">TCP</span> and free our minds to think about other&nbsp;matters.</p>
 <h1>No more&nbsp;contexts</h1>
@@ -112,8 +112,8 @@ contexts ;). For instance, in order to instantiate a client you&nbsp;would:</p>
 <p>Finally, note that no real connect/bind will occur unless you instantiate a
 messaging pattern, which are the subject of our next&nbsp;topic.</p>
 <h1>Like a factory method&nbsp;pattern</h1>
-<p>One thing I never liked about <a href="https://github.com/zeromq/pyzmq">PyZMQ</a> sockets&#8217;s instantiation is why we have to call
-a method called socket, that receives an enum representing the type of the socket.
+<p>One thing I never liked about <a href="https://github.com/zeromq/pyzmq">PyZMQ</a> sockets&#8217;s instantiation is that we have to call
+a method called socket, which receives an enum representing the type of the socket.
 Why don&#8217;t they just provide a separate method for every socket possible, like as if
 it was a factory method pattern kind of interface. That would allow a more
 straightforward experience for developers, that could then rely on their favourite
@@ -138,8 +138,8 @@ no way to know which sockets are connected to your server without building
 some sort of infrastructure for that&nbsp;yourself.</p>
 <h1>Subscribe should not be&nbsp;tricky</h1>
 <p>In terms of interface, the subscribe case is particularly problematic in <a href="https://github.com/zeromq/pyzmq">PyZMQ</a>.
-One must use the not so intuitive setsockopt method, in order to define the topics
-it subscribes to. Like in the following&nbsp;snippet:</p>
+One must use the not so intuitive <a href="https://zeromq.github.io/pyzmq/api/zmq.html#zmq.Context.setsockopt">setsockopt()</a> method, in
+order to define the topics it subscribes to. Like in the following&nbsp;snippet:</p>
 <div class="highlight"><pre><span class="n">socket</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">zmq</span><span class="o">.</span><span class="n"><span class="caps">SUB</span></span><span class="p">)</span>
 <span class="n">socket</span><span class="o">.</span><span class="n">setsockopt</span><span class="p">(</span><span class="n">zmq</span><span class="o">.</span><span class="n"><span class="caps">SUBSCRIBE</span></span><span class="p">,</span> <span class="n">b</span><span class="s">&quot;&quot;</span><span class="p">)</span> <span class="c"># Subscribe to all topics</span>
 </pre></div>
