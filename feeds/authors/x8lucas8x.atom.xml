@@ -1,83 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Lucas' Refuge</title><link href="http://x8lucas8x.com/" rel="alternate"></link><link href="http://x8lucas8x.com/feeds/authors/x8lucas8x.atom.xml" rel="self"></link><id>http://x8lucas8x.com/</id><updated>2015-09-24T20:40:00-03:00</updated><entry><title>Connected, but still not interoperable</title><link href="http://x8lucas8x.com/connected-but-still-not-interoperable.html" rel="alternate"></link><updated>2015-09-24T20:40:00-03:00</updated><author><name>x8lucas8x</name></author><id>tag:x8lucas8x.com,2015-09-04:connected-but-still-not-interoperable.html</id><summary type="html">&lt;p&gt;Right now IoT is composed by a jungle of different solutions. You can probably outline
-those that seem more promising. In the networking spectrum there is a whole stack
-solutions, which tries to provide you not only data link layer features but also
-routing, addressing and some even encryption, those are mainly Zigbee, Z-Wave,
-Bluetooth and WirelessHart. On the other hand you also have &lt;span class="caps"&gt;WIFI&lt;/span&gt;, raw &lt;span class="caps"&gt;IEEE&lt;/span&gt; 802.15.4,
-&lt;span class="caps"&gt;GPRS&lt;/span&gt; and all sort of radios operating in sub-gigahertz frequency ranges. Each has
-an use case of its own. Z-Wave, for instance, is more present in home automation,
-Bluetooth V4 is usually the right one for wearables, WirelessHart is an adaption
-of the Highway Addressable Remote Transducer Protocol (&lt;span class="caps"&gt;HART&lt;/span&gt;) protocol for industrial
-wireless networks and Zigbee is the wild card among them (i.e. thanks to &lt;span class="caps"&gt;DIGI&lt;/span&gt;&amp;#8217;s
-amazing &lt;span class="caps"&gt;AT&lt;/span&gt; programming&amp;nbsp;interface).&lt;/p&gt;
-&lt;p&gt;Along with that there is also efforts to bring the &lt;span class="caps"&gt;IP&lt;/span&gt; protocol to the constrained devices
-like those that use &lt;span class="caps"&gt;IEEE&lt;/span&gt; 802.15.4 and its variations. Well, the advantages are many. First
-there is the seamless exchange of information between devices utilizing any &lt;span class="caps"&gt;IP&lt;/span&gt;-enabled
-&lt;span class="caps"&gt;MAC&lt;/span&gt;/&lt;span class="caps"&gt;PHY&lt;/span&gt; (e.g. Wi-Fi, Ethernet). Second we cannot forget the battle-tested tooling all
-those years of &lt;span class="caps"&gt;IP&lt;/span&gt; predominance have provided us (e.g. ping, traceroute, netcat, wireshark,
-tcpdump). The &lt;a href="http://www.ipso-alliance.org/"&gt;&lt;span class="caps"&gt;IPSO&lt;/span&gt; Alliance&lt;/a&gt; is one of the major advocates in this matter. They have several
-whitepapers publicising standards like &lt;a href="http://www.ipso-alliance.org/downloads/6LoWPAN"&gt;6LowPan&lt;/a&gt;, an &lt;span class="caps"&gt;IPV6&lt;/span&gt;-compatible addressing with better
-header compression, and &lt;a href="http://www.ipso-alliance.org/downloads/RPL"&gt;&lt;span class="caps"&gt;RPL&lt;/span&gt;&lt;/a&gt;, a mesh-enabled routing protocol for low power and lossy networks.
-The &lt;a href="http://www.zigbee.org/"&gt;Zigbee Alliance&lt;/a&gt; also realised the advantages of IPv6-based wireless mesh networking and
-created ZigBee &lt;span class="caps"&gt;IP&lt;/span&gt;, and open standard built on top of &lt;span class="caps"&gt;IEEE&lt;/span&gt; 802.15.4 that provides end-to-end
-IPv6&amp;nbsp;networking.&lt;/p&gt;
-&lt;p&gt;On top of &lt;span class="caps"&gt;IP&lt;/span&gt;, on the application level, &lt;a href="http://mqtt.org/news"&gt;&lt;span class="caps"&gt;MQTT&lt;/span&gt;&lt;/a&gt; and &lt;a href="https://tools.ietf.org/html/rfc7252"&gt;&lt;span class="caps"&gt;COAP&lt;/span&gt;&lt;/a&gt; shine. The first is a lightweight
-&lt;span class="caps"&gt;PUB&lt;/span&gt;-&lt;span class="caps"&gt;SUB&lt;/span&gt; protocol based on &lt;span class="caps"&gt;TCP&lt;/span&gt;. Now you may wonder if &lt;a href="http://mqtt.org/news"&gt;&lt;span class="caps"&gt;MQTT&lt;/span&gt;&lt;/a&gt; is appropriate for wireless
-sensor networks. In fact anything &lt;span class="caps"&gt;TCP&lt;/span&gt; based is not by design, but in such cases you can use
-&lt;a href="http://mqtt.org/news"&gt;&lt;span class="caps"&gt;MQTT&lt;/span&gt;-&lt;span class="caps"&gt;SN&lt;/span&gt;&lt;/a&gt;, a &lt;span class="caps"&gt;UDP&lt;/span&gt; based variation of &lt;a href="http://mqtt.org/news"&gt;&lt;span class="caps"&gt;MQTT&lt;/span&gt;&lt;/a&gt; that is especially tailored for low-cost and
-low-power sensor devices that run over bandwidth-constrained wireless networks. While &lt;a href="https://tools.ietf.org/html/rfc7252"&gt;&lt;span class="caps"&gt;COAP&lt;/span&gt;&lt;/a&gt;
-is a lightweight &lt;span class="caps"&gt;HTTP&lt;/span&gt; compatible protocol, based on &lt;span class="caps"&gt;UDP&lt;/span&gt;, with support for multicasting and
-service discovery. Both of them are quite popular and you can probably find an implementation
-for your favourite programming language or IoT platform (e.g. &lt;a href="http://contiki-os.org/"&gt;Contiki &lt;span class="caps"&gt;OS&lt;/span&gt;&lt;/a&gt;, &lt;a href="https://tools.ietf.org/html/rfc7390"&gt;Arduino&lt;/a&gt;).
-Unfortunately, given a non-&lt;span class="caps"&gt;IP&lt;/span&gt; network, developing a gateway to map your custom protocol
-in the interface your backend/server uses and vice-versa is a necessary&amp;nbsp;burden.&lt;/p&gt;
-&lt;p&gt;So, there is certainly no doubt there were major progresses on the connectivity front, but
-still something is absent in this equation. Connectivity is certainly necessary but IoT is as
-much about connectivity as the internet is about the web. That vision those big players describe
-of smart Xs, being X anything, autonomously interacting among themselves is heavily dependent
-of those devices being able to discover each other and access their functionalities, without
-being explicitly pre-programmed to do so. You probably saw companies like &lt;a href="http://www.smartthings.com/"&gt;Smart Things&lt;/a&gt;,
-&lt;a href="https://ninjablocks.com/"&gt;Ninja Blocks&lt;/a&gt; or the former &lt;a href="http://revolv.com/"&gt;Revolv&lt;/a&gt;, bought by &lt;a href="https://nest.com/"&gt;Nest&lt;/a&gt;, stating that their platforms/hubs
-supports different vendors or &amp;#8220;play well with others&amp;#8221;, which is great but has its own&amp;nbsp;limitations.&lt;/p&gt;
-&lt;p&gt;Up to now, in platforms like the aforementioned, integration of new products occurs in a
-incremental fashion. So if you want to support Phillip&amp;#8217;s &lt;a href="http://www2.meethue.com/pt-br/"&gt;Hue&lt;/a&gt; or &lt;a href="https://www.lifx.com/"&gt;&lt;span class="caps"&gt;LIFX&lt;/span&gt;&lt;/a&gt; lamps, you will have
-to read the documentation of their &lt;span class="caps"&gt;REST&lt;/span&gt; &lt;span class="caps"&gt;API&lt;/span&gt;. Which seems great given &lt;span class="caps"&gt;REST&lt;/span&gt; apis are easy to
-integrate, but the crude reality of IoT is way less welcoming. In most you cases, you will
-find yourself with vertically integrated systems that do not permit easy third-party integration.
-And even if they permitted, the manual process of integrating with new devices and/or platforms
-have two&amp;nbsp;problems.&lt;/p&gt;
-&lt;p&gt;First, a great deal of products does not provide public documented APIs for third-parties.
-And the reason is that, currently, most vendors tend to sell a solution, from hardware to user
-interface, therefore not caring for those who want to use their products differently from what
-they envisaged (i.e. makers suffer :/). Consider &lt;a href="https://www.plugwise.com/"&gt;Plugwise&lt;/a&gt;, for instance, they have one of the
-most complete energy management solutions out there, but without a consistent effor to provide
-a public &lt;span class="caps"&gt;API&lt;/span&gt; or &lt;span class="caps"&gt;SDK&lt;/span&gt;. You may even find unofficial libraries, made by someone who probably had
-to sniffer &lt;a href="https://www.plugwise.com/"&gt;Plugwise&lt;/a&gt;&amp;#8216;s devices in order to reverse engineer their proprietary protocol. But
-using those, you would not have any guarantee of future support. Besides that it is common
-for unofficial libraries not to be feature complete, so good luck if you want to use the most
-recent&amp;nbsp;capabilities.&lt;/p&gt;
-&lt;p&gt;Second, manual integration does not scale. Vendors may try to pinpoint the most popular
-products, to focus their integrations efforts, or form partnerships, but that degree of
-interoperability will come at the expense of tight vendor integration with specific&amp;nbsp;partners.&lt;/p&gt;
-&lt;p&gt;To solve those problems, devices need to discover and access each other functionalities, not
-necessarily directly like &lt;span class="caps"&gt;M2M&lt;/span&gt; scenarios portrait. And for such two things are required. First
-a data model that could explicitly state what each piece of data is about, so that you do not
-have to read a manual to realise that a sensor is measuring temperature in Celsius. Ontologies
-are usually the answer in such cases, but &lt;a href="http://www.w3.org/2001/sw/wiki/OWL"&gt;&lt;span class="caps"&gt;OWL&lt;/span&gt;&lt;/a&gt; and &lt;a href="http://www.w3.org/2001/sw/wiki/RDF"&gt;&lt;span class="caps"&gt;RDF&lt;/span&gt;&lt;/a&gt; are not appropriate given the bandwidth
-limitations. The &lt;a href="http://www.ipso-alliance.org/"&gt;&lt;span class="caps"&gt;IPSO&lt;/span&gt; Alliance&lt;/a&gt; tried to fill this gap with its &lt;a href="http://www.ipso-alliance.org/smart-object-guidelines"&gt;Smart Objects&lt;/a&gt; specification,
-which describes a reusable data model for IoT. That data model defines a set of data types
-and structures that can be used by different devices, in order to enable them to interoperate
-since the semantics is now in the data itself. Still, despite the &lt;a href="http://www.ipso-alliance.org/smart-object-guidelines"&gt;Smart Objects&lt;/a&gt; specification,
-ontologies have an important role at the users level, as the tooling from semantic web
-technologies (e.g. &lt;a href="http://www.w3.org/2001/sw/wiki/SPARQL"&gt;&lt;span class="caps"&gt;SPARQL&lt;/span&gt;&lt;/a&gt;, &lt;a href="http://www.w3.org/2001/sw/wiki/OWL"&gt;&lt;span class="caps"&gt;OWL&lt;/span&gt;&lt;/a&gt;, &lt;a href="http://www.w3.org/2001/sw/wiki/RDF"&gt;&lt;span class="caps"&gt;RDF&lt;/span&gt;&lt;/a&gt;) can provide great value for those interested in
-composing their own IoT solutions by accessing higher level&amp;nbsp;services.&lt;/p&gt;
-&lt;p&gt;Although being able to determine the content of the messages sent by sensors is important, no
-equivalent exists in terms of actuation. And that is key to a large adoption of IoT, especially
-in the end-consumer market. Right now, businesses can get value by tracking trends and analysing
-data, but for end-consumers automation is the real killer application. And by automation I mean
-not only actuation, that translates itself in an event in the physical world, but also remote
-configuration of these devices. All that provided, without devices being pre-programmed to do
-so, would be huge. But, unfortunately, no lightweight UPnP exist for the IoT&amp;nbsp;yet.&lt;/p&gt;</summary><category term="iot"></category><category term="ioe"></category><category term="automation"></category><category term="networking"></category></entry><entry><title>Zeroless</title><link href="http://x8lucas8x.com/zeroless.html" rel="alternate"></link><updated>2015-08-18T21:16:00-03:00</updated><author><name>x8lucas8x</name></author><id>tag:x8lucas8x.com,2015-08-18:zeroless.html</id><summary type="html">&lt;p&gt;Using &lt;a href="http://zeromq.org/"&gt;ZeroMQ&lt;/a&gt; in Python with &lt;a href="https://github.com/zeromq/pyzmq"&gt;PyZMQ&lt;/a&gt;, however, always made me feel like I&amp;#8217;m coding in
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Lucas' Refuge</title><link href="http://x8lucas8x.com/" rel="alternate"></link><link href="http://x8lucas8x.com/feeds/authors/x8lucas8x.atom.xml" rel="self"></link><id>http://x8lucas8x.com/</id><updated>2015-08-18T21:16:00-03:00</updated><entry><title>Go’s Generators</title><link href="http://x8lucas8x.com/go-generators.html" rel="alternate"></link><updated>2015-08-18T20:40:00-03:00</updated><author><name>x8lucas8x</name></author><id>tag:x8lucas8x.com,2015-09-08:go-generators.html</id><summary type="html">&lt;p&gt;Among Python&amp;#8217;s many superpowers, generators is clearly a major one. Brought from
+functional languages, like Haskell, which have demonstrated how better being lazy
+is in terms of speed and memory management. Especially when collections&amp;#8217; size
+can grow&amp;nbsp;indefinitely.&lt;/p&gt;
+&lt;p&gt;In Python, besides list comprehension, there are also the less known dictionary and
+generator comprehensions. Being the later, what we are interested in the scope of
+this post. So, considering we want to print all the multiples of 2 up to a certain
+number y, we&amp;nbsp;could:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;multiples_of_2&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;range&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+
+&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;multiples_of_2&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="k"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Alternatively, one could use the yield&amp;nbsp;operator:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;multiples_of_2&lt;/span&gt;&lt;span class="p"&gt;():&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;range&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="k"&gt;yield&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;
+
+&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;multiples_of_2&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="k"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;In Go, we do not have the same constructs, but we can employ Go&amp;#8217;s channels to end
+with a very similar&amp;nbsp;effect:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;package&lt;/span&gt; &lt;span class="nx"&gt;main&lt;/span&gt;
+
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;fmt&amp;quot;&lt;/span&gt;
+
+&lt;span class="kd"&gt;func&lt;/span&gt; &lt;span class="nx"&gt;multiples_of_2&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;c&lt;/span&gt; &lt;span class="kd"&gt;chan&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;y&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="nx"&gt;x&lt;/span&gt; &lt;span class="o"&gt;:=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="nx"&gt;x&lt;/span&gt; &lt;span class="p"&gt;&amp;lt;&lt;/span&gt; &lt;span class="nx"&gt;y&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="nx"&gt;x&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="nx"&gt;c&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="nx"&gt;x&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="kd"&gt;func&lt;/span&gt; &lt;span class="nx"&gt;main&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nx"&gt;c&lt;/span&gt; &lt;span class="o"&gt;:=&lt;/span&gt; &lt;span class="nb"&gt;make&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kd"&gt;chan&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="k"&gt;defer&lt;/span&gt; &lt;span class="nb"&gt;close&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;c&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="k"&gt;go&lt;/span&gt; &lt;span class="nx"&gt;multiples_of_2&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;c&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="nx"&gt;x&lt;/span&gt; &lt;span class="o"&gt;:=&lt;/span&gt; &lt;span class="k"&gt;range&lt;/span&gt; &lt;span class="nx"&gt;c&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="nx"&gt;fmt&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Println&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Of course the multiples_of_2&amp;#8217;s interface expose a lot about the business logic of
+our custom generator. Besides that, the whole process of initialising/closing a
+channel is quite repetitive. And as the &lt;span class="caps"&gt;DRY&lt;/span&gt; principles preaches, repetition is the
+root of all evil. But fear not, that required channel can be encapsulated inside
+multiples_of_2, leading to an interface that very similar to the Python&amp;nbsp;one.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;package&lt;/span&gt; &lt;span class="nx"&gt;main&lt;/span&gt;
+
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;fmt&amp;quot;&lt;/span&gt;
+
+&lt;span class="kd"&gt;func&lt;/span&gt; &lt;span class="nx"&gt;multiples_of_2&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;y&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kd"&gt;chan&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nx"&gt;c&lt;/span&gt; &lt;span class="o"&gt;:=&lt;/span&gt; &lt;span class="nb"&gt;make&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kd"&gt;chan&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+    &lt;span class="k"&gt;go&lt;/span&gt; &lt;span class="kd"&gt;func&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="k"&gt;defer&lt;/span&gt; &lt;span class="nb"&gt;close&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;c&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="nx"&gt;x&lt;/span&gt; &lt;span class="o"&gt;:=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="nx"&gt;x&lt;/span&gt; &lt;span class="p"&gt;&amp;lt;&lt;/span&gt; &lt;span class="nx"&gt;y&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="nx"&gt;x&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="nx"&gt;c&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="nx"&gt;x&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="p"&gt;}()&lt;/span&gt;
+
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nx"&gt;c&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="kd"&gt;func&lt;/span&gt; &lt;span class="nx"&gt;main&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="nx"&gt;x&lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt; &lt;span class="k"&gt;range&lt;/span&gt; &lt;span class="nx"&gt;multiples_of_2&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="nx"&gt;fmt&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Println&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;So, that is all. At the expense of some extra work, we can provide very pythonic
+interfaces for lazy evaluated lists in&amp;nbsp;Go.&lt;/p&gt;</summary><category term="go"></category><category term="python"></category><category term="zen"></category><category term="generators"></category></entry><entry><title>Zeroless</title><link href="http://x8lucas8x.com/zeroless.html" rel="alternate"></link><updated>2015-08-18T21:16:00-03:00</updated><author><name>x8lucas8x</name></author><id>tag:x8lucas8x.com,2015-08-18:zeroless.html</id><summary type="html">&lt;p&gt;Using &lt;a href="http://zeromq.org/"&gt;ZeroMQ&lt;/a&gt; in Python with &lt;a href="https://github.com/zeromq/pyzmq"&gt;PyZMQ&lt;/a&gt;, however, always made me feel like I&amp;#8217;m coding in
 C/C++, which I also love by the way. Unfortunately, that lack of &lt;a href="https://github.com/zeromq/pyzmq"&gt;PyZMQ&lt;/a&gt; &lt;span class="caps"&gt;API&lt;/span&gt;&amp;#8217;s, if I
 may say, &amp;#8220;pythonicity&amp;#8221;, just felt wrong to me. And by the end of last January, I
 decided to do something about it. So that is how &lt;a href="https://github.com/zmqless/python-zeroless"&gt;Zeroless&lt;/a&gt; was&amp;nbsp;born.&lt;/p&gt;
