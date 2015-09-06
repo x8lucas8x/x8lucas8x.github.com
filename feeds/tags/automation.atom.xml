@@ -22,8 +22,8 @@ The &lt;a href="http://www.zigbee.org/"&gt;Zigbee Alliance&lt;/a&gt; also realis
 created ZigBee &lt;span class="caps"&gt;IP&lt;/span&gt;, and open standard built on top of &lt;span class="caps"&gt;IEEE&lt;/span&gt; 802.15.4 that provides end-to-end
 IPv6&amp;nbsp;networking.&lt;/p&gt;
 &lt;p&gt;On top of &lt;span class="caps"&gt;IP&lt;/span&gt;, on the application level, &lt;a href="http://mqtt.org/news"&gt;&lt;span class="caps"&gt;MQTT&lt;/span&gt;&lt;/a&gt; and &lt;a href="https://tools.ietf.org/html/rfc7252"&gt;&lt;span class="caps"&gt;COAP&lt;/span&gt;&lt;/a&gt; shine. The first is a lightweight
-&lt;span class="caps"&gt;PUB&lt;/span&gt;-&lt;span class="caps"&gt;SUB&lt;/span&gt; protocol based on &lt;span class="caps"&gt;TCP&lt;/span&gt;. Now you may wonder if &lt;a href="http://mqtt.org/news"&gt;&lt;span class="caps"&gt;MQTT&lt;/span&gt;&lt;/a&gt; is approapriate for wireless
-sensor networks. In fact anything &lt;span class="caps"&gt;TCP&lt;/span&gt; based is not by design, but in such cases yo can use
+&lt;span class="caps"&gt;PUB&lt;/span&gt;-&lt;span class="caps"&gt;SUB&lt;/span&gt; protocol based on &lt;span class="caps"&gt;TCP&lt;/span&gt;. Now you may wonder if &lt;a href="http://mqtt.org/news"&gt;&lt;span class="caps"&gt;MQTT&lt;/span&gt;&lt;/a&gt; is appropriate for wireless
+sensor networks. In fact anything &lt;span class="caps"&gt;TCP&lt;/span&gt; based is not by design, but in such cases you can use
 &lt;a href="http://mqtt.org/news"&gt;&lt;span class="caps"&gt;MQTT&lt;/span&gt;-&lt;span class="caps"&gt;SN&lt;/span&gt;&lt;/a&gt;, a &lt;span class="caps"&gt;UDP&lt;/span&gt; based variation of &lt;a href="http://mqtt.org/news"&gt;&lt;span class="caps"&gt;MQTT&lt;/span&gt;&lt;/a&gt; that is especially tailored for low-cost and
 low-power sensor devices that run over bandwidth-constrained wireless networks. While &lt;a href="https://tools.ietf.org/html/rfc7252"&gt;&lt;span class="caps"&gt;COAP&lt;/span&gt;&lt;/a&gt;
 is a lightweight &lt;span class="caps"&gt;HTTP&lt;/span&gt; compatible protocol, based on &lt;span class="caps"&gt;UDP&lt;/span&gt;, with support for multicasting and
@@ -38,7 +38,7 @@ of smart Xs, being X anything, autonomously interacting among themselves is heav
 of those devices being able to discover each other and access their functionalities, without
 being explicitly pre-programmed to do so. You probably saw companies like &lt;a href="http://www.smartthings.com/"&gt;Smart Things&lt;/a&gt;,
 &lt;a href="https://ninjablocks.com/"&gt;Ninja Blocks&lt;/a&gt; or the former &lt;a href="http://revolv.com/"&gt;Revolv&lt;/a&gt;, bought by &lt;a href="https://nest.com/"&gt;Nest&lt;/a&gt;, stating that their platforms/hubs
-supports different vendors or &amp;#8220;play nice with other&amp;#8221;, which is great but has its own&amp;nbsp;limitations.&lt;/p&gt;
+supports different vendors or &amp;#8220;play well with others&amp;#8221;, which is great but has its own&amp;nbsp;limitations.&lt;/p&gt;
 &lt;p&gt;Up to now, in platforms like the aforementioned, integration of new products occurs in a
 incremental fashion. So if you want to support Phillip&amp;#8217;s &lt;a href="http://www2.meethue.com/pt-br/"&gt;Hue&lt;/a&gt; or &lt;a href="https://www.lifx.com/"&gt;&lt;span class="caps"&gt;LIFX&lt;/span&gt;&lt;/a&gt; lamps, you will have
 to read the documentation of their &lt;span class="caps"&gt;REST&lt;/span&gt; &lt;span class="caps"&gt;API&lt;/span&gt;. Which seems great given &lt;span class="caps"&gt;REST&lt;/span&gt; apis are easy to

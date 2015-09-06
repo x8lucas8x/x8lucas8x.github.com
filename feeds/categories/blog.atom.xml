@@ -1,5 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Lucas' Refuge</title><link href="http://x8lucas8x.com/" rel="alternate"></link><link href="http://x8lucas8x.com/feeds/categories/blog.atom.xml" rel="self"></link><id>http://x8lucas8x.com/</id><updated>2015-09-24T20:40:00-03:00</updated><entry><title>Connected, but still not interoperable</title><link href="http://x8lucas8x.com/connected-but-still-not-interoperable.html" rel="alternate"></link><updated>2015-09-24T20:40:00-03:00</updated><author><name>x8lucas8x</name></author><id>tag:x8lucas8x.com,2015-09-04:connected-but-still-not-interoperable.html</id><summary type="html">&lt;p&gt;Right now IoT is composed by a jungle of different solutions. You can probably outline
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Lucas' Refuge</title><link href="http://x8lucas8x.com/" rel="alternate"></link><link href="http://x8lucas8x.com/feeds/categories/blog.atom.xml" rel="self"></link><id>http://x8lucas8x.com/</id><updated>2015-09-24T20:40:00-03:00</updated><entry><title>Go’s Generators</title><link href="http://x8lucas8x.com/go-generators.html" rel="alternate"></link><updated>2015-08-18T20:40:00-03:00</updated><author><name>x8lucas8x</name></author><id>tag:x8lucas8x.com,2015-09-08:go-generators.html</id><summary type="html">&lt;p&gt;Among Python&amp;#8217;s many superpowers, generators is clearly a major one. Brought from
+functional languages, like Haskell, which have demonstrated how better being lazy
+is in terms of speed and memory management. Especially when collections&amp;#8217; size
+can grow&amp;nbsp;indefinitely.&lt;/p&gt;
+&lt;p&gt;In Python, besides list comprehension, there are also the less known dictionary and
+generator comprehensions. Being the later, what we are interested in the scope of
+this post. So, considering we want to print all the multiples of 2 up to a certain
+number y, we&amp;nbsp;could:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;multiples_of_2&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;range&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+
+&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;multiples_of_2&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="k"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Alternatively, one could use the yield&amp;nbsp;operator:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;multiples_of_2&lt;/span&gt;&lt;span class="p"&gt;():&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;range&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="k"&gt;yield&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;
+
+&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;multiples_of_2&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="k"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;In Go, we do not have the same constructs, but we can employ Go&amp;#8217;s channels to end
+with a very similar&amp;nbsp;effect:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;package&lt;/span&gt; &lt;span class="nx"&gt;main&lt;/span&gt;
+
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;fmt&amp;quot;&lt;/span&gt;
+
+&lt;span class="kd"&gt;func&lt;/span&gt; &lt;span class="nx"&gt;multiples_of_2&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;c&lt;/span&gt; &lt;span class="kd"&gt;chan&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;y&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="nx"&gt;x&lt;/span&gt; &lt;span class="o"&gt;:=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="nx"&gt;x&lt;/span&gt; &lt;span class="p"&gt;&amp;lt;&lt;/span&gt; &lt;span class="nx"&gt;y&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="nx"&gt;x&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="nx"&gt;c&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="nx"&gt;x&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="kd"&gt;func&lt;/span&gt; &lt;span class="nx"&gt;main&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nx"&gt;c&lt;/span&gt; &lt;span class="o"&gt;:=&lt;/span&gt; &lt;span class="nb"&gt;make&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kd"&gt;chan&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="k"&gt;defer&lt;/span&gt; &lt;span class="nb"&gt;close&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;c&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="k"&gt;go&lt;/span&gt; &lt;span class="nx"&gt;multiples_of_2&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;c&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="nx"&gt;x&lt;/span&gt; &lt;span class="o"&gt;:=&lt;/span&gt; &lt;span class="k"&gt;range&lt;/span&gt; &lt;span class="nx"&gt;c&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="nx"&gt;fmt&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Println&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Of course the multiples_of_2&amp;#8217;s interface expose a lot about the business logic of
+our custom generator. Besides that, the whole process of initialising/closing a
+channel is quite repetitive. And as the &lt;span class="caps"&gt;DRY&lt;/span&gt; principles preaches, repetition is the
+root of all evil. But fear not, that required channel can be encapsulated inside
+multiples_of_2, leading to an interface that very similar to the Python&amp;nbsp;one.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;package&lt;/span&gt; &lt;span class="nx"&gt;main&lt;/span&gt;
+
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;fmt&amp;quot;&lt;/span&gt;
+
+&lt;span class="kd"&gt;func&lt;/span&gt; &lt;span class="nx"&gt;multiples_of_2&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;y&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kd"&gt;chan&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nx"&gt;c&lt;/span&gt; &lt;span class="o"&gt;:=&lt;/span&gt; &lt;span class="nb"&gt;make&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kd"&gt;chan&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+    &lt;span class="k"&gt;go&lt;/span&gt; &lt;span class="kd"&gt;func&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="k"&gt;defer&lt;/span&gt; &lt;span class="nb"&gt;close&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;c&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="nx"&gt;x&lt;/span&gt; &lt;span class="o"&gt;:=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="nx"&gt;x&lt;/span&gt; &lt;span class="p"&gt;&amp;lt;&lt;/span&gt; &lt;span class="nx"&gt;y&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="nx"&gt;x&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="nx"&gt;c&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="nx"&gt;x&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="p"&gt;}()&lt;/span&gt;
+
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nx"&gt;c&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="kd"&gt;func&lt;/span&gt; &lt;span class="nx"&gt;main&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="nx"&gt;x&lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt; &lt;span class="k"&gt;range&lt;/span&gt; &lt;span class="nx"&gt;multiples_of_2&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="nx"&gt;fmt&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Println&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;So, that is all. At the expense of some extra work, we can provide very pythonic
+interfaces for lazy evaluated lists in&amp;nbsp;Go.&lt;/p&gt;</summary><category term="go"></category><category term="python"></category><category term="zen"></category><category term="generators"></category></entry><entry><title>Connected, but still not interoperable</title><link href="http://x8lucas8x.com/connected-but-still-not-interoperable.html" rel="alternate"></link><updated>2015-09-24T20:40:00-03:00</updated><author><name>x8lucas8x</name></author><id>tag:x8lucas8x.com,2015-09-04:connected-but-still-not-interoperable.html</id><summary type="html">&lt;p&gt;Right now IoT is composed by a jungle of different solutions. You can probably outline
 those that seem more promising. In the networking spectrum there is a whole stack
 solutions, which tries to provide you not only data link layer features but also
 routing, addressing and some even encryption, those are mainly Zigbee, Z-Wave,
@@ -22,8 +101,8 @@ The &lt;a href="http://www.zigbee.org/"&gt;Zigbee Alliance&lt;/a&gt; also realis
 created ZigBee &lt;span class="caps"&gt;IP&lt;/span&gt;, and open standard built on top of &lt;span class="caps"&gt;IEEE&lt;/span&gt; 802.15.4 that provides end-to-end
 IPv6&amp;nbsp;networking.&lt;/p&gt;
 &lt;p&gt;On top of &lt;span class="caps"&gt;IP&lt;/span&gt;, on the application level, &lt;a href="http://mqtt.org/news"&gt;&lt;span class="caps"&gt;MQTT&lt;/span&gt;&lt;/a&gt; and &lt;a href="https://tools.ietf.org/html/rfc7252"&gt;&lt;span class="caps"&gt;COAP&lt;/span&gt;&lt;/a&gt; shine. The first is a lightweight
-&lt;span class="caps"&gt;PUB&lt;/span&gt;-&lt;span class="caps"&gt;SUB&lt;/span&gt; protocol based on &lt;span class="caps"&gt;TCP&lt;/span&gt;. Now you may wonder if &lt;a href="http://mqtt.org/news"&gt;&lt;span class="caps"&gt;MQTT&lt;/span&gt;&lt;/a&gt; is approapriate for wireless
-sensor networks. In fact anything &lt;span class="caps"&gt;TCP&lt;/span&gt; based is not by design, but in such cases yo can use
+&lt;span class="caps"&gt;PUB&lt;/span&gt;-&lt;span class="caps"&gt;SUB&lt;/span&gt; protocol based on &lt;span class="caps"&gt;TCP&lt;/span&gt;. Now you may wonder if &lt;a href="http://mqtt.org/news"&gt;&lt;span class="caps"&gt;MQTT&lt;/span&gt;&lt;/a&gt; is appropriate for wireless
+sensor networks. In fact anything &lt;span class="caps"&gt;TCP&lt;/span&gt; based is not by design, but in such cases you can use
 &lt;a href="http://mqtt.org/news"&gt;&lt;span class="caps"&gt;MQTT&lt;/span&gt;-&lt;span class="caps"&gt;SN&lt;/span&gt;&lt;/a&gt;, a &lt;span class="caps"&gt;UDP&lt;/span&gt; based variation of &lt;a href="http://mqtt.org/news"&gt;&lt;span class="caps"&gt;MQTT&lt;/span&gt;&lt;/a&gt; that is especially tailored for low-cost and
 low-power sensor devices that run over bandwidth-constrained wireless networks. While &lt;a href="https://tools.ietf.org/html/rfc7252"&gt;&lt;span class="caps"&gt;COAP&lt;/span&gt;&lt;/a&gt;
 is a lightweight &lt;span class="caps"&gt;HTTP&lt;/span&gt; compatible protocol, based on &lt;span class="caps"&gt;UDP&lt;/span&gt;, with support for multicasting and
@@ -38,7 +117,7 @@ of smart Xs, being X anything, autonomously interacting among themselves is heav
 of those devices being able to discover each other and access their functionalities, without
 being explicitly pre-programmed to do so. You probably saw companies like &lt;a href="http://www.smartthings.com/"&gt;Smart Things&lt;/a&gt;,
 &lt;a href="https://ninjablocks.com/"&gt;Ninja Blocks&lt;/a&gt; or the former &lt;a href="http://revolv.com/"&gt;Revolv&lt;/a&gt;, bought by &lt;a href="https://nest.com/"&gt;Nest&lt;/a&gt;, stating that their platforms/hubs
-supports different vendors or &amp;#8220;play nice with other&amp;#8221;, which is great but has its own&amp;nbsp;limitations.&lt;/p&gt;
+supports different vendors or &amp;#8220;play well with others&amp;#8221;, which is great but has its own&amp;nbsp;limitations.&lt;/p&gt;
 &lt;p&gt;Up to now, in platforms like the aforementioned, integration of new products occurs in a
 incremental fashion. So if you want to support Phillip&amp;#8217;s &lt;a href="http://www2.meethue.com/pt-br/"&gt;Hue&lt;/a&gt; or &lt;a href="https://www.lifx.com/"&gt;&lt;span class="caps"&gt;LIFX&lt;/span&gt;&lt;/a&gt; lamps, you will have
 to read the documentation of their &lt;span class="caps"&gt;REST&lt;/span&gt; &lt;span class="caps"&gt;API&lt;/span&gt;. Which seems great given &lt;span class="caps"&gt;REST&lt;/span&gt; apis are easy to
