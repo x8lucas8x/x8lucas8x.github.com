@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+		<title>Lucas' Refuge &mdash; Connected, but still not interoperable</title>
+		<meta charset="utf-8" />
+        <link rel="icon" type="image/png" href="http://x8lucas8x.com/theme/images/favicon.png">
+		<link rel="profile" href="http://gmpg.org/xfn/11" />
+		<link rel="stylesheet" type="text/css" href="http://x8lucas8x.com/theme/css/style.css" />
+		<link rel='stylesheet' id='oswald-css'  href='http://fonts.googleapis.com/css?family=Oswald&#038;ver=3.3.2' type='text/css' media='all' />
+		<style type="text/css">
+			body.custom-background { background-color: #000; }
+		</style>
+		<link rel="alternate" type="application/atom+xml"
+			title="Lucas' Refuge — Flux Atom"
+			href="http://x8lucas8x.com/" /> 
+		<!--[if lte IE 8]><script src="http://x8lucas8x.com/theme/js/html5shiv.js"></script><![endif]-->
+</head>
+<body class="home blog custom-background " >
+	<div id="container">
+		<div id="header">
+				<h1 id="site-title"><a href="http://x8lucas8x.com">Lucas' Refuge</a></h1>
+<h2 id="site-description">We copyleft</h2>		</div><!-- /#banner -->
+		<div id="menu">
+			<div class="menu-navigation-container">
+				<ul id="menu-navigation" class="menu">
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://x8lucas8x.com/pages/contact.html">Contact</a></li>
+						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://x8lucas8x.com/category/blog.html">Blog</a></li>
+						<li  class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://x8lucas8x.com/tags.html">Tags</a></li>
+						<li  class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://x8lucas8x.com/archives.html">Archive</a></li>
+						<li  class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://github.com/x8lucas8x">GitHub</a></li>
+						<li  class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://br.linkedin.com/in/x8lucas8x/en">LinkedIn</a></li>
+				</ul>
+			</div> <!--/#menu-navigation-container-->
+		</div><!-- /#menu -->
+		
+		<div class="page-title">
+		</div>
+	
+		<div id="contents">
+<div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+        <div class="date">
+            <a href="http://x8lucas8x.com/connected-but-still-not-interoperable.html">Friday 04
+September<br>2015</a>
+        </div>
+		<span class="byline">By <a href="http://x8lucas8x.com/author/x8lucas8x.html">x8lucas8x</a></span>
+			<div class="comments"><a href="http://x8lucas8x.com/connected-but-still-not-interoperable.html#disqus_thread" title="Comment on Connected, but still not interoperable">comments</a></div>
+			<span class="cat-links"><a href="http://x8lucas8x.com/category/blog.html" title="View all posts in Blog" rel="category tag">Blog</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="http://x8lucas8x.com/connected-but-still-not-interoperable.html" title="Permalink to Connected, but still not interoperable" rel="bookmark">Connected, but still not&nbsp;interoperable</a>
+		</h2>
+		<div class="entry-content">
+
+    <p>Cisco call it the Internet of Everything (IoE), most players would rather
+name it the Internet of Things (IoT) and, although less common, you probably
+heard the term the Industrial Internet too. And if you ever read any post
+or whitepaper about one of those buzzwords, especially those written by big
+players in the market (e.g. Cisco, <span class="caps">IBM</span>), you probably saw a trend in
+depicting scenarios where your things (e.g. car, appliances, lighting, <span class="caps">HVAC</span>)
+are interconnected and, somehow, interacting among themselves independently
+of human interference. Great vision, but how far are we from&nbsp;it?</p>
+    <p>Right now IoT is composed by a jungle of different solutions. You can probably outline
+those that seem more promising. In the networking spectrum there is a whole stack
+solutions, which tries to provide you not only data link layer features but also
+routing, addressing and some even encryption, those are mainly Zigbee, Z-Wave,
+Bluetooth and WirelessHart. On the other hand you also have <span class="caps">WIFI</span>, raw <span class="caps">IEEE</span> 802.15.4,
+<span class="caps">GPRS</span> and all sort of radios operating in sub-gigahertz frequency ranges. Each has
+an use case of its own. Z-Wave, for instance, is more present in home automation,
+Bluetooth V4 is usually the right one for wearables, WirelessHart is an adaption
+of the Highway Addressable Remote Transducer Protocol (<span class="caps">HART</span>) protocol for industrial
+wireless networks and Zigbee is the wild card among them (i.e. thanks to <span class="caps">DIGI</span>&#8217;s
+amazing <span class="caps">AT</span> programming&nbsp;interface).</p>
+<p>Along with that there is also efforts to bring the <span class="caps">IP</span> protocol to the constrained devices
+like those that use <span class="caps">IEEE</span> 802.15.4 and its variations. Well, the advantages are many. First
+there is the seamless exchange of information between devices utilizing any <span class="caps">IP</span>-enabled
+<span class="caps">MAC</span>/<span class="caps">PHY</span> (e.g. Wi-Fi, Ethernet). Second we cannot forget the battle-tested tooling all
+those years of <span class="caps">IP</span> predominance have provided us (e.g. ping, traceroute, netcat, wireshark,
+tcpdump). The <a href="http://www.ipso-alliance.org/"><span class="caps">IPSO</span> Alliance</a> is one of the major advocates in this matter. They have several
+whitepapers publicising standards like <a href="http://www.ipso-alliance.org/downloads/6LoWPAN">6LowPan</a>, an <span class="caps">IPV6</span>-compatible addressing with better
+header compression, and <a href="http://www.ipso-alliance.org/downloads/RPL"><span class="caps">RPL</span></a>, a mesh-enabled routing protocol for low power and lossy networks.
+The <a href="http://www.zigbee.org/">Zigbee Alliance</a> also realised the advantages of IPv6-based wireless mesh networking and
+created ZigBee <span class="caps">IP</span>, and open standard built on top of <span class="caps">IEEE</span> 802.15.4 that provides end-to-end
+IPv6&nbsp;networking.</p>
+<p>On top of <span class="caps">IP</span>, on the application level, <a href="http://mqtt.org/news"><span class="caps">MQTT</span></a> and <a href="https://tools.ietf.org/html/rfc7252"><span class="caps">COAP</span></a> shine. The first is a lightweight
+<span class="caps">PUB</span>-<span class="caps">SUB</span> protocol based on <span class="caps">TCP</span>. Now you may wonder if <a href="http://mqtt.org/news"><span class="caps">MQTT</span></a> is approapriate for wireless
+sensor networks. In fact anything <span class="caps">TCP</span> based is not by design, but in such cases yo can use
+<a href="http://mqtt.org/news"><span class="caps">MQTT</span>-<span class="caps">SN</span></a>, a <span class="caps">UDP</span> based variation of <a href="http://mqtt.org/news"><span class="caps">MQTT</span></a> that is especially tailored for low-cost and
+low-power sensor devices that run over bandwidth-constrained wireless networks. While <a href="https://tools.ietf.org/html/rfc7252"><span class="caps">COAP</span></a>
+is a lightweight <span class="caps">HTTP</span> compatible protocol, based on <span class="caps">UDP</span>, with support for multicasting and
+service discovery. Both of them are quite popular and you can probably find an implementation
+for your favourite programming language or IoT platform (e.g. <a href="http://contiki-os.org/">Contiki <span class="caps">OS</span></a>, <a href="https://tools.ietf.org/html/rfc7390">Arduino</a>).
+Unfortunately, given a non-<span class="caps">IP</span> network, developing a gateway to map your custom protocol
+in the interface your backend/server uses and vice-versa is a necessary&nbsp;burden.</p>
+<p>So, there is certainly no doubt there were major progresses on the connectivity front, but
+still something is absent in this equation. Connectivity is certainly necessary but IoT is as
+much about connectivity as the internet is about the web. That vision those big players describe
+of smart Xs, being X anything, autonomously interacting among themselves is heavily dependent
+of those devices being able to discover each other and access their functionalities, without
+being explicitly pre-programmed to do so. You probably saw companies like <a href="http://www.smartthings.com/">Smart Things</a>,
+<a href="https://ninjablocks.com/">Ninja Blocks</a> or the former <a href="http://revolv.com/">Revolv</a>, bought by <a href="https://nest.com/">Nest</a>, stating that their platforms/hubs
+supports different vendors or &#8220;play nice with other&#8221;, which is great but has its own&nbsp;limitations.</p>
+<p>Up to now, in platforms like the aforementioned, integration of new products occurs in a
+incremental fashion. So if you want to support Phillip&#8217;s <a href="http://www2.meethue.com/pt-br/">Hue</a> or <a href="https://www.lifx.com/"><span class="caps">LIFX</span></a> lamps, you will have
+to read the documentation of their <span class="caps">REST</span> <span class="caps">API</span>. Which seems great given <span class="caps">REST</span> apis are easy to
+integrate, but the crude reality of IoT is way less welcoming. In most you cases, you will
+find yourself with vertically integrated systems that do not permit easy third-party integration.
+And even if they permitted, the manual process of integrating with new devices and/or platforms
+have two&nbsp;problems.</p>
+<p>First, a great deal of products does not provide public documented APIs for third-parties.
+And the reason is that, currently, most vendors tend to sell a solution, from hardware to user
+interface, therefore not caring for those who want to use their products differently from what
+they envisaged (i.e. makers suffer :/). Consider <a href="https://www.plugwise.com/">Plugwise</a>, for instance, they have one of the
+most complete energy management solutions out there, but without a consistent effor to provide
+a public <span class="caps">API</span> or <span class="caps">SDK</span>. You may even find unofficial libraries, made by someone who probably had
+to sniffer <a href="https://www.plugwise.com/">Plugwise</a>&#8216;s devices in order to reverse engineer their proprietary protocol. But
+using those, you would not have any guarantee of future support. Besides that it is common
+for unofficial libraries not to be feature complete, so good luck if you want to use the most
+recent&nbsp;capabilities.</p>
+<p>Second, manual integration does not scale. Vendors may try to pinpoint the most popular
+products, to focus their integrations efforts, or form partnerships, but that degree of
+interoperability will come at the expense of tight vendor integration with specific&nbsp;partners.</p>
+<p>To solve those problems, devices need to discover and access each other functionalities, not
+necessarily directly like <span class="caps">M2M</span> scenarios portrait. And for such two things are required. First
+a data model that could explicitly state what each piece of data is about, so that you do not
+have to read a manual to realise that a sensor is measuring temperature in Celsius. Ontologies
+are usually the answer in such cases, but <a href="http://www.w3.org/2001/sw/wiki/OWL"><span class="caps">OWL</span></a> and <a href="http://www.w3.org/2001/sw/wiki/RDF"><span class="caps">RDF</span></a> are not appropriate given the bandwidth
+limitations. The <a href="http://www.ipso-alliance.org/"><span class="caps">IPSO</span> Alliance</a> tried to fill this gap with its <a href="http://www.ipso-alliance.org/smart-object-guidelines">Smart Objects</a> specification,
+which describes a reusable data model for IoT. That data model defines a set of data types
+and structures that can be used by different devices, in order to enable them to interoperate
+since the semantics is now in the data itself. Still, despite the <a href="http://www.ipso-alliance.org/smart-object-guidelines">Smart Objects</a> specification,
+ontologies have an important role at the users level, as the tooling from semantic web
+technologies (e.g. <a href="http://www.w3.org/2001/sw/wiki/SPARQL"><span class="caps">SPARQL</span></a>, <a href="http://www.w3.org/2001/sw/wiki/OWL"><span class="caps">OWL</span></a>, <a href="http://www.w3.org/2001/sw/wiki/RDF"><span class="caps">RDF</span></a>) can provide great value for those interested in
+composing their own IoT solutions by accessing higher level&nbsp;services.</p>
+<p>Although being able to determine the content of the messages sent by sensors is important, no
+equivalent exists in terms of actuation. And that is key to a large adoption of IoT, especially
+in the end-consumer market. Right now, businesses can get value by tracking trends and analysing
+data, but for end-consumers automation is the real killer application. And by automation I mean
+not only actuation, that translates itself in an event in the physical world, but also remote
+configuration of these devices. All that provided, without devices being pre-programmed to do
+so, would be huge. But, unfortunately, no lightweight UPnP exist for the IoT&nbsp;yet.</p>
+
+		</div> <!--/#entry-content-->
+    		<span class="tag-links">
+                <br>
+                <strong>Tagged</strong>
+ <a href="http://x8lucas8x.com/tag/automation.html" rel="tag">automation</a>,  <a href="http://x8lucas8x.com/tag/ioe.html" rel="tag">ioe</a>,  <a href="http://x8lucas8x.com/tag/iot.html" rel="tag">iot</a>,  <a href="http://x8lucas8x.com/tag/networking.html" rel="tag">networking</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post-->
+
+
+<br/>
+<div id="comments">
+	<div id="respond">
+		<div id="disqus_thread"></div>
+		<script type="text/javascript">
+	            var disqus_shortname = 'lucasrefuge';
+	
+	            /* * * DON'T EDIT BELOW THIS LINE * * */
+	            (function() {
+	                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	                dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+	                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	            })();
+	        </script>
+		<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+		<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+	</div><!-- #respond -->
+</div><!-- #comments -->
+
+
+		</div>
+		
+		<div id="footer">
+            <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">
+                <img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png"/>
+            </a><br><br>
+				<script type="text/javascript">
+					var _gaq = _gaq || [];
+					_gaq.push(['_setAccount', 'UA-66386613-1']);
+					_gaq.push(['_trackPageview']);
+					(function() {
+						var ga = document.createElement('script'); 
+						ga.type = 'text/javascript'; ga.async = true;
+						ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+						var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+					})();
+				</script>
+<script type="text/javascript">
+    var disqus_shortname = 'lucasrefuge';
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+            <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type">Lucas' Refuge
+            </span> by <span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">Lucas Lira Gomes</span> is licensed under a 
+            <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">
+                Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
+
+			<p>
+            Powered by <a href="http://getpelican.com">Pelican</a>, theme by <a href="#">x8lucas8x</a>.
+            </p>
+		</div><!-- /#footer -->
+	</div><!-- /#container -->
+	<div style="display:none"></div>
+</body>
+</html>
