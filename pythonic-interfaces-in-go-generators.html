@@ -148,7 +148,7 @@ empty. So, without further&nbsp;ado:</p>
 <p>Note that the quit channel uses an empty struct. The reason is twofold. First,
 empty structs does not occupy memory space, amount that could be substantial at
 scale. Second, as the <a href="https://www.python.org/dev/peps/pep-0020/">Zen of Python</a> states: &#8220;explicit is better than implicit&#8221;.
-So, by passing an empty struct we make it clear that the role point of that
+So, by passing an empty struct we make it clear that the whole point of that
 particular channel is for signalling only, therefore avoiding users to wonder if
 there is a difference between true and false if, otherwise, we have declared that
 channel as a bool channel for&nbsp;instance.</p>
