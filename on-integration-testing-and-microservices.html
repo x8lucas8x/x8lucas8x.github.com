@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+		<title>Lucas' Refuge &mdash; On Integration Testing and Microservices</title>
+		<meta charset="utf-8" />
+        <link rel="icon" type="image/png" href="http://x8lucas8x.com/theme/images/favicon.png">
+		<link rel="profile" href="http://gmpg.org/xfn/11" />
+		<link rel="stylesheet" type="text/css" href="http://x8lucas8x.com/theme/css/style.css" />
+		<link rel='stylesheet' id='oswald-css'  href='http://fonts.googleapis.com/css?family=Oswald&#038;ver=3.3.2' type='text/css' media='all' />
+		<style type="text/css">
+			body.custom-background { background-color: #000; }
+		</style>
+		<link rel="alternate" type="application/atom+xml"
+			title="Lucas' Refuge — Flux Atom"
+			href="http://x8lucas8x.com/" /> 
+		<!--[if lte IE 8]><script src="http://x8lucas8x.com/theme/js/html5shiv.js"></script><![endif]-->
+</head>
+<body class="home blog custom-background " >
+	<div id="container">
+		<div id="header">
+				<h1 id="site-title"><a href="http://x8lucas8x.com">Lucas' Refuge</a></h1>
+<h2 id="site-description">We copyleft</h2>		</div><!-- /#banner -->
+		<div id="menu">
+			<div class="menu-navigation-container">
+				<ul id="menu-navigation" class="menu">
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://x8lucas8x.com/pages/contact.html">Contact</a></li>
+						<li class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://x8lucas8x.com/category/blog.html">Blog</a></li>
+						<li  class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://x8lucas8x.com/archives.html">Archive</a></li>
+						<li  class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://x8lucas8x.com/feeds/all.atom.xml">Feeds</a></li>
+						<li  class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://x8lucas8x.com/tags.html">Tags</a></li>
+						<li  class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://github.com/x8lucas8x">GitHub</a></li>
+						<li  class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://br.linkedin.com/in/x8lucas8x/en">LinkedIn</a></li>
+				</ul>
+			</div> <!--/#menu-navigation-container-->
+		</div><!-- /#menu -->
+		
+		<div class="page-title">
+		</div>
+	
+		<div id="contents">
+<div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+        <div class="date">
+            <a href="http://x8lucas8x.com/on-integration-testing-and-microservices.html">Sunday 18
+October<br>2015</a>
+        </div>
+		<span class="byline">By <a href="http://x8lucas8x.com/author/x8lucas8x.html">x8lucas8x</a></span>
+			<div class="comments"><a href="http://x8lucas8x.com/on-integration-testing-and-microservices.html#disqus_thread" title="Comment on On Integration Testing and Microservices">comments</a></div>
+			<span class="cat-links"><a href="http://x8lucas8x.com/category/blog.html" title="View all posts in Blog" rel="category tag">Blog</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="http://x8lucas8x.com/on-integration-testing-and-microservices.html" title="Permalink to On Integration Testing and Microservices" rel="bookmark">On Integration Testing and&nbsp;Microservices</a>
+		</h2>
+		<div class="entry-content">
+
+    <p>Some weeks ago I was asked how to properly do integration testing in a
+microservices environment. At that time, I was aware that testing basic
+behaviour with integration tests was not a smart move. Guaranteeing
+compatibility among services&#8217; interfaces, however, was something I could
+see the value of. The dos and don&#8217;ts, in such effort, were not familiar
+to me, though. Therefore, I decided to dive in and find some&nbsp;answers.</p>
+    <p>To begin with, higher level (e.g. end-to-end, integration) testing lacks several
+benefits of unit testing, many of which we have come to value as an industry. On
+the other hand, not all bugs are apparent at an unit level. They could also
+happen on the wiring between components or even at those off-the-shelf solutions
+you employed to speed up your development. Yet you often heard the agile community
+endorsing unit tests as the backbone of a solid testing strategy. People like
+<a href="https://twitter.com/mikewcohn">@mikewcohn</a>, who established the initial model of the <a href="http://martinfowler.com/bliki/TestPyramid.html">testing pyramid</a>, often
+advocate that the ratio of a particular kind of test, in your test suite, should
+be inversely proportional to the degree of granularity of the tested scope.
+Principle that helps a solid test suite to be built in the most cost-effective way.
+And beware, since going in the opposite direction may result in an instance of the
+<a href="http://watirmelon.com/2012/01/31/introducing-the-software-testing-ice-cream-cone/">ice cream cone</a> anti pattern. So, even though you certainly could find several
+definitions for the properties of good unit tests out there, those roughly translate&nbsp;to:</p>
+<ul>
+<li>Fast</li>
+<li>Automated</li>
+<li>Isolated</li>
+<li>Informative</li>
+<li>Idempotent</li>
+</ul>
+<p>The first one is easy to explain, as long-running tests are the easiest way to make
+programmers develop the bad habit of avoid running tests frequently. And, if that
+happens, what is the point anyway? Automated since the intention is to facilitate
+adoption, not making people do repetitive work. Isolated because they should not
+overlap, otherwise you would have more places to look for when something fails.
+Informative, because the context of the failure should be explicit. Yep, you probably
+do not want people to analyse your test&#8217;s source so that they can understand what
+went wrong. Finally, idempotency implies that they should behave the same, no matter
+which order or how many times they were run. Believe me, tests that randomly fail
+are a recipe for madness. They are worse than no tests at all, as they undermine
+developers&#8217; trust in their test&nbsp;suite.</p>
+<p>So, how does those properties apply to higher level (e.g. end-to-end, integration)
+testing. First, they are not as fast as unit tests. Especially if you are testing
+two <a href="http://martinfowler.com/articles/microservices.html">microservices</a>, process that would involve exchanging some packets over the
+network (latency sucks :/). They are not idempotent too, as there are many ways
+they could go wrong. Units that rely in global state (e.g. singleton pattern)
+can also suffer from that, but a proper use of dependency injection can fix
+the problem. As for lost packets, network partition, good luck with it. Informative,
+well, you know something in between a set of components/services is not working well.
+Isolated? Nope, even though you can be cautious enough to avoid chatty
+components/services, one bug in one of them and you would suddenly find yourself in
+a situation in which every code path along the way fail. But hey, they could be&nbsp;automated.</p>
+<p>Did you find my point of view a bit extreme? Then try <a href="https://twitter.com/jbrains">@jbrains</a> amazing talk titled
+<a href="https://vimeo.com/80533536">Integrated Tests Are A Scam</a>. He goes even further by showing how the promises of high
+level testing lures developers into writing more tests of the same kind that, at the end,
+would provide very few coverage. Due to the combinatorial explosion of required tests,
+needed for the continuously increasing code paths. Instead, he advocates that we should
+spend our time with worthwhile tests. By worthwhile he means tests that help assessing
+the quality of our architecture, allowing us to improve its design in the long run.
+Seriously, if you want to laugh a bit with integrated tests&#8217; infamous positive feedback
+loop of negative emotions, watch it. Additionally, a written equivalent of it is
+available at <a href="http://www.jbrains.ca/permalink/integrated-tests-are-a-scam-part-1">Integrated Tests are a Scam: Part 1</a>.</p>
+<p>In <a href="http://www.jbrains.ca/permalink/part-2-some-hidden-costs-of-integration-tests">Part 2: Some Hidden Costs of Integration Tests</a>, he also discusses about an important
+side-effect of slow tests, they destroy developers&#8217; productivity. Waiting for a few seconds
+is <span class="caps">OK</span>, but it is not rare to find tests suites that take ten minutes or more. Unfortunately,
+one cannot simply return to him/her peak performance right after such a long interruption.
+In <a href="http://www.jbrains.ca/permalink/part-3-the-risks-associated-with-lengthy-tests">Part 3: The risks associated with lengthy tests</a>, the focus changes to the insidious
+consequences of frequent false alerts, given the lack of isolation when things fail. And
+with less trust in the test suite, a fear of change starts to evolve among developers.
+Individuals that tend to justify their behaviour by mentioning an old engineering saying
+&#8220;Well, if it works, why change it?&#8221;. Rationale that will ultimately lead to an architectural
+stagnation and to high interest rates in the form of <a href="http://martinfowler.com/bliki/TechnicalDebt.html">technical debt</a>. Quite the contrary to
+what you expected when you got bought into the practice of <a href="http://martinfowler.com/bliki/SelfTestingCode.html">self testing code</a>,&nbsp;right?</p>
+<p>But do not get him wrong, his disregard for integration testing limits itself to cases
+in which they are used for assessing basic correctness. Role that is better suited to
+unit tests, in the first place. In <a href="http://www.jbrains.ca/permalink/using-integration-tests-mindfully-a-case-study">Using integration tests mindfully: a case study</a>, for
+instance, he does see a value of employing integration tests for identifying system-level
+issues like broken database schema, mistaken cache integration, and more complex problems.
+That is, using integration tests to check the presence of a expected feature, is perfectly&nbsp;fine.</p>
+<p>Still, in <a href="https://vimeo.com/80533536">Integrated Tests Are A Scam</a>, <a href="https://twitter.com/jbrains">@jbrains</a> proposes an alternative for testing the
+interaction between components without resorting to integration testing. He suggests
+combining collaboration and contract tests. Collaboration tests are a well known practice,
+often named as <a href="http://martinfowler.com/bliki/TestDouble.html">test doubles</a>. More specifically, stubs are the the kind of doubles we
+are interested in. Stubs tend to mimic others&#8217; interfaces, but instead of doing real work,
+they return pre-computed results. Behaviour that is really useful when non-deterministic
+or slow operations (e.g. <span class="caps">IO</span>) are at stake, as we can employ fast and predictable unit-like
+tests to achieve a similar end. As for contract tests, they check the format of an
+component/service response, not its data. So, in the case of <a href="http://martinfowler.com/articles/microservices.html">microservices</a>, you would
+be testing if the outcome of a particular call has the fields you expected and if so,
+whether they comply with your use cases. Similarly, <a href="https://twitter.com/martinfowler">@martinfowler</a> also see the combination
+of stubs and contract tests as a good way to tackle the slowness and unreliability of
+integration tests, as stated in <a href="http://martinfowler.com/bliki/IntegrationContractTest.html">integration contract test</a>.</p>
+<p>One challenge though is that testing against a double does not guarantee that the external
+component/service is being accurately represented. And even if so, future changes would
+require the double to be updated accordingly. One alternative to streamline the updates of
+stubs would be what <a href="https://twitter.com/martinfowler">@martinfowler</a> calls <a href="http://martinfowler.com/bliki/SelfInitializingFake.html">self initialising fakes</a>. Similarly, contract
+testing also suffers from the same synchronisation burden, however <a href="http://martinfowler.com/bliki/SelfInitializingFake.html">self initialising fakes</a>
+cannot help contract tests in the same manner. Additionally, there is also the possibility of
+contracts and stubs getting out of sync. Problem that could be mitigated by a shared metadata
+file or data structure that specifies available calls and what should be received in response,
+so that you do not have to concern yourself with&nbsp;it.</p>
+<p>To reduce the odds of getting out of sync, therefore breaking your test cases, or even
+worse, being misled by passing tests that should have failed, it is recommended to adopt
+a consumer-driven contract approach. In <a href="http://martinfowler.com/articles/consumerDrivenContracts.html">Consumer-Driven Contracts: A Service Evolution
+Pattern</a>, the concept is explained in a relatively implementation agnostic fashion. In a
+nutshell, consumer-driven contracts are a means of applying &#8220;just enough&#8221; validation, as
+proposed by <a href="https://en.wikipedia.org/wiki/Robustness_principle">John Postel&#8217;s Law</a>, which puts the responsibility to specify what the service
+provider must comply on the clients. The service provider must then check the union of
+its consumers&#8217; expectations, in order to verify that there were no regressions. Additionally,
+that approach has some notable design advantages. First, it facilitates evolving your
+interface, as you wouldn&#8217;t have to rely on schema extension points for adding new fields
+to your messages. Second, since what is consumed is explicitly stated, deprecating a field
+that nobody is using is way&nbsp;easier.</p>
+<p>Fortunately, the usefulness of mixing stubs and consumer-driven contract tests have led
+to the development of frameworks such as <a href="https://github.com/realestate-com-au/pact">Pact</a> and <a href="https://thoughtworks.github.io/pacto/">Pacto</a>, both written in Ruby. More
+importantly, they facilitate your stubs and contract tests to be in sync. Personally, I
+think that frameworks like that are a really promising way for guaranteeing compatibility
+among services&#8217; interfaces, while maintaining many of the unit testing properties. So, next
+time you get yourself considering to test some <a href="http://martinfowler.com/articles/microservices.html">microservices</a> with integration testing,
+think twice. If you just want to check compatibility among services&#8217; interfaces, invest in
+stubs and consumer-driven contract testing&nbsp;instead.</p>
+
+		</div> <!--/#entry-content-->
+    		<span class="tag-links">
+                <br>
+                <strong>Tagged</strong>
+ <a href="http://x8lucas8x.com/tag/blog.html" rel="tag">blog</a>,  <a href="http://x8lucas8x.com/tag/consumer-driven-contracts.html" rel="tag">consumer-driven contracts</a>,  <a href="http://x8lucas8x.com/tag/integration-testing.html" rel="tag">integration testing</a>,  <a href="http://x8lucas8x.com/tag/microservices.html" rel="tag">microservices</a>,  <a href="http://x8lucas8x.com/tag/soa.html" rel="tag">soa</a>,  <a href="http://x8lucas8x.com/tag/test-doubles.html" rel="tag">test doubles</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post-->
+
+
+<br/>
+<div id="comments">
+	<div id="respond">
+		<div id="disqus_thread"></div>
+		<script type="text/javascript">
+	            var disqus_shortname = 'lucasrefuge';
+	
+	            /* * * DON'T EDIT BELOW THIS LINE * * */
+	            (function() {
+	                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	                dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+	                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	            })();
+	        </script>
+		<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+		<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+	</div><!-- #respond -->
+</div><!-- #comments -->
+
+
+		</div>
+		
+		<div id="footer">
+            <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">
+                <img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png"/>
+            </a><br><br>
+				<script type="text/javascript">
+					var _gaq = _gaq || [];
+					_gaq.push(['_setAccount', 'UA-66386613-1']);
+					_gaq.push(['_trackPageview']);
+					(function() {
+						var ga = document.createElement('script'); 
+						ga.type = 'text/javascript'; ga.async = true;
+						ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+						var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+					})();
+				</script>
+<script type="text/javascript">
+    var disqus_shortname = 'lucasrefuge';
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+            <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type">Lucas' Refuge
+            </span> by <span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">Lucas Lira Gomes</span> is licensed under a 
+            <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">
+                Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
+
+			<p>
+            Powered by <a href="http://getpelican.com">Pelican</a>, theme by <a href="#">x8lucas8x</a>.
+            </p>
+		</div><!-- /#footer -->
+	</div><!-- /#container -->
+	<div style="display:none"></div>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Lucas' Refuge</title><link href="http://x8lucas8x.com/" rel="alternate"></link><link href="http://x8lucas8x.com/feeds/tags/test-doubles.atom.xml" rel="self"></link><id>http://x8lucas8x.com/</id><updated>2015-10-18T20:40:00-03:00</updated><entry><title>On Integration Testing and Microservices</title><link href="http://x8lucas8x.com/on-integration-testing-and-microservices.html" rel="alternate"></link><updated>2015-10-18T20:40:00-03:00</updated><author><name>x8lucas8x</name></author><id>tag:x8lucas8x.com,2015-10-18:on-integration-testing-and-microservices.html</id><summary type="html">&lt;p&gt;To begin with, higher level (e.g. end-to-end, integration) testing lacks several
+benefits of unit testing, many of which we have come to value as an industry. On
+the other hand, not all bugs are apparent at an unit level. They could also
+happen on the wiring between components or even at those off-the-shelf solutions
+you employed to speed up your development. Yet you often heard the agile community
+endorsing unit tests as the backbone of a solid testing strategy. People like
+&lt;a href="https://twitter.com/mikewcohn"&gt;@mikewcohn&lt;/a&gt;, who established the initial model of the &lt;a href="http://martinfowler.com/bliki/TestPyramid.html"&gt;testing pyramid&lt;/a&gt;, often
+advocate that the ratio of a particular kind of test, in your test suite, should
+be inversely proportional to the degree of granularity of the tested scope.
+Principle that helps a solid test suite to be built in the most cost-effective way.
+And beware, since going in the opposite direction may result in an instance of the
+&lt;a href="http://watirmelon.com/2012/01/31/introducing-the-software-testing-ice-cream-cone/"&gt;ice cream cone&lt;/a&gt; anti pattern. So, even though you certainly could find several
+definitions for the properties of good unit tests out there, those roughly translate&amp;nbsp;to:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Fast&lt;/li&gt;
+&lt;li&gt;Automated&lt;/li&gt;
+&lt;li&gt;Isolated&lt;/li&gt;
+&lt;li&gt;Informative&lt;/li&gt;
+&lt;li&gt;Idempotent&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The first one is easy to explain, as long-running tests are the easiest way to make
+programmers develop the bad habit of avoid running tests frequently. And, if that
+happens, what is the point anyway? Automated since the intention is to facilitate
+adoption, not making people do repetitive work. Isolated because they should not
+overlap, otherwise you would have more places to look for when something fails.
+Informative, because the context of the failure should be explicit. Yep, you probably
+do not want people to analyse your test&amp;#8217;s source so that they can understand what
+went wrong. Finally, idempotency implies that they should behave the same, no matter
+which order or how many times they were run. Believe me, tests that randomly fail
+are a recipe for madness. They are worse than no tests at all, as they undermine
+developers&amp;#8217; trust in their test&amp;nbsp;suite.&lt;/p&gt;
+&lt;p&gt;So, how does those properties apply to higher level (e.g. end-to-end, integration)
+testing. First, they are not as fast as unit tests. Especially if you are testing
+two &lt;a href="http://martinfowler.com/articles/microservices.html"&gt;microservices&lt;/a&gt;, process that would involve exchanging some packets over the
+network (latency sucks :/). They are not idempotent too, as there are many ways
+they could go wrong. Units that rely in global state (e.g. singleton pattern)
+can also suffer from that, but a proper use of dependency injection can fix
+the problem. As for lost packets, network partition, good luck with it. Informative,
+well, you know something in between a set of components/services is not working well.
+Isolated? Nope, even though you can be cautious enough to avoid chatty
+components/services, one bug in one of them and you would suddenly find yourself in
+a situation in which every code path along the way fail. But hey, they could be&amp;nbsp;automated.&lt;/p&gt;
+&lt;p&gt;Did you find my point of view a bit extreme? Then try &lt;a href="https://twitter.com/jbrains"&gt;@jbrains&lt;/a&gt; amazing talk titled
+&lt;a href="https://vimeo.com/80533536"&gt;Integrated Tests Are A Scam&lt;/a&gt;. He goes even further by showing how the promises of high
+level testing lures developers into writing more tests of the same kind that, at the end,
+would provide very few coverage. Due to the combinatorial explosion of required tests,
+needed for the continuously increasing code paths. Instead, he advocates that we should
+spend our time with worthwhile tests. By worthwhile he means tests that help assessing
+the quality of our architecture, allowing us to improve its design in the long run.
+Seriously, if you want to laugh a bit with integrated tests&amp;#8217; infamous positive feedback
+loop of negative emotions, watch it. Additionally, a written equivalent of it is
+available at &lt;a href="http://www.jbrains.ca/permalink/integrated-tests-are-a-scam-part-1"&gt;Integrated Tests are a Scam: Part 1&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;In &lt;a href="http://www.jbrains.ca/permalink/part-2-some-hidden-costs-of-integration-tests"&gt;Part 2: Some Hidden Costs of Integration Tests&lt;/a&gt;, he also discusses about an important
+side-effect of slow tests, they destroy developers&amp;#8217; productivity. Waiting for a few seconds
+is &lt;span class="caps"&gt;OK&lt;/span&gt;, but it is not rare to find tests suites that take ten minutes or more. Unfortunately,
+one cannot simply return to him/her peak performance right after such a long interruption.
+In &lt;a href="http://www.jbrains.ca/permalink/part-3-the-risks-associated-with-lengthy-tests"&gt;Part 3: The risks associated with lengthy tests&lt;/a&gt;, the focus changes to the insidious
+consequences of frequent false alerts, given the lack of isolation when things fail. And
+with less trust in the test suite, a fear of change starts to evolve among developers.
+Individuals that tend to justify their behaviour by mentioning an old engineering saying
+&amp;#8220;Well, if it works, why change it?&amp;#8221;. Rationale that will ultimately lead to an architectural
+stagnation and to high interest rates in the form of &lt;a href="http://martinfowler.com/bliki/TechnicalDebt.html"&gt;technical debt&lt;/a&gt;. Quite the contrary to
+what you expected when you got bought into the practice of &lt;a href="http://martinfowler.com/bliki/SelfTestingCode.html"&gt;self testing code&lt;/a&gt;,&amp;nbsp;right?&lt;/p&gt;
+&lt;p&gt;But do not get him wrong, his disregard for integration testing limits itself to cases
+in which they are used for assessing basic correctness. Role that is better suited to
+unit tests, in the first place. In &lt;a href="http://www.jbrains.ca/permalink/using-integration-tests-mindfully-a-case-study"&gt;Using integration tests mindfully: a case study&lt;/a&gt;, for
+instance, he does see a value of employing integration tests for identifying system-level
+issues like broken database schema, mistaken cache integration, and more complex problems.
+That is, using integration tests to check the presence of a expected feature, is perfectly&amp;nbsp;fine.&lt;/p&gt;
+&lt;p&gt;Still, in &lt;a href="https://vimeo.com/80533536"&gt;Integrated Tests Are A Scam&lt;/a&gt;, &lt;a href="https://twitter.com/jbrains"&gt;@jbrains&lt;/a&gt; proposes an alternative for testing the
+interaction between components without resorting to integration testing. He suggests
+combining collaboration and contract tests. Collaboration tests are a well known practice,
+often named as &lt;a href="http://martinfowler.com/bliki/TestDouble.html"&gt;test doubles&lt;/a&gt;. More specifically, stubs are the the kind of doubles we
+are interested in. Stubs tend to mimic others&amp;#8217; interfaces, but instead of doing real work,
+they return pre-computed results. Behaviour that is really useful when non-deterministic
+or slow operations (e.g. &lt;span class="caps"&gt;IO&lt;/span&gt;) are at stake, as we can employ fast and predictable unit-like
+tests to achieve a similar end. As for contract tests, they check the format of an
+component/service response, not its data. So, in the case of &lt;a href="http://martinfowler.com/articles/microservices.html"&gt;microservices&lt;/a&gt;, you would
+be testing if the outcome of a particular call has the fields you expected and if so,
+whether they comply with your use cases. Similarly, &lt;a href="https://twitter.com/martinfowler"&gt;@martinfowler&lt;/a&gt; also see the combination
+of stubs and contract tests as a good way to tackle the slowness and unreliability of
+integration tests, as stated in &lt;a href="http://martinfowler.com/bliki/IntegrationContractTest.html"&gt;integration contract test&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;One challenge though is that testing against a double does not guarantee that the external
+component/service is being accurately represented. And even if so, future changes would
+require the double to be updated accordingly. One alternative to streamline the updates of
+stubs would be what &lt;a href="https://twitter.com/martinfowler"&gt;@martinfowler&lt;/a&gt; calls &lt;a href="http://martinfowler.com/bliki/SelfInitializingFake.html"&gt;self initialising fakes&lt;/a&gt;. Similarly, contract
+testing also suffers from the same synchronisation burden, however &lt;a href="http://martinfowler.com/bliki/SelfInitializingFake.html"&gt;self initialising fakes&lt;/a&gt;
+cannot help contract tests in the same manner. Additionally, there is also the possibility of
+contracts and stubs getting out of sync. Problem that could be mitigated by a shared metadata
+file or data structure that specifies available calls and what should be received in response,
+so that you do not have to concern yourself with&amp;nbsp;it.&lt;/p&gt;
+&lt;p&gt;To reduce the odds of getting out of sync, therefore breaking your test cases, or even
+worse, being misled by passing tests that should have failed, it is recommended to adopt
+a consumer-driven contract approach. In &lt;a href="http://martinfowler.com/articles/consumerDrivenContracts.html"&gt;Consumer-Driven Contracts: A Service Evolution
+Pattern&lt;/a&gt;, the concept is explained in a relatively implementation agnostic fashion. In a
+nutshell, consumer-driven contracts are a means of applying &amp;#8220;just enough&amp;#8221; validation, as
+proposed by &lt;a href="https://en.wikipedia.org/wiki/Robustness_principle"&gt;John Postel&amp;#8217;s Law&lt;/a&gt;, which puts the responsibility to specify what the service
+provider must comply on the clients. The service provider must then check the union of
+its consumers&amp;#8217; expectations, in order to verify that there were no regressions. Additionally,
+that approach has some notable design advantages. First, it facilitates evolving your
+interface, as you wouldn&amp;#8217;t have to rely on schema extension points for adding new fields
+to your messages. Second, since what is consumed is explicitly stated, deprecating a field
+that nobody is using is way&amp;nbsp;easier.&lt;/p&gt;
+&lt;p&gt;Fortunately, the usefulness of mixing stubs and consumer-driven contract tests have led
+to the development of frameworks such as &lt;a href="https://github.com/realestate-com-au/pact"&gt;Pact&lt;/a&gt; and &lt;a href="https://thoughtworks.github.io/pacto/"&gt;Pacto&lt;/a&gt;, both written in Ruby. More
+importantly, they facilitate your stubs and contract tests to be in sync. Personally, I
+think that frameworks like that are a really promising way for guaranteeing compatibility
+among services&amp;#8217; interfaces, while maintaining many of the unit testing properties. So, next
+time you get yourself considering to test some &lt;a href="http://martinfowler.com/articles/microservices.html"&gt;microservices&lt;/a&gt; with integration testing,
+think twice. If you just want to check compatibility among services&amp;#8217; interfaces, invest in
+stubs and consumer-driven contract testing&amp;nbsp;instead.&lt;/p&gt;</summary><category term="microservices"></category><category term="integration testing"></category><category term="test doubles"></category><category term="consumer-driven contracts"></category><category term="soa"></category><category term="blog"></category></entry></feed>
