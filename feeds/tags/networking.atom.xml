@@ -157,8 +157,8 @@ some sort of infrastructure for that&amp;nbsp;yourself.&lt;/p&gt;
 &lt;p&gt;In terms of interface, the subscribe case is particularly problematic in &lt;a href="https://github.com/zeromq/pyzmq"&gt;PyZMQ&lt;/a&gt;.
 One must use the not so intuitive &lt;a href="https://zeromq.github.io/pyzmq/api/zmq.html#zmq.Context.setsockopt"&gt;setsockopt()&lt;/a&gt; method, in
 order to define the topics it subscribes to. Like in the following&amp;nbsp;snippet:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;socket&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;context&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;socket&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;zmq&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;&lt;span class="caps"&gt;SUB&lt;/span&gt;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="n"&gt;socket&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;setsockopt&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;zmq&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;&lt;span class="caps"&gt;SUBSCRIBE&lt;/span&gt;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="c"&gt;# Subscribe to all topics&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;socket&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;context&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;socket&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;zmq&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;SUB&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;socket&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;setsockopt&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;zmq&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;SUBSCRIBE&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="c"&gt;# Subscribe to all topics&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -205,12 +205,12 @@ suposed to send messages, use it as a function. Otherwise, treat it as a&amp;nbs
 &lt;a href="https://zeromq.github.io/pyzmq/api/zmq.html#zmq.Socket.recv_multipart"&gt;recv_multipart()&lt;/a&gt; and &lt;a href="https://zeromq.github.io/pyzmq/api/zmq.html#zmq.Socket.send_multipart"&gt;send_multipart()&lt;/a&gt;
 methods. Methods that instead of a single message, will deal with a list of them.
 In &lt;a href="https://github.com/zmqless/python-zeroless"&gt;Zeroless&lt;/a&gt;, I favoured consistency for a quicker and easier learning path,
-therefore there is no difference between the singlepart and the multipart&amp;nbsp;&lt;span class="caps"&gt;API&lt;/span&gt;.&lt;/p&gt;
+therefore there is no difference between the singlepart and the multipart &lt;span class="caps"&gt;API&lt;/span&gt;.&lt;/p&gt;
 &lt;p&gt;If you want to send a multipart message, just consider that your send function have
 a printf like interface and you are set. So, for instance, if you want to send an
 id separated from your message body, you&amp;nbsp;could:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;push&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;client&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;push&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
-&lt;span class="n"&gt;push&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;1&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;&lt;span class="caps"&gt;OK&lt;/span&gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;push&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;1&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;OK&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
