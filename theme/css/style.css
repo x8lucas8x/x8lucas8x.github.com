@@ -5,6 +5,13 @@ Author: Lucas Lira Gomes <x8lucas8x@gmail.com>
 
 @import url("pygment.css");
 
+@font-face {
+  font-family: 'Oswald';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Oswald Regular'), local('Oswald-Regular'), url(../font/oswald-regular.woff2) format('woff2');
+}
+
 /* =Base
 ----------------------------------------------- */
 body {
