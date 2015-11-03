@@ -219,8 +219,11 @@ nav ol,nav ul {
 	border-bottom: 1px dashed #ddd;
 	line-height: 175%;
 	padding: 15px;
+	margin-top: 25px;
 	text-align: justify;
-    margin: 25px 0px 0px 210px;
+}
+.post .main {
+	margin-left: 180px;
 }
 .hentry .entry-meta {
 	font-family: 'Oswald', Helvetica, Arial, sans-serif;
@@ -230,7 +233,7 @@ nav ol,nav ul {
 	padding: 0px;
 	text-align: center;
 	text-transform: uppercase;
-    width: 200px;
+    width: 158px;
 }
 .hentry .entry-meta a {
 	text-decoration: none;
@@ -239,11 +242,12 @@ nav ol,nav ul {
 	margin: 10px;
 }
 .hentry .entry-meta .date {
-	font-size: 50px;
+	font-size: 48px;
 	color: #F00;
 	font-weight: bold;
 	margin: 0px;
 }
+
 .hentry .entry-meta .comments {
 	color: F00;
 	display: block;
@@ -252,7 +256,7 @@ nav ol,nav ul {
 }
 .hentry .entry-meta .comments a {
 	color: #F00;
-	font-size: 22px;
+	font-size: 20px;
 	font-weight: bold;
 	text-decoration: none;
 }
@@ -303,9 +307,6 @@ nav ol,nav ul {
 .hentry .entry-meta .byline a:hover {
 	color: #444; 
 }
-.single-author .entry-meta .byline {
-	display: none;
-}
 blockquote {
 	background: #eee;
 	border-left: 10px solid #36bcab;
@@ -323,7 +324,7 @@ a:hover {
 	color: #C83838;
 }
 .entry-content {
-	min-height: 73px;
+	min-height: 100px;
 }
 .entry-content a img {
 	border: 10px solid #ddd;
@@ -362,6 +363,9 @@ b, strong {
 }
 .entry-content tr.alternate td {
 	background: #f5f5f5;
+}
+.page .main  {
+	margin-left: 0px;
 }
 .page-link a {
 	background: #36bcab;
@@ -556,7 +560,7 @@ img.alignright {
 	clear: both;
 	padding: 15px;
 	text-align: left;
-	margin: 25px 30px 25px 20px;
+	margin: 25px 0px;
     background: #f1f1f1;
 	background-image: -webkit-linear-gradient( #f8f8f8, #eee);
 	background-image: -moz-linear-gradient( #f8f8f8, #eee);
@@ -872,21 +876,9 @@ article.comment {
 
 /* =Responsive Posts
  * -------------------------------------------------------------- */
-@media screen and (max-width:1920px) {
-    .hentry .main {
-        margin-left: 180px;
-    }
-    .hentry .entry-meta {
-		width: 158px;
-	}
-	.hentry .entry-meta .date {
-		font-size: 48px;
-	}
-}
-
 @media screen and (max-width:1280px) {
-    .hentry .main {
-        margin-left: 180px;
+    .post .main {
+        margin-left: 178px;
     }
     .hentry .entry-meta {
 		width: 140px;
@@ -895,10 +887,9 @@ article.comment {
 		font-size: 46px;
 	}
 }
-
 @media screen and (max-width:1024px) {
-    .hentry .main {
-        margin-left: 180px;
+     .post .main {
+        margin-left: 160px;
     }
     .hentry .entry-meta {
 		width: 140px;
@@ -907,9 +898,8 @@ article.comment {
 		font-size: 45px;
 	}
 }
-
 @media screen and (max-width:980px) {
-    .hentry .main {
+    .post .main {
         margin-left: 150px;
     }
     .hentry .entry-meta {
@@ -919,10 +909,9 @@ article.comment {
 		font-size: 40px;
 	}
 }
-
 @media screen and (max-width:800px) {
-    .hentry .main {
-        margin-left: 150px;
+    .post .main {
+        margin-left: 140px;
     }
     .hentry .entry-meta {
 		width: 120px;
@@ -931,9 +920,8 @@ article.comment {
 		font-size: 38px;
 	}
 }
-
 @media screen and (max-width:640px) {
-    .hentry .main {
+    .post .main {
         width: auto;
         margin: 10px 10px;
     }
@@ -944,22 +932,17 @@ article.comment {
 	.hentry .entry-meta .date {
 		font-size: 50px;
 	}
-	#comments {
-        width: auto;
-        margin: 10px 10px;
-    }
 }
-
 @media screen and (max-width:480px) {
-    .hentry .main {
+    .post .main {
         width: auto;
+        margin: 10px 5px;
         margin: 10px 5px;
     }
     .hentry .entry-meta .date {
 		font-size: 40px;
 	}
 }
-
 @media screen and (max-width:320px) {
 	.hentry .entry-meta .date {
 		font-size: 35px;
