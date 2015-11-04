@@ -94,7 +94,7 @@ Lucas' Refuge &mdash; Pythonic interfaces in Go: Generators	</title>
 	
 		<div id="contents">
 
-<span class="post type-post status-publish format-standard hentry category-general">
+<div class="post content">
 	<div itemscope itemtype="http://schema.org/BlogPosting"
 		 href="http://x8lucas8x.com/pythonic-interfaces-in-go-generators.html" rel="url">
 <div class="entry-meta">
@@ -139,7 +139,13 @@ and generator comprehensions. Being the later, what we are interested in the sco
 of this post. So, considering we want a program that receives an user input and
 then print all the multiples of 2 up to a certain limit, unknown a priori. For
 such, we&nbsp;could:</p>
-<div class="highlight"><pre><span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="p">(</span><span class="n">count</span><span class="p">,</span> <span class="n">takewhile</span><span class="p">)</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="codehilite"><pre><span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="p">(</span><span class="n">count</span><span class="p">,</span> <span class="n">takewhile</span><span class="p">)</span>
 
 <span class="n">limit</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">())</span>
 <span class="n">multiples_of_2</span> <span class="o">=</span> <span class="n">takewhile</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="n">limit</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="mi">2</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">count</span><span class="p">()))</span>
@@ -147,12 +153,23 @@ such, we&nbsp;could:</p>
 <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">multiples_of_2</span><span class="p">:</span>
     <span class="k">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 </pre></div>
-
+</td></tr></table>
 
 <p>For the sake of simplicity, note that no error checking concerning the user input
 was done in the previous example. The same rule will apply for next examples.
 Despite that, one could use the yield operator instead of employing generator&nbsp;comprehension:</p>
-<div class="highlight"><pre><span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">count</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12</pre></div></td><td class="code"><div class="codehilite"><pre><span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">count</span>
 
 <span class="k">def</span> <span class="nf">multiples_of_2</span><span class="p">(</span><span class="n">limit</span><span class="p">):</span>
     <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="mi">2</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">count</span><span class="p">()):</span>
@@ -165,7 +182,7 @@ Despite that, one could use the yield operator instead of employing generator&nb
 <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">multiples_of_2</span><span class="p">(</span><span class="n">limit</span><span class="p">):</span>
     <span class="k">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 </pre></div>
-
+</td></tr></table>
 
 <p>For your information, those Python&#8217;s examples were meant to <a href="https://www.python.org/">Python</a> 3. As some of
 you may know, the input() function, in <a href="https://www.python.org/">Python</a> 2, also evals the input string,
@@ -177,7 +194,41 @@ used. One for passing the data per se and another to signal that the upper bound
 limit was reached, therefore closing the data&#8217;s channel. That is needed to emulate
 the <a href="https://www.python.org/">Python</a>&#8216;s StopIteration exception, which signals that the generator is now
 empty. So, without further&nbsp;ado:</p>
-<div class="highlight"><pre><span class="kn">package</span> <span class="nx">main</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35</pre></div></td><td class="code"><div class="codehilite"><pre><span class="kn">package</span> <span class="nx">main</span>
 
 <span class="kn">import</span> <span class="s">&quot;fmt&quot;</span>
 
@@ -213,7 +264,7 @@ empty. So, without further&nbsp;ado:</p>
     <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
-
+</td></tr></table>
 
 <p>Note that the quit channel uses an empty struct. The reason is twofold. First,
 empty structs does not occupy memory space, amount that could be substantial at
@@ -229,7 +280,33 @@ root of all evil. Not to mention the fact that we could solve this problem with 
 single channel, instead of two. But fear not, that required channel can be
 encapsulated inside multiples_of_2, leading to an interface that is very similar to
 the pythonic&nbsp;one.</p>
-<div class="highlight"><pre><span class="kn">package</span> <span class="nx">main</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27</pre></div></td><td class="code"><div class="codehilite"><pre><span class="kn">package</span> <span class="nx">main</span>
 
 <span class="kn">import</span> <span class="s">&quot;fmt&quot;</span>
 
@@ -257,7 +334,7 @@ the pythonic&nbsp;one.</p>
     <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
-
+</td></tr></table>
 
 <p>So, that is all. At the expense of some extra work in our APIs, we can provide
 very pythonic interfaces for lazy evaluated lists in <a href="https://golang.org/">Go</a>. Now without the need
@@ -304,7 +381,7 @@ APIs in a asynchronous manner is easy in <a href="https://golang.org/">Go</a>, w
 			</div>
 		</div> <!--/#post-->
 	</div>
-</span>
+</div>
 <div class="post">
 	<div class="main">
 		<div id="comments">

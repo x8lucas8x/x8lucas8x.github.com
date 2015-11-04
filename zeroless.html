@@ -94,7 +94,7 @@ Lucas' Refuge &mdash; Zeroless	</title>
 	
 		<div id="contents">
 
-<span class="post type-post status-publish format-standard hentry category-general">
+<div class="post content">
 	<div itemscope itemtype="http://schema.org/BlogPosting"
 		 href="http://x8lucas8x.com/zeroless.html" rel="url">
 <div class="entry-meta">
@@ -168,17 +168,20 @@ explicitly manage&nbsp;contexts?</p>
 <p>Not at all, so that is why in <a href="https://github.com/zmqless/python-zeroless">Zeroless</a> you just have to manage Clients, sockets
 that connect, and Servers, sockets that bind, without concerning yourself with
 contexts ;). For instance, in order to instantiate a client you&nbsp;would:</p>
-<div class="highlight"><pre><span class="n">client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="codehilite"><pre><span class="n">client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span>
 
 <span class="c"># You could use connect_local(port=12345) as well</span>
 <span class="n">client</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">ip</span><span class="o">=</span><span class="s">&#39;127.0.0.1&#39;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">12345</span><span class="p">)</span>
 </pre></div>
-
+</td></tr></table>
 
 <p>Similarly, for servers, you&nbsp;would:</p>
-<div class="highlight"><pre><span class="n">server</span> <span class="o">=</span> <span class="n">Server</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="mi">12345</span><span class="p">)</span> <span class="c"># No need to call bind here</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="codehilite"><pre><span class="n">server</span> <span class="o">=</span> <span class="n">Server</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="mi">12345</span><span class="p">)</span> <span class="c"># No need to call bind here</span>
 </pre></div>
-
+</td></tr></table>
 
 <p>Finally, note that no real connect/bind will occur unless you instantiate a
 messaging pattern, which are the subject of our next&nbsp;topic.</p>
@@ -195,9 +198,9 @@ documentation, but solely because of the way the <a href="https://github.com/zer
 time you want to instantiate a socket, instead just have a descent code complete
 support and you are done. For instance, compare how you would instantiate a
 publisher socket with <a href="https://github.com/zmqless/python-zeroless">Zeroless</a>:</p>
-<div class="highlight"><pre><span class="n">pub</span> <span class="o">=</span> <span class="n">Server</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="mi">12345</span><span class="p">)</span><span class="o">.</span><span class="n">pub</span><span class="p">(</span><span class="n">topic</span><span class="o">=</span><span class="n">b</span><span class="s">&#39;&#39;</span><span class="p">)</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="codehilite"><pre><span class="n">pub</span> <span class="o">=</span> <span class="n">Server</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="mi">12345</span><span class="p">)</span><span class="o">.</span><span class="n">pub</span><span class="p">(</span><span class="n">topic</span><span class="o">=</span><span class="n">b</span><span class="s">&#39;&#39;</span><span class="p">)</span>
 </pre></div>
-
+</td></tr></table>
 
 <h1>Connections&nbsp;awareness</h1>
 <p>One of the questions you may ask is to whom your clients are connected to. And
@@ -211,10 +214,11 @@ some sort of infrastructure for that&nbsp;yourself.</p>
 <p>In terms of interface, the subscribe case is particularly problematic in <a href="https://github.com/zeromq/pyzmq">PyZMQ</a>.
 One must use the not so intuitive <a href="https://zeromq.github.io/pyzmq/api/zmq.html#zmq.Context.setsockopt">setsockopt()</a> method, in
 order to define the topics it subscribes to. Like in the following&nbsp;snippet:</p>
-<div class="highlight"><pre><span class="n">socket</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">zmq</span><span class="o">.</span><span class="n">SUB</span><span class="p">)</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="codehilite"><pre><span class="n">socket</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">zmq</span><span class="o">.</span><span class="n">SUB</span><span class="p">)</span>
 <span class="n">socket</span><span class="o">.</span><span class="n">setsockopt</span><span class="p">(</span><span class="n">zmq</span><span class="o">.</span><span class="n">SUBSCRIBE</span><span class="p">,</span> <span class="n">b</span><span class="s">&quot;&quot;</span><span class="p">)</span> <span class="c"># Subscribe to all topics</span>
 </pre></div>
-
+</td></tr></table>
 
 <p>I believe most new <a href="http://zeromq.org/">ZeroMQ</a>&#8216;s user get this wrong at first, as they supose no
 topic means you are subscribed to all topics, and keep asking himself/herself why
@@ -223,34 +227,40 @@ that damn subscriber socket does not receives your published&nbsp;messages.</p>
 and set something as essential as a topic, in the subscribe case, via some kind
 of &#8220;obscure&#8221; method. Just compare how you would instantiate a subscriber socket
 with <a href="https://github.com/zmqless/python-zeroless">Zeroless</a>:</p>
-<div class="highlight"><pre><span class="n">listen_for_pub</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="n">topics</span><span class="o">=</span><span class="p">[</span><span class="n">b</span><span class="s">&#39;&#39;</span><span class="p">])</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="codehilite"><pre><span class="n">listen_for_pub</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="n">topics</span><span class="o">=</span><span class="p">[</span><span class="n">b</span><span class="s">&#39;&#39;</span><span class="p">])</span>
 </pre></div>
-
+</td></tr></table>
 
 <h1>Generators and high-order functions as first class&nbsp;citizens</h1>
 <p><a href="https://github.com/zeromq/pyzmq">PyZMQ</a> sockets tend to use <a href="https://zeromq.github.io/pyzmq/api/zmq.html#zmq.Socket.send">send()</a> and <a href="https://zeromq.github.io/pyzmq/api/zmq.html#zmq.Socket.recv">recv()</a> methods
 for the message exchange part. However, it always felt wrong to me to do stuff&nbsp;like:</p>
-<div class="highlight"><pre><span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="codehilite"><pre><span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">recv</span><span class="p">()</span>
     <span class="c"># do something with data</span>
 </pre></div>
-
+</td></tr></table>
 
 <p>That is, if Python has built-in support for iterables, or generators if you prefer,
 why don&#8217;t we just do something&nbsp;like:</p>
-<div class="highlight"><pre><span class="n">listen_for_push</span> <span class="o">=</span> <span class="n">Server</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="mi">12345</span><span class="p">)</span><span class="o">.</span><span class="n">pull</span><span class="p">()</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="codehilite"><pre><span class="n">listen_for_push</span> <span class="o">=</span> <span class="n">Server</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="mi">12345</span><span class="p">)</span><span class="o">.</span><span class="n">pull</span><span class="p">()</span>
 
 <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">listen_for_push</span><span class="p">:</span>
     <span class="c"># do something with data</span>
 </pre></div>
-
+</td></tr></table>
 
 <p>Way more idiomatic to read incoming messages that way, right? As for sending them,
 I also followed a different&nbsp;path.</p>
-<div class="highlight"><pre><span class="n">push</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">push</span><span class="p">()</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="codehilite"><pre><span class="n">push</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">push</span><span class="p">()</span>
 <span class="n">push</span><span class="p">(</span><span class="n">b</span><span class="s">&quot;Msg1&quot;</span><span class="p">)</span>
 </pre></div>
-
+</td></tr></table>
 
 <p>Therefore, in <a href="https://github.com/zmqless/python-zeroless">Zeroless</a>, every time you instantiate a message pattern that is
 suposed to send messages, use it as a function. Otherwise, treat it as a&nbsp;generator.</p>
@@ -263,19 +273,22 @@ therefore there is no difference between the singlepart and the multipart <span 
 <p>If you want to send a multipart message, just consider that your send function have
 a printf like interface and you are set. So, for instance, if you want to send an
 id separated from your message body, you&nbsp;could:</p>
-<div class="highlight"><pre><span class="n">push</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">push</span><span class="p">()</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="codehilite"><pre><span class="n">push</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">push</span><span class="p">()</span>
 <span class="n">push</span><span class="p">(</span><span class="n">b</span><span class="s">&#39;1&#39;</span><span class="p">,</span> <span class="n">b</span><span class="s">&#39;OK&#39;</span><span class="p">)</span>
 </pre></div>
-
+</td></tr></table>
 
 <p>Additionally, if someone send you a multipart message, your generator will return a
 tuple with all of its parts. As a result of that, to get the message from the previous
 example you would need&nbsp;to:</p>
-<div class="highlight"><pre><span class="n">listen_for_push</span> <span class="o">=</span> <span class="n">Server</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="mi">12345</span><span class="p">)</span><span class="o">.</span><span class="n">pull</span><span class="p">()</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="codehilite"><pre><span class="n">listen_for_push</span> <span class="o">=</span> <span class="n">Server</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="mi">12345</span><span class="p">)</span><span class="o">.</span><span class="n">pull</span><span class="p">()</span>
 <span class="k">for</span> <span class="nb">id</span><span class="p">,</span> <span class="n">msg</span> <span class="ow">in</span> <span class="n">listen_for_push</span><span class="p">:</span>
     <span class="c"># do something with id and msg</span>
 </pre></div>
-
+</td></tr></table>
 
 <h1>The&nbsp;future</h1>
 <p>Although feature parity was never part of my plans, there still some of <a href="https://github.com/zeromq/pyzmq">PyZMQ</a>&#8216;s
@@ -329,7 +342,7 @@ and see our <a href="http://python-zeroless.readthedocs.org/en/latest/developmen
 			</div>
 		</div> <!--/#post-->
 	</div>
-</span>
+</div>
 <div class="post">
 	<div class="main">
 		<div id="comments">
