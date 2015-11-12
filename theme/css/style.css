@@ -14,6 +14,7 @@ Author: Lucas Lira Gomes <x8lucas8x@gmail.com>
 ----------------------------------------------- */
 body {
     background-image: url(../image/body_background.png);
+    background-attachment: fixed;
 	color: #555;
 	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 	font-size: 13px;
@@ -32,6 +33,7 @@ body {
 }
 #contents {
     height: auto;
+    margin-bottom: 25px;
 }
 
 /* =Header
@@ -213,9 +215,8 @@ nav ol,nav ul {
 	background-image: -moz-linear-gradient( #f8f8f8, #eee);
 	background-image: -o-linear-gradient( #f8f8f8, #eee);
 	border-left: 1px solid #ccc;
-    border-radius: 20px;	
-
 	border-bottom: 1px dashed #ddd;
+    border-radius: 20px;
 	line-height: 175%;
 	padding: 15px;
 	text-align: justify;
@@ -227,11 +228,11 @@ nav ol,nav ul {
 	font-family: 'Oswald', Helvetica, Arial, sans-serif;
 	font-size: 25px;
 	float: left;
+	width: 158px;
 	margin: 0px;
 	padding: 0px;
 	text-align: center;
 	text-transform: uppercase;
-    width: 158px;
 }
 .post .entry-meta a {
 	text-decoration: none;
@@ -555,12 +556,12 @@ img.alignright {
 #comments {
 	clear: both;
 	padding: 15px;
+	border-radius: 20px;
 	text-align: left;
     background: #f1f1f1;
 	background-image: -webkit-linear-gradient( #f8f8f8, #eee);
 	background-image: -moz-linear-gradient( #f8f8f8, #eee);
 	background-image: -o-linear-gradient( #f8f8f8, #eee);
-    border-radius: 20px;	
 }
 article.comment {
 	display: block;
@@ -700,17 +701,105 @@ article.comment {
 /* =Footer
 ----------------------------------------------- */
 #footer {
+    display: inline-block;
 	border-top: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
 	clear: both;
 	color: #555;
+	width: 100%;
+	line-height: 175%;
+	font-family: 'Oswald', Helvetica, Arial, sans-serif;
+}
+#footer .column {
+	float: left;
+	width: 33.1%;
+	margin: 25px 0px;
+}
+#footer ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+#footer li {
+	display: block;
+	font-size:16px;
+	margin-bottom: 8px;
+}
+#footer li a {
+	font-size: 20px;
+	text-decoration: none;
+}
+#footer h1 {
+    color: #666;
+	font-size: 25px;
+	line-height: 38px;
+	text-align: center;
+	text-decoration: none;
+	text-transform: uppercase;
+	margin: 0px 0px 15px 0px;
+}
+#footer p {
+    color: #666;
+	font-size: 15px;
+	line-height: 38px;
+	text-decoration: none;
+	margin: 5px 0px 15px 0px;
+}
+#footer .social-media i {
+	width: 25px;
+	height: 25px;
+	padding: 10px;
+	margin: 10px;
+	color: #fff;
+	background: red;
+	border-radius: 30px;
+}
+#footer .social-media i:hover {
+	background: #C83838;
+}
+#footer-newsletter input.txt {
+	display: inline-block;
+	border: 1px solid #d4d3d7;
+	color: #373e42;
+	height: 40px;
+	width: 80%;
+	padding: 5px;
+	font-size: 20px;
+	text-align:center;
+}
+#footer-newsletter button {
+	display: inline-block;
+	border: 0px solid #d4d3d7;
+	border-radius: 0 0 10px 10px;
+	color: #e2e1e6;
+	background: red;
+	height: 40px;
+	width: 83%;
+	font-size: 20px;
+	text-align:center;
+}
+#footer-newsletter button:hover {
+	background: #C83838;
+}
+#footer-meta {
 	font-size: 11px;
 	font-weight: bold;
-	height: auto;
 	text-align: center;
-	margin: 25px 0px 20px 0px;
-}
-#license-logo {
 	margin: 25px 0px;
+}
+#footer-meta a {
+	text-decoration: none;
+}
+#footer-meta #copyright {
+	clear: both;
+	margin: 25px 0px;
+}
+#footer-meta #license-logo {
+	margin: 25px 0px;
+}
+#footer-meta #license-logo img {
+	width: 60px;
+	height: 60px;
 }
 
 /* =Responsive Posts
@@ -727,7 +816,7 @@ article.comment {
 	}
 }
 @media screen and (max-width:1024px) {
-     .post .main {
+    .post .main {
         margin-left: 160px;
     }
     .post .entry-meta {
@@ -763,9 +852,6 @@ article.comment {
     #container {
 		width: 91%;
     }
-    .content {
-        margin-bottom: 20px;
-    }
     .post .main {
     	width: auto;
     	margin-left: 0px;
@@ -778,13 +864,15 @@ article.comment {
 	.post .entry-meta .date {
 		font-size: 50px;
 	}
+	#footer .column {
+		float: none;
+		width: 100%;
+		margin: 25px 1px;
+	}
 }
 @media screen and (max-width:480px) {
     #container {
 		width: 92%;
-    }
-    .content {
-        margin-bottom: 15px;
     }
     .post .entry-meta .date {
 		font-size: 40px;
@@ -793,9 +881,6 @@ article.comment {
 @media screen and (max-width:320px) {
     #container {
 		width: 93%;
-    }
-    .content {
-        margin-bottom: 10px;
     }
 	.post .entry-meta .date {
 		font-size: 35px;
