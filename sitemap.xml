@@ -2,37 +2,33 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>/</loc>
+    <loc>http://www.x8lucas8x.com/</loc>
     <lastmod>2015-10-18T20:40:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/post/on-integration-testing-and-microservices/</loc>
+    <loc>http://www.x8lucas8x.com/post/onIntegrationTestingAndMicroservices/</loc>
     <lastmod>2015-10-18T20:40:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/post/pythonic-interfaces-in-go-generators/</loc>
+    <loc>http://www.x8lucas8x.com/post/pythonicInterfacesInGoGenerators/</loc>
     <lastmod>2015-09-12T19:30:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/post/connected-but-still-not-interoperable/</loc>
+    <loc>http://www.x8lucas8x.com/post/connectedButStillNotInteroperable/</loc>
     <lastmod>2015-09-04T19:30:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/post/zeroless/</loc>
+    <loc>http://www.x8lucas8x.com/post/zeroless/</loc>
     <lastmod>2015-08-18T20:40:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/post/moving-to-pelican/</loc>
+    <loc>http://www.x8lucas8x.com/post/welcome/</loc>
     <lastmod>2015-08-08T19:30:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>contact</loc>
   </url>
   
 </urlset>

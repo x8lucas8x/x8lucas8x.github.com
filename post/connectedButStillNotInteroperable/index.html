@@ -1,0 +1,640 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+    
+        
+            <title>Connected, but still not interoperable</title>
+        
+    
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content="Hugo 0.16" />
+    
+        <meta name="author" content="x8lucas8x">
+    
+    
+        <meta name="description" content="This is Lucas Lira Gomes (x8lucas8x) blog for all things tech.">
+    
+
+    
+
+  <meta name="twitter:card" content="summary"/>
+
+
+
+<meta name="twitter:title" content="Connected, but still not interoperable"/>
+<meta name="twitter:description" content="Cisco call it the Internet of Everything (IoE), most players would rather name it the Internet of Things (IoT) and, although less common, you probably heard the term the Industrial Internet too. And if you ever read any post or whitepaper about one of those buzzwords, especially those written by big players in the market (e.g. Cisco, IBM), you probably saw a trend in depicting scenarios where your things (e.g. car, appliances, lighting, HVAC) are interconnected and, somehow, interacting among themselves independently of human interference."/>
+<meta name="twitter:site" content="@x8lucas8x"/>
+
+
+    <meta property="og:title" content="Connected, but still not interoperable" />
+<meta property="og:description" content="Cisco call it the Internet of Everything (IoE), most players would rather name it the Internet of Things (IoT) and, although less common, you probably heard the term the Industrial Internet too. And if you ever read any post or whitepaper about one of those buzzwords, especially those written by big players in the market (e.g. Cisco, IBM), you probably saw a trend in depicting scenarios where your things (e.g. car, appliances, lighting, HVAC) are interconnected and, somehow, interacting among themselves independently of human interference." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.x8lucas8x.com/post/connectedButStillNotInteroperable/" />
+
+
+<meta property="og:updated_time" content="2015-09-04T19:30:00&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+    
+<meta itemprop="name" content="Connected, but still not interoperable">
+<meta itemprop="description" content="Cisco call it the Internet of Everything (IoE), most players would rather name it the Internet of Things (IoT) and, although less common, you probably heard the term the Industrial Internet too. And if you ever read any post or whitepaper about one of those buzzwords, especially those written by big players in the market (e.g. Cisco, IBM), you probably saw a trend in depicting scenarios where your things (e.g. car, appliances, lighting, HVAC) are interconnected and, somehow, interacting among themselves independently of human interference.">
+
+
+<meta itemprop="dateModified" content="2015-09-04T19:30:00&#43;00:00" />
+<meta itemprop="wordCount" content="1189">
+
+
+
+<meta itemprop="keywords" content="Code,Life,automation,blog,consumer-driven contracts,generators,golang,integration testing,ioe,iot,messaging,microservices,networking,pelican,publishing,python,pyzmq,soa,test doubles,zen,zeroless,zeromq," />
+
+    
+
+    
+    
+        
+    
+
+    
+    
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/monokai-sublime.css"> 
+    
+
+    
+        
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-66386613-1', 'auto');
+ga('send', 'pageview');
+</script>
+
+    
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.2.0/material.red-indigo.min.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+    <script defer src="https://code.getmdl.io/1.2.0/material.min.js"></script>
+</head>
+
+    <body>
+        <div class="mdl-layout mdl-js-layout">
+            
+            
+<header class="mdl-layout__header">
+    <div class="mdl-layout__header-row">
+        <a class="mdl-layout-title mdl-navigation__link" href="/">Lucas&#39; Refuge</a>
+        
+        <nav class="mdl-navigation">
+            
+            <a class="mdl-navigation__link" href="/categories">Categories</a> 
+            <a class="mdl-navigation__link" href="/tags">Tags</a> 
+        </nav>
+        
+        <div class="mdl-layout-spacer"></div>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable
+                  mdl-textfield--floating-label mdl-textfield--align-right">
+            <label class="mdl-button mdl-js-button mdl-button--icon" for="waterfall-exp">
+                <i class="material-icons">search</i>
+            </label>
+            <div class="mdl-textfield__expandable-holder">
+                <form action="//google.com/search" method="get" accept-charset="UTF-8">
+                <input class="mdl-textfield__input" id="waterfall-exp" name="q" type="search"/>
+                <input name="sitesearch" value="http://www.x8lucas8x.com/" type="hidden"/>
+                </form>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="mdl-layout__drawer">
+    <span class="mdl-layout-title">Lucas&#39; Refuge</span>
+    <span class="mdl-layout-title">Menu</span>
+
+    <nav class="mdl-navigation">
+        <a class="mdl-navigation__link" href="http://www.x8lucas8x.com/">Home</a>
+        
+            <a class="mdl-navigation__link" href="/categories">Categories</a>
+        
+            <a class="mdl-navigation__link" href="/tags">Tags</a>
+        
+    </nav>
+        <span class="mdl-layout-title">Newsletter</span>
+        <div class="mdl-grid">
+            <form action="http://x8lucas8x.us8.list-manage.com/subscribe?u=9df6482d825b354c5e8d36738&amp;id=6c7409d43e" method="post">
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type="submit">
+                    Subscribe
+                </button>
+            </form>
+        </div>
+</div>
+
+            
+            <main class="mdl-layout__content">
+                <header class="blog-header">
+    <h1>
+        <a class="blog-header__title" href="http://www.x8lucas8x.com/">Lucas&#39; Refuge</a>
+    </h1>
+    <section>
+        
+            <ul class="mdl-mega-footer__link-list list__horizontal">
+    
+
+    
+        <li>
+            <a href="//github.com/x8lucas8x" target="_blank" title="GitHub" class="fa fa-2x fa-github"></a>
+        </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <li>
+            <a href="//youtube.com/x8lucas8x" target="_blank" title="YouTube" class="fa fa-2x fa-youtube"></a>
+        </li>
+    
+
+    
+        <li>
+            <a href="//vimeo.com/x8lucas8x" target="_blank" title="Vimeo" class="fa fa-2x fa-vimeo"></a>
+        </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <li>
+            <a href="//linkedin.com/in/x8lucas8x" target="_blank" title="LinkedIn" class="fa fa-2x fa-linkedin"></a>
+        </li>
+    
+
+    
+        <li>
+            <a href="//slideshare.com/x8lucas8x" target="_blank" title="SlideShare" class="fa fa-2x fa-slideshare"></a>
+        </li>
+    
+
+    
+
+    
+        <li>
+            <a href="//reddit.com/user/x8lucas8x" target="_blank" title="Reddit" class="fa fa-2x fa-reddit"></a>
+        </li>
+    
+
+    
+
+    
+
+    
+        <li>
+            <a href="//facebook.com/x8lucas8x" target="_blank" title="Facebook" class="fa fa-2x fa-facebook"></a>
+        </li>
+    
+
+    
+        <li>
+            <a href="//twitter.com/x8lucas8x" target="_blank" title="Twitter" class="fa fa-2x fa-twitter"></a>
+        </li>
+    
+
+    
+        <li>
+            <a href="mailto:x8lucas8x@gmail.com" title="Email" class="fa fa-2x fa-envelope"></a>
+        </li>
+    
+</ul>
+
+        
+    </section>
+
+    
+        <h4 class="blog-header__subtitle">We copyleft</h4>
+    
+</header>
+
+
+                
+                    
+                    <div class="mdl-grid">
+                        <div class="mdl-cell mdl-cell--1-col"></div>
+                        <div class="mdl-card mdl-cell mdl-cell--10-col mdl-shadow--2dp">
+                            <div class="mdl-grid">
+                                <div class="mdl-cell mdl-cell--1-col"></div>
+                                <div class="mdl-cell mdl-cell--10-col">
+                                    <div class="mdl-card__supporting-text">
+                                        <h1 class="mdl-card__title-text">
+    Connected, but still not interoperable
+</h1>
+                                        <h3 class="mdl-card__subtitle-text">
+    
+        Written by <strong>Lucas Lira Gomes</strong> at
+    
+    <time datetime="2015-09-04T19:30:00Z">
+        4 September 2015
+    </time>
+</h3>
+                                        
+    <article align="justify">
+        <hr />
+
+<p>Cisco call it the Internet of Everything (IoE), most players would rather
+name it the Internet of Things (IoT) and, although less common, you probably
+heard the term the Industrial Internet too. And if you ever read any post
+or whitepaper about one of those buzzwords, especially those written by big
+players in the market (e.g. Cisco, IBM), you probably saw a trend in
+depicting scenarios where your things (e.g. car, appliances, lighting, HVAC)
+are interconnected and, somehow, interacting among themselves independently
+of human interference. Great vision, but how far are we from it?</p>
+
+<p>Right now IoT is composed by a jungle of different solutions. You can probably outline
+those that seem more promising. In the networking spectrum there is a whole stack
+solutions, which tries to provide you not only data link layer features but also
+routing, addressing and some even encryption, those are mainly Zigbee, Z-Wave,
+Bluetooth and WirelessHart. On the other hand you also have WIFI, raw IEEE 802.15.4,
+GPRS and all sort of radios operating in sub-gigahertz frequency ranges. Each has
+an use case of its own. Z-Wave, for instance, is more present in home automation,
+Bluetooth V4 is usually the right one for wearables, WirelessHart is an adaption
+of the Highway Addressable Remote Transducer Protocol (HART) protocol for industrial
+wireless networks and Zigbee is the wild card among them (i.e. thanks to DIGI&rsquo;s
+amazing AT programming interface).</p>
+
+<p>Along with that there is also efforts to bring the IP protocol to the constrained devices
+like those that use IEEE 802.15.4 and its variations. Well, the advantages are many. First
+there is the seamless exchange of information between devices utilizing any IP-enabled
+MAC/PHY (e.g. Wi-Fi, Ethernet). Second we cannot forget the battle-tested tooling all
+those years of IP predominance have provided us (e.g. ping, traceroute, netcat, wireshark,
+tcpdump). The <a href="http://www.ipso-alliance.org/">IPSO Alliance</a> is one of the major advocates in this matter. They have several
+whitepapers publicising standards like <a href="http://www.ipso-alliance.org/downloads/6LoWPAN">6LowPan</a>, an IPV6-compatible addressing with better
+header compression, and <a href="http://www.ipso-alliance.org/downloads/RPL">RPL</a>, a mesh-enabled routing protocol for low power and lossy networks.
+The <a href="http://www.zigbee.org/">Zigbee Alliance</a> also realised the advantages of IPv6-based wireless mesh networking and
+created ZigBee IP, and open standard built on top of IEEE 802.15.4 that provides end-to-end
+IPv6 networking.</p>
+
+<p>On top of IP, on the application level, <a href="http://mqtt.org/news">MQTT</a> and <a href="https://tools.ietf.org/html/rfc7252">COAP</a> shine. The first is a lightweight
+PUB-SUB protocol based on TCP. Now you may wonder if <a href="http://mqtt.org/news">MQTT</a> is appropriate for wireless
+sensor networks. In fact anything TCP based is not by design, but in such cases you can use
+<a href="http://mqtt.org/news">MQTT-SN</a>, a UDP based variation of <a href="http://mqtt.org/news">MQTT</a> that is especially tailored for low-cost and
+low-power sensor devices that run over bandwidth-constrained wireless networks. While <a href="https://tools.ietf.org/html/rfc7252">COAP</a>
+is a lightweight HTTP compatible protocol, based on UDP, with support for multicasting and
+service discovery. Both of them are quite popular and you can probably find an implementation
+for your favourite programming language or IoT platform (e.g. <a href="http://contiki-os.org/">Contiki OS</a>, <a href="https://tools.ietf.org/html/rfc7390">Arduino</a>).
+Unfortunately, given a non-IP network, developing a gateway to map your custom protocol
+in the interface your backend/server uses and vice-versa is a necessary burden.</p>
+
+<p>So, there is certainly no doubt there were major progresses on the connectivity front, but
+still something is absent in this equation. Connectivity is certainly necessary but IoT is as
+much about connectivity as the internet is about the web. That vision those big players describe
+of smart Xs, being X anything, autonomously interacting among themselves is heavily dependent
+of those devices being able to discover each other and access their functionalities, without
+being explicitly pre-programmed to do so. You probably saw companies like <a href="http://www.smartthings.com/">Smart Things</a>,
+<a href="https://ninjablocks.com/">Ninja Blocks</a> or the former <a href="http://revolv.com/">Revolv</a>, bought by <a href="https://nest.com/">Nest</a>, stating that their platforms/hubs
+supports different vendors or &ldquo;play well with others&rdquo;, which is great but has its own limitations.</p>
+
+<p>Up to now, in platforms like the aforementioned, integration of new products occurs in a
+incremental fashion. So if you want to support Phillip&rsquo;s <a href="http://www2.meethue.com/pt-br/">Hue</a> or <a href="https://www.lifx.com/">LIFX</a> lamps, you will have
+to read the documentation of their REST API. Which seems great given REST apis are easy to
+integrate, but the crude reality of IoT is way less welcoming. In most you cases, you will
+find yourself with vertically integrated systems that do not permit easy third-party integration.
+And even if they permitted, the manual process of integrating with new devices and/or platforms
+have two problems.</p>
+
+<p>First, a great deal of products does not provide public documented APIs for third-parties.
+And the reason is that, currently, most vendors tend to sell a solution, from hardware to user
+interface, therefore not caring for those who want to use their products differently from what
+they envisaged (i.e. makers suffer :/). Consider <a href="https://www.plugwise.com/">Plugwise</a>, for instance, they have one of the
+most complete energy management solutions out there, but without a consistent effor to provide
+a public API or SDK. You may even find unofficial libraries, made by someone who probably had
+to sniffer <a href="https://www.plugwise.com/">Plugwise</a>&rsquo;s devices in order to reverse engineer their proprietary protocol. But
+using those, you would not have any guarantee of future support. Besides that it is common
+for unofficial libraries not to be feature complete, so good luck if you want to use the most
+recent capabilities.</p>
+
+<p>Second, manual integration does not scale. Vendors may try to pinpoint the most popular
+products, to focus their integrations efforts, or form partnerships, but that degree of
+interoperability will come at the expense of tight vendor integration with specific
+partners.</p>
+
+<p>To solve those problems, devices need to discover and access each other functionalities, not
+necessarily directly like M2M scenarios portrait. And for such two things are required. First
+a data model that could explicitly state what each piece of data is about, so that you do not
+have to read a manual to realise that a sensor is measuring temperature in Celsius. Ontologies
+are usually the answer in such cases, but <a href="http://www.w3.org/2001/sw/wiki/OWL">OWL</a> and <a href="http://www.w3.org/2001/sw/wiki/RDF">RDF</a> are not appropriate given the bandwidth
+limitations. The <a href="http://www.ipso-alliance.org/">IPSO Alliance</a> tried to fill this gap with its <a href="http://www.ipso-alliance.org/smart-object-guidelines">Smart Objects</a> specification,
+which describes a reusable data model for IoT. That data model defines a set of data types
+and structures that can be used by different devices, in order to enable them to interoperate
+since the semantics is now in the data itself. Still, despite the <a href="http://www.ipso-alliance.org/smart-object-guidelines">Smart Objects</a> specification,
+ontologies have an important role at the users level, as the tooling from semantic web
+technologies (e.g. <a href="http://www.w3.org/2001/sw/wiki/SPARQL">SPARQL</a>, <a href="http://www.w3.org/2001/sw/wiki/OWL">OWL</a>, <a href="http://www.w3.org/2001/sw/wiki/RDF">RDF</a>) can provide great value for those interested in
+composing their own IoT solutions by accessing higher level services.</p>
+
+<p>Although being able to determine the content of the messages sent by sensors is important, no
+equivalent exists in terms of actuation. And that is key to a large adoption of IoT, especially
+in the end-consumer market. Right now, businesses can get value by tracking trends and analysing
+data, but for end-consumers automation is the real killer application. And by automation I mean
+not only actuation, that translates itself in an event in the physical world, but also remote
+configuration of these devices. All that provided, without devices being pre-programmed to do
+so, would be huge. But, unfortunately, no lightweight UPnP exist for the IoT yet.
+    </article>
+
+    <div align="center">
+        <div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--6-col">
+        <a id="previous-post" class="mdl-button mdl-js-button mdl-button--primary"
+             href="http://www.x8lucas8x.com/post/zeroless/" >
+            Previous Post
+        </a>
+
+        
+            <div class="mdl-tooltip" data-mdl-for="previous-post">
+                Zeroless
+            </div>
+        
+    </div>
+    <div class="mdl-cell mdl-cell--6-col">
+        <a id="next-post" class="mdl-button mdl-js-button mdl-button--primary"
+         href="http://www.x8lucas8x.com/post/pythonicInterfacesInGoGenerators/" >
+            Next Post
+        </a>
+
+        
+            <div class="mdl-tooltip" data-mdl-for="next-post">
+                Pythonic interfaces in Go Generators
+            </div>
+        
+    </div>
+</div>
+
+    </div>
+
+                                    </div>
+                                </div>
+                                <div class="mdl-cell mdl-cell--1-col"></div>
+                            </div>
+                            <div id="menu-share" class="mdl-card__menu">
+    <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+        <i class="material-icons">share</i>
+    </button>
+    
+<div class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="menu-share">
+    
+    <a class="mdl-menu__item" href="//twitter.com/share?url=http%3a%2f%2fwww.x8lucas8x.com%2fpost%2fconnectedButStillNotInteroperable%2f&text=Connected%2c%20but%20still%20not%20interoperable&via=x8lucas8x" target="_blank" class="share-btn twitter">
+        <i class="fa fa-twitter"></i>
+        <span>Twitter</span>
+    </a>
+
+    
+    <a class="mdl-menu__item" href="//plus.google.com/share?url=http%3a%2f%2fwww.x8lucas8x.com%2fpost%2fconnectedButStillNotInteroperable%2f" target="_blank" class="share-btn google-plus">
+        <i class="fa fa-google-plus"></i>
+        <span>Google+</span>
+    </a>
+
+    
+    <a class="mdl-menu__item" href="//www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fwww.x8lucas8x.com%2fpost%2fconnectedButStillNotInteroperable%2f" target="_blank" class="share-btn facebook">
+        <i class="fa fa-facebook"></i>
+        <span>Facebook</span>
+    </a>
+
+    
+    <a class="mdl-menu__item" href="//reddit.com/submit?url=http%3a%2f%2fwww.x8lucas8x.com%2fpost%2fconnectedButStillNotInteroperable%2f&title=Connected%2c%20but%20still%20not%20interoperable" target="_blank" class="share-btn reddit">
+        <i class="fa fa-reddit-alien"></i>
+        <span>Reddit</span>
+    </a>
+
+    
+    <a class="mdl-menu__item" href="//www.linkedin.com/shareArticle?url=http%3a%2f%2fwww.x8lucas8x.com%2fpost%2fconnectedButStillNotInteroperable%2f&title=Connected%2c%20but%20still%20not%20interoperable" target="_blank" class="share-btn linkedin">
+        <i class="fa fa-linkedin"></i>
+        <span>LinkedIn</span>
+    </a>
+
+    
+    <a class="mdl-menu__item" href="//www.stumbleupon.com/submit?url=http%3a%2f%2fwww.x8lucas8x.com%2fpost%2fconnectedButStillNotInteroperable%2f&title=Connected%2c%20but%20still%20not%20interoperable" target="_blank" class="share-btn stumbleupon">
+        <i class="fa fa-stumbleupon"></i>
+        <span>StumbleUpon</span>
+    </a>
+
+    
+    <a class="mdl-menu__item" href="mailto:?subject=Check out this post by x8lucas8x&body=http%3a%2f%2fwww.x8lucas8x.com%2fpost%2fconnectedButStillNotInteroperable%2f" target="_blank" class="share-btn email">
+        <i class="fa fa-envelope"></i>
+        <span>Email</span>
+    </a>
+</div>
+
+</div>
+
+                        </div>
+                        <div class="mdl-cell mdl-cell--1-col"></div>
+                    </div>
+                
+
+                
+    <div class="mdl-grid">
+        <div class="mdl-cell mdl-cell--1-col"></div>
+        <div class="mdl-card mdl-cell mdl-cell--10-col mdl-shadow--2dp">
+            <div>
+                <div class="mdl-grid">
+                    <div class="mdl-cell mdl-cell--1-col"></div>
+                    <div class="mdl-card mdl-cell mdl-cell--10-col">
+                        
+                            <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'lucasrefuge';
+    var disqus_identifier = 'http:\/\/www.x8lucas8x.com\/post\/connectedButStillNotInteroperable\/';
+    var disqus_title = 'Connected, but still not interoperable';
+    var disqus_url = 'http:\/\/www.x8lucas8x.com\/post\/connectedButStillNotInteroperable\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+                        
+                    </div>
+
+                    <div class="mdl-cell mdl-cell--1-col"></div>
+                </div>
+
+                <div class="mdl-cell mdl-cell--1-col"></div>
+            </div>
+        </div>
+    </div>
+
+
+                
+<footer class="mdl-mini-footer mdl-color--grey-800" style="justify-content:center;">
+    <div align="center">
+        <p>You can find me on</p>
+
+        <ul class="mdl-mega-footer__link-list list__horizontal">
+    
+
+    
+        <li>
+            <a href="//github.com/x8lucas8x" target="_blank" title="GitHub" class="fa fa-2x fa-github"></a>
+        </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <li>
+            <a href="//youtube.com/x8lucas8x" target="_blank" title="YouTube" class="fa fa-2x fa-youtube"></a>
+        </li>
+    
+
+    
+        <li>
+            <a href="//vimeo.com/x8lucas8x" target="_blank" title="Vimeo" class="fa fa-2x fa-vimeo"></a>
+        </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <li>
+            <a href="//linkedin.com/in/x8lucas8x" target="_blank" title="LinkedIn" class="fa fa-2x fa-linkedin"></a>
+        </li>
+    
+
+    
+        <li>
+            <a href="//slideshare.com/x8lucas8x" target="_blank" title="SlideShare" class="fa fa-2x fa-slideshare"></a>
+        </li>
+    
+
+    
+
+    
+        <li>
+            <a href="//reddit.com/user/x8lucas8x" target="_blank" title="Reddit" class="fa fa-2x fa-reddit"></a>
+        </li>
+    
+
+    
+
+    
+
+    
+        <li>
+            <a href="//facebook.com/x8lucas8x" target="_blank" title="Facebook" class="fa fa-2x fa-facebook"></a>
+        </li>
+    
+
+    
+        <li>
+            <a href="//twitter.com/x8lucas8x" target="_blank" title="Twitter" class="fa fa-2x fa-twitter"></a>
+        </li>
+    
+
+    
+        <li>
+            <a href="mailto:x8lucas8x@gmail.com" title="Email" class="fa fa-2x fa-envelope"></a>
+        </li>
+    
+</ul>
+
+    </div>
+</footer>
+
+<footer class="mdl-mega-footer mdl-color--grey-900">
+    <div class="mdl-mega-footer__bottom-section">
+        <div class="mdl-logo">Lucas&#39; Refuge</div>
+        <div class="mdl-mega-footer__left-section">
+            <ul class="mdl-mega-footer__link-list">
+                
+                    <div>We copyleft</div>
+                
+                <div>Design by <a class="mdl-mega-footer__link" href="//github.com/x8lucas8x" target="_blank">Lucas Lira Gomes</a></div>
+                <div>Powered by <a href="//gohugo.io" target="_blank">Hugo</a></div>
+            </ul>
+        </div>
+        <div class="mdl-mega-footer__right-section">
+				<a itemprop="license"
+				   href="http://creativecommons.org/licenses/by-nc-sa/4.0"
+				   title="Lucas&#39; Refuge by Lucas Lira Gomes is licensed under a Creative Commons International License"
+				   target="_blank"
+				   rel="nofollow">
+					<img src="http://mirrors.creativecommons.org/presskit/icons/cc.svg" style="text-align: center;" />
+				</a>
+        </div>
+    </div>
+
+    <script src="/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+    
+        
+    
+
+    
+</footer>
+
+            </main>
+        </div>
+    </body>
+</html>

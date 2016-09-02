@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>microservices on Lucas&#39; Refuge</title>
-    <link>/tags/microservices/</link>
+    <link>http://www.x8lucas8x.com/tags/microservices/</link>
     <description>Recent content in microservices on Lucas&#39; Refuge</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 18 Oct 2015 20:40:00 +0000</lastBuildDate>
-    <atom:link href="/tags/microservices/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://www.x8lucas8x.com/tags/microservices/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>On Integration Testing and Microservices</title>
-      <link>/post/on-integration-testing-and-microservices/</link>
+      <link>http://www.x8lucas8x.com/post/onIntegrationTestingAndMicroservices/</link>
       <pubDate>Sun, 18 Oct 2015 20:40:00 +0000</pubDate>
       
-      <guid>/post/on-integration-testing-and-microservices/</guid>
+      <guid>http://www.x8lucas8x.com/post/onIntegrationTestingAndMicroservices/</guid>
       <description>&lt;hr /&gt;
 
 &lt;p&gt;Some weeks ago I was asked how to properly do integration testing in a

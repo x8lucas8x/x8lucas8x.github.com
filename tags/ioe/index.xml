@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>ioe on Lucas&#39; Refuge</title>
-    <link>/tags/ioe/</link>
+    <link>http://www.x8lucas8x.com/tags/ioe/</link>
     <description>Recent content in ioe on Lucas&#39; Refuge</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 04 Sep 2015 19:30:00 +0000</lastBuildDate>
-    <atom:link href="/tags/ioe/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://www.x8lucas8x.com/tags/ioe/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Connected, but still not interoperable</title>
-      <link>/post/connected-but-still-not-interoperable/</link>
+      <link>http://www.x8lucas8x.com/post/connectedButStillNotInteroperable/</link>
       <pubDate>Fri, 04 Sep 2015 19:30:00 +0000</pubDate>
       
-      <guid>/post/connected-but-still-not-interoperable/</guid>
+      <guid>http://www.x8lucas8x.com/post/connectedButStillNotInteroperable/</guid>
       <description>&lt;hr /&gt;
 
 &lt;p&gt;Cisco call it the Internet of Everything (IoE), most players would rather

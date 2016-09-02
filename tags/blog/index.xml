@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>blog on Lucas&#39; Refuge</title>
-    <link>/tags/blog/</link>
+    <link>http://www.x8lucas8x.com/tags/blog/</link>
     <description>Recent content in blog on Lucas&#39; Refuge</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 08 Aug 2015 19:30:00 +0000</lastBuildDate>
-    <atom:link href="/tags/blog/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://www.x8lucas8x.com/tags/blog/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Moving to Pelican</title>
-      <link>/post/moving-to-pelican/</link>
+      <link>http://www.x8lucas8x.com/post/welcome/</link>
       <pubDate>Sat, 08 Aug 2015 19:30:00 +0000</pubDate>
       
-      <guid>/post/moving-to-pelican/</guid>
+      <guid>http://www.x8lucas8x.com/post/welcome/</guid>
       <description>&lt;hr /&gt;
 
 &lt;p&gt;For quite some time, my blog has not received the attention that I would like to give it. However,

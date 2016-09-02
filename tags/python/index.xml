@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>python on Lucas&#39; Refuge</title>
-    <link>/tags/python/</link>
+    <link>http://www.x8lucas8x.com/tags/python/</link>
     <description>Recent content in python on Lucas&#39; Refuge</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 12 Sep 2015 19:30:00 +0000</lastBuildDate>
-    <atom:link href="/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://www.x8lucas8x.com/tags/python/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Pythonic interfaces in Go Generators</title>
-      <link>/post/pythonic-interfaces-in-go-generators/</link>
+      <link>http://www.x8lucas8x.com/post/pythonicInterfacesInGoGenerators/</link>
       <pubDate>Sat, 12 Sep 2015 19:30:00 +0000</pubDate>
       
-      <guid>/post/pythonic-interfaces-in-go-generators/</guid>
+      <guid>http://www.x8lucas8x.com/post/pythonicInterfacesInGoGenerators/</guid>
       <description>&lt;hr /&gt;
 
 &lt;p&gt;One of the amazing things about Python is that once you embody the so called Zen
@@ -167,10 +167,10 @@ APIs in a asynchronous manner is easy in &lt;a href=&#34;https://golang.org/&#34
     
     <item>
       <title>Zeroless</title>
-      <link>/post/zeroless/</link>
+      <link>http://www.x8lucas8x.com/post/zeroless/</link>
       <pubDate>Tue, 18 Aug 2015 20:40:00 +0000</pubDate>
       
-      <guid>/post/zeroless/</guid>
+      <guid>http://www.x8lucas8x.com/post/zeroless/</guid>
       <description>
 
 &lt;hr /&gt;

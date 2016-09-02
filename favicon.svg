@@ -7,3 +7,19 @@
 	<circle cx="98" cy="98" r="30" fill="white"/>
 	<rect x="40" y="85" width="31" height="25" fill="white"/>
 </svg>
+<!--
+<rdf:RDF xmlns="http://web.resource.org/cc/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<Work rdf:about="">
+	<license rdf:resource="http://creativecommons.org/licenses/publicdomain/" />
+	<dc:title>Red Copyleft Icon</dc:title>
+	<dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+</Work>
+<License rdf:about="http://creativecommons.org/licenses/publicdomain/">
+	<permits rdf:resource="http://web.resource.org/cc/Reproduction"/>
+	<permits rdf:resource="http://web.resource.org/cc/Distribution"/>
+	<permits rdf:resource="http://web.resource.org/cc/DerivativeWorks"/>
+	<permits rdf:resource="http://web.resource.org/cc/CommercialUse"/>
+</License>
+</rdf:RDF> -->

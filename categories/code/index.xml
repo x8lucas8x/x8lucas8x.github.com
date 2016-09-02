@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Code on Lucas&#39; Refuge</title>
-    <link>/categories/code/</link>
+    <link>http://www.x8lucas8x.com/categories/code/</link>
     <description>Recent content in Code on Lucas&#39; Refuge</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 18 Oct 2015 20:40:00 +0000</lastBuildDate>
-    <atom:link href="/categories/code/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://www.x8lucas8x.com/categories/code/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>On Integration Testing and Microservices</title>
-      <link>/post/on-integration-testing-and-microservices/</link>
+      <link>http://www.x8lucas8x.com/post/onIntegrationTestingAndMicroservices/</link>
       <pubDate>Sun, 18 Oct 2015 20:40:00 +0000</pubDate>
       
-      <guid>/post/on-integration-testing-and-microservices/</guid>
+      <guid>http://www.x8lucas8x.com/post/onIntegrationTestingAndMicroservices/</guid>
       <description>&lt;hr /&gt;
 
 &lt;p&gt;Some weeks ago I was asked how to properly do integration testing in a
@@ -156,10 +156,10 @@ stubs and consumer-driven contract testing instead.&lt;/p&gt;
     
     <item>
       <title>Pythonic interfaces in Go Generators</title>
-      <link>/post/pythonic-interfaces-in-go-generators/</link>
+      <link>http://www.x8lucas8x.com/post/pythonicInterfacesInGoGenerators/</link>
       <pubDate>Sat, 12 Sep 2015 19:30:00 +0000</pubDate>
       
-      <guid>/post/pythonic-interfaces-in-go-generators/</guid>
+      <guid>http://www.x8lucas8x.com/post/pythonicInterfacesInGoGenerators/</guid>
       <description>&lt;hr /&gt;
 
 &lt;p&gt;One of the amazing things about Python is that once you embody the so called Zen
@@ -312,10 +312,10 @@ APIs in a asynchronous manner is easy in &lt;a href=&#34;https://golang.org/&#34
     
     <item>
       <title>Connected, but still not interoperable</title>
-      <link>/post/connected-but-still-not-interoperable/</link>
+      <link>http://www.x8lucas8x.com/post/connectedButStillNotInteroperable/</link>
       <pubDate>Fri, 04 Sep 2015 19:30:00 +0000</pubDate>
       
-      <guid>/post/connected-but-still-not-interoperable/</guid>
+      <guid>http://www.x8lucas8x.com/post/connectedButStillNotInteroperable/</guid>
       <description>&lt;hr /&gt;
 
 &lt;p&gt;Cisco call it the Internet of Everything (IoE), most players would rather
@@ -420,10 +420,10 @@ so, would be huge. But, unfortunately, no lightweight UPnP exist for the IoT yet
     
     <item>
       <title>Zeroless</title>
-      <link>/post/zeroless/</link>
+      <link>http://www.x8lucas8x.com/post/zeroless/</link>
       <pubDate>Tue, 18 Aug 2015 20:40:00 +0000</pubDate>
       
-      <guid>/post/zeroless/</guid>
+      <guid>http://www.x8lucas8x.com/post/zeroless/</guid>
       <description>
 
 &lt;hr /&gt;
