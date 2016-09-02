@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>python on Lucas&#39; Refuge</title>
+    <link>/tags/python/</link>
+    <description>Recent content in python on Lucas&#39; Refuge</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 12 Sep 2015 19:30:00 +0000</lastBuildDate>
+    <atom:link href="/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Pythonic interfaces in Go Generators</title>
+      <link>/post/pythonic-interfaces-in-go-generators/</link>
+      <pubDate>Sat, 12 Sep 2015 19:30:00 +0000</pubDate>
+      
+      <guid>/post/pythonic-interfaces-in-go-generators/</guid>
+      <description>&lt;hr /&gt;
+
+&lt;p&gt;One of the amazing things about Python is that once you embody the so called Zen
+of Python, no matter which language you are using, the philosophy will prevail.
+Or, in other words, even if you are learning the Go language, the extent of the
+pythonistas&amp;rsquo; ethos will probably find its way in. So, in order to contextualise
+a bit, this post will dwell on the implementation of a lazy list evaluation
+mechanism, equivalent to Python&amp;rsquo;s generators, in the Go language.&lt;/p&gt;
+
+&lt;p&gt;Among &lt;a href=&#34;https://www.python.org/&#34;&gt;Python&lt;/a&gt;&amp;rsquo;s many superpowers, generators is clearly a major one. Brought from
+functional languages, like &lt;a href=&#34;https://www.haskell.org/&#34;&gt;Haskell&lt;/a&gt;, which have demonstrated how better being lazy
+is in terms of speed and memory management, especially when collections&amp;rsquo; size
+can grow indefinitely.&lt;/p&gt;
+
+&lt;p&gt;In &lt;a href=&#34;https://www.python.org/&#34;&gt;Python&lt;/a&gt;, besides list comprehension, there are also the less known dictionary
+and generator comprehensions. Being the later, what we are interested in the scope
+of this post. So, considering we want a program that receives an user input and
+then print all the multiples of 2 up to a certain limit, unknown a priori. For
+such, we could:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;from itertools import (count, takewhile)
+
+limit = int(input())
+multiples_of_2 = takewhile(lambda x: x &amp;lt;= limit, (x*2 for x in count()))
+
+for x in multiples_of_2:
+    print(x)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;For the sake of simplicity, note that no error checking concerning the user input
+was done in the previous example. The same rule will apply for next examples.
+Despite that, one could use the yield operator instead of employing generator
+comprehension:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;from itertools import count
+
+def multiples_of_2(limit):
+    for x in (x*2 for x in count()):
+        if limit &amp;gt; 25:
+            raise StopIteration
+        yield x
+
+limit = int(input())
+
+for x in multiples_of_2(limit):
+    print(x)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;For your information, those Python&amp;rsquo;s examples were meant to &lt;a href=&#34;https://www.python.org/&#34;&gt;Python&lt;/a&gt; 3. As some of
+you may know, the input() function, in &lt;a href=&#34;https://www.python.org/&#34;&gt;Python&lt;/a&gt; 2, also evals the input string,
+behaviour that can lead to serious security flaws. Therefore, if you still use
+&lt;a href=&#34;https://www.python.org/&#34;&gt;Python&lt;/a&gt; 2, favour the raw_input() function instead.&lt;/p&gt;
+
+&lt;p&gt;Even though we do not have the same constructs in Go, we still can employ &lt;a href=&#34;https://golang.org/&#34;&gt;Go&lt;/a&gt;&amp;rsquo;s
+channels to end with a very similar effect. In such effort, two channels could be
+used. One for passing the data per se and another to signal that the upper bound
+limit was reached, therefore closing the data&amp;rsquo;s channel. That is needed to emulate
+the &lt;a href=&#34;https://www.python.org/&#34;&gt;Python&lt;/a&gt;&amp;rsquo;s StopIteration exception, which signals that the generator is now
+empty. So, without further ado:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-go&#34;&gt;package main
+
+import &amp;quot;fmt&amp;quot;
+
+func multiples_of_2(c chan int, quit chan struct{}, limit int) {
+	for x := 0; true; x += 2 {
+		if x &amp;gt; limit {
+			quit &amp;lt;- struct{}{}
+			break
+		}
+
+		c &amp;lt;- x
+	}
+}
+
+func main() {
+    var limit int
+    fmt.Scan(&amp;amp;limit)
+
+	c := make(chan int)
+	quit := make(chan struct{})
+
+	defer close(c)
+	defer close(quit)
+
+	go multiples_of_2(c, quit, limit)
+	for {
+		select {
+		case x := &amp;lt;-c:
+			fmt.Println(x)
+		case &amp;lt;-quit:
+			return
+		}
+	}
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Note that the quit channel uses an empty struct. The reason is twofold. First,
+empty structs does not occupy memory space, amount that could be substantial at
+scale. Second, as the &lt;a href=&#34;https://www.python.org/dev/peps/pep-0020/&#34;&gt;Zen of Python&lt;/a&gt; states: &amp;ldquo;explicit is better than implicit&amp;rdquo;.
+So, by passing an empty struct we make it clear that the whole point of that
+particular channel is for signalling only, therefore avoiding users to wonder if
+there is a difference between true and false if, otherwise, we have declared that
+channel as a bool channel for instance.&lt;/p&gt;
+
+&lt;p&gt;Besides that, the multiples_of_2&amp;rsquo;s interface expose a lot about the business logic
+of our custom generator. Besides that, the whole process of initialising/closing a
+channel is quite repetitive. And as the &lt;a href=&#34;https://en.wikipedia.org/wiki/Don&#39;t_repeat_yourself&#34;&gt;DRY&lt;/a&gt; principle preaches, repetition is the
+root of all evil. Not to mention the fact that we could solve this problem with a
+single channel, instead of two. But fear not, that required channel can be
+encapsulated inside multiples_of_2, leading to an interface that is very similar to
+the pythonic one.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-go&#34;&gt;package main
+
+import &amp;quot;fmt&amp;quot;
+
+func multiples_of_2(limit int) (chan int) {
+    c := make(chan int)
+
+    go func() {
+        defer close(c)
+        for x := 0 ; true; x+=2 {
+	        if x &amp;gt; limit { break }
+
+            c &amp;lt;- x
+        }
+    }()
+
+    return c
+}
+
+func main() {
+    var limit int
+    fmt.Scan(&amp;amp;limit)
+
+    for x:= range multiples_of_2(limit) {
+        fmt.Println(x)
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;So, that is all. At the expense of some extra work in our APIs, we can provide
+very pythonic interfaces for lazy evaluated lists in &lt;a href=&#34;https://golang.org/&#34;&gt;Go&lt;/a&gt;. Now without the need
+to worry about channels or concurrency at all. As a matter of fact, synchronous
+APIs, like the last example, should be favoured in &lt;a href=&#34;https://golang.org/&#34;&gt;Go&lt;/a&gt;, given using synchronous
+APIs in a asynchronous manner is easy in &lt;a href=&#34;https://golang.org/&#34;&gt;Go&lt;/a&gt;, while the contrary is not.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Zeroless</title>
+      <link>/post/zeroless/</link>
+      <pubDate>Tue, 18 Aug 2015 20:40:00 +0000</pubDate>
+      
+      <guid>/post/zeroless/</guid>
+      <description>
+
+&lt;hr /&gt;
+
+&lt;p&gt;I have been an enthusiast of ZeroMQ for quite some time. If there was an opportunity
+that required some sockets on steroids, I would not think twice. Ah, how those three
+messaging pattern were useful (i.e. Request/Reply, Push/Pull, Publish/Subscribe).
+They had the amazing trait of being able to drastically streamline the development of
+distributed systems. And its portability, with wrappers for more than 30 languages,
+brokerlessness and amazing documentation made it a no brainer for me to favour ZeroMQ
+over other messaging alternatives.&lt;/p&gt;
+
+&lt;p&gt;Using &lt;a href=&#34;http://zeromq.org/&#34;&gt;ZeroMQ&lt;/a&gt; in Python with &lt;a href=&#34;https://github.com/zeromq/pyzmq&#34;&gt;PyZMQ&lt;/a&gt;, however, always made me feel like I&amp;rsquo;m coding in
+C/C++, which I also love by the way. Unfortunately, that lack of &lt;a href=&#34;https://github.com/zeromq/pyzmq&#34;&gt;PyZMQ&lt;/a&gt; API&amp;rsquo;s, if I
+may say, &amp;ldquo;pythonicity&amp;rdquo;, just felt wrong to me. And by the end of last January, I
+decided to do something about it. So that is how &lt;a href=&#34;https://github.com/zmqless/python-zeroless&#34;&gt;Zeroless&lt;/a&gt; was born.&lt;/p&gt;
+
+&lt;p&gt;My mission was to leverage on &lt;a href=&#34;https://github.com/zeromq/pyzmq&#34;&gt;PyZMQ&lt;/a&gt; to build a more elegant wrapper for &lt;a href=&#34;http://zeromq.org/&#34;&gt;ZeroMQ&lt;/a&gt;.
+Something more aligned with the python way of doing things. And, to a certain degree,
+I have succeeded. However, I have never made a comprehensive effort to publicise
+&lt;a href=&#34;https://github.com/zmqless/python-zeroless&#34;&gt;Zeroless&lt;/a&gt; in any way so, in this post, I hope not only to explain how &lt;a href=&#34;https://github.com/zmqless/python-zeroless&#34;&gt;Zeroless&lt;/a&gt;
+differs from &lt;a href=&#34;https://github.com/zeromq/pyzmq&#34;&gt;PyZMQ&lt;/a&gt; but also to reach a greater audience, that may be as enthusiastic
+about &lt;a href=&#34;http://zeromq.org/&#34;&gt;ZeroMQ&lt;/a&gt; as myself. Therefore, without further ado, here goes some of the design
+decisions I have made for &lt;a href=&#34;https://github.com/zmqless/python-zeroless&#34;&gt;Zeroless&lt;/a&gt;:&lt;/p&gt;
+
+&lt;h5 id=&#34;tcp-only-for-the-win&#34;&gt;TCP only for the win&lt;/h5&gt;
+
+&lt;p&gt;Ok, I know PGM, INPROC and IPC have their use cases. PGM for instance provides a
+Publish/Subscribe specific transport, that scales better than TCP in the
+Publish/Subscribe use case, as it cut out the ACK flood publishers gets on
+every new message. There are also some extra reliability, that you also cannot
+find in TCP. IPC, on the other hand, is a pattern agnostic way of providing more
+efficient inter-process communication than traditional networking, but is Unix-like
+only. As for INPROC&amp;rsquo;s particular case, which efficient applicability is being
+hindered by the Python&amp;rsquo;s GIL, I do not see why bother with it.&lt;/p&gt;
+
+&lt;p&gt;Nevertheless, I have a feeling that the vast majority of the users, like myself,
+are quite good with just TCP. Which is exactly what you need when building really
+horizontally scalable networked services, especially in this time of a renewed
+vision for SOA, with microservices having a lot of attention. So let us just use
+TCP and free our minds to think about other matters.&lt;/p&gt;
+
+&lt;h5 id=&#34;no-more-contexts&#34;&gt;No more contexts&lt;/h5&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/zeromq/pyzmq&#34;&gt;PyZMQ&lt;/a&gt; applications require users to create a context, in order to instantiate
+sockets. Technically, a context serves as a container for all your sockets and
+usually one of it, per process, is just what you need. As a matter of fact, you
+could have more, but why bother your runtime with more event loops, for your
+socket stuff, when one suffices? Also, if you are using INPROC as transport,
+you may also need to share a context for the communication to happen. But again,
+if INPROC is is not that useful in Python as aforementioned, do we really need
+explicitly manage contexts?&lt;/p&gt;
+
+&lt;p&gt;Not at all, so that is why in &lt;a href=&#34;https://github.com/zmqless/python-zeroless&#34;&gt;Zeroless&lt;/a&gt; you just have to manage Clients, sockets
+that connect, and Servers, sockets that bind, without concerning yourself with
+contexts ;). For instance, in order to instantiate a client you would:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;client = Client()
+
+# You could use connect_local(port=12345) as well
+client.connect(ip=&#39;127.0.0.1&#39;, port=12345)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Similarly, for servers, you would:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;server = Server(port=12345) # No need to call bind here
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Finally, note that no real connect/bind will occur unless you instantiate a
+messaging pattern, which are the subject of our next topic.&lt;/p&gt;
+
+&lt;h5 id=&#34;like-a-factory-method-pattern&#34;&gt;Like a factory method pattern&lt;/h5&gt;
+
+&lt;p&gt;One thing I never liked about &lt;a href=&#34;https://github.com/zeromq/pyzmq&#34;&gt;PyZMQ&lt;/a&gt; sockets&amp;rsquo;s instantiation is that we have to call
+a method called socket, which receives an enum representing the type of the socket.
+Why don&amp;rsquo;t they just provide a separate method for every socket possible, like as if
+it was a factory method pattern kind of interface. That would allow a more
+straightforward experience for developers, that could then rely on their favourite
+IDE&amp;rsquo;s code complete to quickly understand what kind of sockets and parameters they
+could set. That enum approach, however, will probably make your users go to the
+documentation, but solely because of the way the &lt;a href=&#34;https://github.com/zeromq/pyzmq&#34;&gt;PyZMQ&lt;/a&gt;&amp;rsquo;s interface is.&lt;/p&gt;
+
+&lt;p&gt;In &lt;a href=&#34;https://github.com/zmqless/python-zeroless&#34;&gt;Zeroless&lt;/a&gt;, we fixed that, so you don&amp;rsquo;t need to check the documentation every
+time you want to instantiate a socket, instead just have a descent code complete
+support and you are done. For instance, compare how you would instantiate a
+publisher socket with &lt;a href=&#34;https://github.com/zmqless/python-zeroless&#34;&gt;Zeroless&lt;/a&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;pub = Server(port=12345).pub(topic=b&#39;&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h5 id=&#34;connections-awareness&#34;&gt;Connections awareness&lt;/h5&gt;
+
+&lt;p&gt;One of the questions you may ask is to whom your clients are connected to. And
+for that, &lt;a href=&#34;https://github.com/zeromq/pyzmq&#34;&gt;PyZMQ&lt;/a&gt; cannot help you. Unless you manage that list off connections by
+yourself, you wouldn&amp;rsquo;t be able to get it afterwards. Therefore, in &lt;a href=&#34;https://github.com/zmqless/python-zeroless&#34;&gt;Zeroless&lt;/a&gt;,
+we provide an addresses property, so that you can retrieve all your ip and port
+pairs as a list of tuples. But that is only for clients of course, as there is
+no way to know which sockets are connected to your server without building
+some sort of infrastructure for that yourself.&lt;/p&gt;
+
+&lt;h5 id=&#34;subscribe-should-not-be-tricky&#34;&gt;Subscribe should not be tricky&lt;/h5&gt;
+
+&lt;p&gt;In terms of interface, the subscribe case is particularly problematic in &lt;a href=&#34;https://github.com/zeromq/pyzmq&#34;&gt;PyZMQ&lt;/a&gt;.
+One must use the not so intuitive &lt;a href=&#34;https://zeromq.github.io/pyzmq/api/zmq.html#zmq.Context.setsockopt&#34;&gt;setsockopt()&lt;/a&gt; method, in
+order to define the topics it subscribes to. Like in the following snippet:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;socket = context.socket(zmq.SUB)
+socket.setsockopt(zmq.SUBSCRIBE, b&amp;quot;&amp;quot;) # Subscribe to all topics
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I believe most new &lt;a href=&#34;http://zeromq.org/&#34;&gt;ZeroMQ&lt;/a&gt;&amp;rsquo;s user get this wrong at first, as they supose no
+topic means you are subscribed to all topics, and keep asking himself/herself why
+that damn subscriber socket does not receives your published messages.&lt;/p&gt;
+
+&lt;p&gt;In &lt;a href=&#34;https://github.com/zmqless/python-zeroless&#34;&gt;Zeroless&lt;/a&gt;, we fixed that, so that you don&amp;rsquo;t have to instantiate your socket
+and set something as essential as a topic, in the subscribe case, via some kind
+of &amp;ldquo;obscure&amp;rdquo; method. Just compare how you would instantiate a subscriber socket
+with &lt;a href=&#34;https://github.com/zmqless/python-zeroless&#34;&gt;Zeroless&lt;/a&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;listen_for_pub = client.sub(topics=[b&#39;&#39;])
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h5 id=&#34;generators-and-high-order-functions-as-first-class-citizens&#34;&gt;Generators and high-order functions as first class citizens&lt;/h5&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/zeromq/pyzmq&#34;&gt;PyZMQ&lt;/a&gt; sockets tend to use &lt;a href=&#34;https://zeromq.github.io/pyzmq/api/zmq.html#zmq.Socket.send&#34;&gt;send()&lt;/a&gt; and &lt;a href=&#34;https://zeromq.github.io/pyzmq/api/zmq.html#zmq.Socket.recv&#34;&gt;recv()&lt;/a&gt; methods
+for the message exchange part. However, it always felt wrong to me to do stuff like:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;while True:
+    data = socket.recv()
+    # do something with data
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;That is, if Python has built-in support for iterables, or generators if you prefer,
+why don&amp;rsquo;t we just do something like:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;listen_for_push = Server(port=12345).pull()
+
+for data in listen_for_push:
+    # do something with data
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Way more idiomatic to read incoming messages that way, right? As for sending them,
+I also followed a different path.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;push = client.push()
+push(b&amp;quot;Msg1&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Therefore, in &lt;a href=&#34;https://github.com/zmqless/python-zeroless&#34;&gt;Zeroless&lt;/a&gt;, every time you instantiate a message pattern that is
+suposed to send messages, use it as a function. Otherwise, treat it as a generator.&lt;/p&gt;
+
+&lt;h5 id=&#34;multi-part-made-easy&#34;&gt;Multi-part made easy&lt;/h5&gt;
+
+&lt;p&gt;In &lt;a href=&#34;https://github.com/zeromq/pyzmq&#34;&gt;PyZMQ&lt;/a&gt;, if you want to send a multipart message, you have to use the
+&lt;a href=&#34;https://zeromq.github.io/pyzmq/api/zmq.html#zmq.Socket.recv_multipart&#34;&gt;recv_multipart()&lt;/a&gt; and &lt;a href=&#34;https://zeromq.github.io/pyzmq/api/zmq.html#zmq.Socket.send_multipart&#34;&gt;send_multipart()&lt;/a&gt;
+methods. Methods that instead of a single message, will deal with a list of them.
+In &lt;a href=&#34;https://github.com/zmqless/python-zeroless&#34;&gt;Zeroless&lt;/a&gt;, I favoured consistency for a quicker and easier learning path,
+therefore there is no difference between the singlepart and the multipart API.&lt;/p&gt;
+
+&lt;p&gt;If you want to send a multipart message, just consider that your send function have
+a printf like interface and you are set. So, for instance, if you want to send an
+id separated from your message body, you could:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;push = client.push()
+push(b&#39;1&#39;, b&#39;OK&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Additionally, if someone send you a multipart message, your generator will return a
+tuple with all of its parts. As a result of that, to get the message from the previous
+example you would need to:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;listen_for_push = Server(port=12345).pull()
+for id, msg in listen_for_push:
+    # do something with id and msg
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h5 id=&#34;the-future&#34;&gt;The future&lt;/h5&gt;
+
+&lt;p&gt;Although feature parity was never part of my plans, there still some of &lt;a href=&#34;https://github.com/zeromq/pyzmq&#34;&gt;PyZMQ&lt;/a&gt;&amp;rsquo;s
+functionalities I would like to provide in &lt;a href=&#34;https://github.com/zmqless/python-zeroless&#34;&gt;Zeroless&lt;/a&gt;. Like both &lt;a href=&#34;https://zeromq.github.io/pyzmq/api/zmq.html#poller&#34;&gt;poller&lt;/a&gt;
+and &lt;a href=&#34;https://zeromq.github.io/pyzmq/api/zmq.devices.html&#34;&gt;devices&lt;/a&gt; APIs, for instance. So expect more on the way o/. While
+that, if you felt compelled to help shape this project, please clone our &lt;a href=&#34;https://github.com/zmqless/python-zeroless.git&#34;&gt;repository&lt;/a&gt;
+and see our &lt;a href=&#34;http://python-zeroless.readthedocs.org/en/latest/development.html#contributing&#34;&gt;guidelines&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

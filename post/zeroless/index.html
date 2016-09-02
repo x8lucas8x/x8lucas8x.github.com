@@ -1,0 +1,724 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+    
+        
+            <title>Zeroless</title>
+        
+    
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content="Hugo 0.16" />
+    
+    
+        
+            <meta name="description" content="We copyleft">
+        
+    
+
+    
+
+  <meta name="twitter:card" content="summary"/>
+
+
+
+<meta name="twitter:title" content="Zeroless"/>
+<meta name="twitter:description" content="I have been an enthusiast of ZeroMQ for quite some time. If there was an opportunity that required some sockets on steroids, I would not think twice. Ah, how those three messaging pattern were useful (i.e. Request/Reply, Push/Pull, Publish/Subscribe). They had the amazing trait of being able to drastically streamline the development of distributed systems. And its portability, with wrappers for more than 30 languages, brokerlessness and amazing documentation made it a no brainer for me to favour ZeroMQ over other messaging alternatives."/>
+<meta name="twitter:site" content="@x8lucas8x"/>
+
+
+    <meta property="og:title" content="Zeroless" />
+<meta property="og:description" content="I have been an enthusiast of ZeroMQ for quite some time. If there was an opportunity that required some sockets on steroids, I would not think twice. Ah, how those three messaging pattern were useful (i.e. Request/Reply, Push/Pull, Publish/Subscribe). They had the amazing trait of being able to drastically streamline the development of distributed systems. And its portability, with wrappers for more than 30 languages, brokerlessness and amazing documentation made it a no brainer for me to favour ZeroMQ over other messaging alternatives." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/post/zeroless/" />
+
+
+<meta property="og:updated_time" content="2015-08-18T20:40:00&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+    
+<meta itemprop="name" content="Zeroless">
+<meta itemprop="description" content="I have been an enthusiast of ZeroMQ for quite some time. If there was an opportunity that required some sockets on steroids, I would not think twice. Ah, how those three messaging pattern were useful (i.e. Request/Reply, Push/Pull, Publish/Subscribe). They had the amazing trait of being able to drastically streamline the development of distributed systems. And its portability, with wrappers for more than 30 languages, brokerlessness and amazing documentation made it a no brainer for me to favour ZeroMQ over other messaging alternatives.">
+
+
+<meta itemprop="dateModified" content="2015-08-18T20:40:00&#43;00:00" />
+<meta itemprop="wordCount" content="1332">
+
+
+
+<meta itemprop="keywords" content="Code,Life,automation,blog,consumer-driven contracts,generators,golang,integration testing,ioe,iot,messaging,microservices,networking,pelican,publishing,python,pyzmq,soa,test doubles,zen,zeroless,zeromq," />
+
+    
+
+    
+    
+        
+    
+
+    
+    
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/monokai-sublime.css"> 
+    
+
+    
+        
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-66386613-1', 'auto');
+ga('send', 'pageview');
+</script>
+
+    
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.2.0/material.red-indigo.min.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+    <script defer src="https://code.getmdl.io/1.2.0/material.min.js"></script>
+</head>
+
+    <body>
+        <div class="mdl-layout mdl-js-layout">
+            
+            
+<header class="mdl-layout__header">
+    <div class="mdl-layout__header-row">
+        <a class="mdl-layout-title mdl-navigation__link" href="/">Lucas&#39; Refuge</a>
+        
+        <nav class="mdl-navigation">
+            
+            <a class="mdl-navigation__link" href="/categories">Categories</a> 
+            <a class="mdl-navigation__link" href="/tags">Tags</a> 
+            <a class="mdl-navigation__link" href="/contact">Contact</a> 
+        </nav>
+        
+        <div class="mdl-layout-spacer"></div>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable
+                  mdl-textfield--floating-label mdl-textfield--align-right">
+            <label class="mdl-button mdl-js-button mdl-button--icon" for="waterfall-exp">
+                <i class="material-icons">search</i>
+            </label>
+            <div class="mdl-textfield__expandable-holder">
+                <form action="//google.com/search" method="get" accept-charset="UTF-8">
+                <input class="mdl-textfield__input" id="waterfall-exp" name="q" type="search"/>
+                <input name="sitesearch" value="" type="hidden"/>
+                </form>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="mdl-layout__drawer">
+    <span class="mdl-layout-title">Lucas&#39; Refuge</span>
+    <span class="mdl-layout-title">Menu</span>
+
+    <nav class="mdl-navigation">
+        <a class="mdl-navigation__link" href="">Home</a>
+        
+            <a class="mdl-navigation__link" href="/categories">Categories</a>
+        
+            <a class="mdl-navigation__link" href="/tags">Tags</a>
+        
+            <a class="mdl-navigation__link" href="/contact">Contact</a>
+        
+    </nav>
+        <span class="mdl-layout-title">Newsletter</span>
+        <div class="mdl-grid">
+            <form action="http://x8lucas8x.us8.list-manage.com/subscribe?u=9df6482d825b354c5e8d36738&amp;id=6c7409d43e" method="post">
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type="submit">
+                    Subscribe
+                </button>
+            </form>
+        </div>
+</div>
+
+            
+            <main class="mdl-layout__content">
+                <header class="blog-header">
+    <h1>
+        <a class="blog-header__title" href="">Lucas&#39; Refuge</a>
+    </h1>
+    <section>
+        
+            <ul class="mdl-mega-footer__link-list list__horizontal">
+    
+
+    
+        <li>
+            <a href="//github.com/x8lucas8x" target="_blank" title="GitHub" class="fa fa-2x fa-github"></a>
+        </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <li>
+            <a href="//youtube.com/x8lucas8x" target="_blank" title="YouTube" class="fa fa-2x fa-youtube"></a>
+        </li>
+    
+
+    
+        <li>
+            <a href="//vimeo.com/x8lucas8x" target="_blank" title="Vimeo" class="fa fa-2x fa-vimeo"></a>
+        </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <li>
+            <a href="//linkedin.com/in/x8lucas8x" target="_blank" title="LinkedIn" class="fa fa-2x fa-linkedin"></a>
+        </li>
+    
+
+    
+        <li>
+            <a href="//slideshare.com/x8lucas8x" target="_blank" title="SlideShare" class="fa fa-2x fa-slideshare"></a>
+        </li>
+    
+
+    
+
+    
+        <li>
+            <a href="//reddit.com/user/x8lucas8x" target="_blank" title="Reddit" class="fa fa-2x fa-reddit"></a>
+        </li>
+    
+
+    
+
+    
+
+    
+        <li>
+            <a href="//facebook.com/x8lucas8x" target="_blank" title="Facebook" class="fa fa-2x fa-facebook"></a>
+        </li>
+    
+
+    
+        <li>
+            <a href="//twitter.com/x8lucas8x" target="_blank" title="Twitter" class="fa fa-2x fa-twitter"></a>
+        </li>
+    
+
+    
+        <li>
+            <a href="mailto:x8lucas8x@gmail.com" title="Email" class="fa fa-2x fa-envelope"></a>
+        </li>
+    
+</ul>
+
+        
+    </section>
+
+    
+        <h4 class="blog-header__subtitle">We copyleft</h4>
+    
+</header>
+
+
+                
+                    
+                    <div class="mdl-grid">
+                        <div class="mdl-cell mdl-cell--1-col"></div>
+                        <div class="mdl-card mdl-cell mdl-cell--10-col mdl-shadow--2dp">
+                            <div class="mdl-grid">
+                                <div class="mdl-cell mdl-cell--1-col"></div>
+                                <div class="mdl-cell mdl-cell--10-col">
+                                    <h1 class="mdl-card__title-text">
+    Zeroless
+</h1>
+                                    <h3 class="mdl-card__subtitle-text">
+    
+        Written by <strong>Lucas Lira Gomes</strong> at
+    
+    <time datetime="2015-08-18T20:40:00Z">
+        18 August 2015
+    </time>
+</h3>
+
+                                    <div class="mdl-card__supporting-text">
+                                    
+    <article align="justify">
+        <hr />
+
+<p>I have been an enthusiast of ZeroMQ for quite some time. If there was an opportunity
+that required some sockets on steroids, I would not think twice. Ah, how those three
+messaging pattern were useful (i.e. Request/Reply, Push/Pull, Publish/Subscribe).
+They had the amazing trait of being able to drastically streamline the development of
+distributed systems. And its portability, with wrappers for more than 30 languages,
+brokerlessness and amazing documentation made it a no brainer for me to favour ZeroMQ
+over other messaging alternatives.</p>
+
+<p>Using <a href="http://zeromq.org/">ZeroMQ</a> in Python with <a href="https://github.com/zeromq/pyzmq">PyZMQ</a>, however, always made me feel like I&rsquo;m coding in
+C/C++, which I also love by the way. Unfortunately, that lack of <a href="https://github.com/zeromq/pyzmq">PyZMQ</a> API&rsquo;s, if I
+may say, &ldquo;pythonicity&rdquo;, just felt wrong to me. And by the end of last January, I
+decided to do something about it. So that is how <a href="https://github.com/zmqless/python-zeroless">Zeroless</a> was born.</p>
+
+<p>My mission was to leverage on <a href="https://github.com/zeromq/pyzmq">PyZMQ</a> to build a more elegant wrapper for <a href="http://zeromq.org/">ZeroMQ</a>.
+Something more aligned with the python way of doing things. And, to a certain degree,
+I have succeeded. However, I have never made a comprehensive effort to publicise
+<a href="https://github.com/zmqless/python-zeroless">Zeroless</a> in any way so, in this post, I hope not only to explain how <a href="https://github.com/zmqless/python-zeroless">Zeroless</a>
+differs from <a href="https://github.com/zeromq/pyzmq">PyZMQ</a> but also to reach a greater audience, that may be as enthusiastic
+about <a href="http://zeromq.org/">ZeroMQ</a> as myself. Therefore, without further ado, here goes some of the design
+decisions I have made for <a href="https://github.com/zmqless/python-zeroless">Zeroless</a>:</p>
+
+<h5 id="tcp-only-for-the-win">TCP only for the win</h5>
+
+<p>Ok, I know PGM, INPROC and IPC have their use cases. PGM for instance provides a
+Publish/Subscribe specific transport, that scales better than TCP in the
+Publish/Subscribe use case, as it cut out the ACK flood publishers gets on
+every new message. There are also some extra reliability, that you also cannot
+find in TCP. IPC, on the other hand, is a pattern agnostic way of providing more
+efficient inter-process communication than traditional networking, but is Unix-like
+only. As for INPROC&rsquo;s particular case, which efficient applicability is being
+hindered by the Python&rsquo;s GIL, I do not see why bother with it.</p>
+
+<p>Nevertheless, I have a feeling that the vast majority of the users, like myself,
+are quite good with just TCP. Which is exactly what you need when building really
+horizontally scalable networked services, especially in this time of a renewed
+vision for SOA, with microservices having a lot of attention. So let us just use
+TCP and free our minds to think about other matters.</p>
+
+<h5 id="no-more-contexts">No more contexts</h5>
+
+<p><a href="https://github.com/zeromq/pyzmq">PyZMQ</a> applications require users to create a context, in order to instantiate
+sockets. Technically, a context serves as a container for all your sockets and
+usually one of it, per process, is just what you need. As a matter of fact, you
+could have more, but why bother your runtime with more event loops, for your
+socket stuff, when one suffices? Also, if you are using INPROC as transport,
+you may also need to share a context for the communication to happen. But again,
+if INPROC is is not that useful in Python as aforementioned, do we really need
+explicitly manage contexts?</p>
+
+<p>Not at all, so that is why in <a href="https://github.com/zmqless/python-zeroless">Zeroless</a> you just have to manage Clients, sockets
+that connect, and Servers, sockets that bind, without concerning yourself with
+contexts ;). For instance, in order to instantiate a client you would:</p>
+
+<pre><code class="language-python">client = Client()
+
+# You could use connect_local(port=12345) as well
+client.connect(ip='127.0.0.1', port=12345)
+</code></pre>
+
+<p>Similarly, for servers, you would:</p>
+
+<pre><code class="language-python">server = Server(port=12345) # No need to call bind here
+</code></pre>
+
+<p>Finally, note that no real connect/bind will occur unless you instantiate a
+messaging pattern, which are the subject of our next topic.</p>
+
+<h5 id="like-a-factory-method-pattern">Like a factory method pattern</h5>
+
+<p>One thing I never liked about <a href="https://github.com/zeromq/pyzmq">PyZMQ</a> sockets&rsquo;s instantiation is that we have to call
+a method called socket, which receives an enum representing the type of the socket.
+Why don&rsquo;t they just provide a separate method for every socket possible, like as if
+it was a factory method pattern kind of interface. That would allow a more
+straightforward experience for developers, that could then rely on their favourite
+IDE&rsquo;s code complete to quickly understand what kind of sockets and parameters they
+could set. That enum approach, however, will probably make your users go to the
+documentation, but solely because of the way the <a href="https://github.com/zeromq/pyzmq">PyZMQ</a>&rsquo;s interface is.</p>
+
+<p>In <a href="https://github.com/zmqless/python-zeroless">Zeroless</a>, we fixed that, so you don&rsquo;t need to check the documentation every
+time you want to instantiate a socket, instead just have a descent code complete
+support and you are done. For instance, compare how you would instantiate a
+publisher socket with <a href="https://github.com/zmqless/python-zeroless">Zeroless</a>:</p>
+
+<pre><code class="language-python">pub = Server(port=12345).pub(topic=b'')
+</code></pre>
+
+<h5 id="connections-awareness">Connections awareness</h5>
+
+<p>One of the questions you may ask is to whom your clients are connected to. And
+for that, <a href="https://github.com/zeromq/pyzmq">PyZMQ</a> cannot help you. Unless you manage that list off connections by
+yourself, you wouldn&rsquo;t be able to get it afterwards. Therefore, in <a href="https://github.com/zmqless/python-zeroless">Zeroless</a>,
+we provide an addresses property, so that you can retrieve all your ip and port
+pairs as a list of tuples. But that is only for clients of course, as there is
+no way to know which sockets are connected to your server without building
+some sort of infrastructure for that yourself.</p>
+
+<h5 id="subscribe-should-not-be-tricky">Subscribe should not be tricky</h5>
+
+<p>In terms of interface, the subscribe case is particularly problematic in <a href="https://github.com/zeromq/pyzmq">PyZMQ</a>.
+One must use the not so intuitive <a href="https://zeromq.github.io/pyzmq/api/zmq.html#zmq.Context.setsockopt">setsockopt()</a> method, in
+order to define the topics it subscribes to. Like in the following snippet:</p>
+
+<pre><code class="language-python">socket = context.socket(zmq.SUB)
+socket.setsockopt(zmq.SUBSCRIBE, b&quot;&quot;) # Subscribe to all topics
+</code></pre>
+
+<p>I believe most new <a href="http://zeromq.org/">ZeroMQ</a>&rsquo;s user get this wrong at first, as they supose no
+topic means you are subscribed to all topics, and keep asking himself/herself why
+that damn subscriber socket does not receives your published messages.</p>
+
+<p>In <a href="https://github.com/zmqless/python-zeroless">Zeroless</a>, we fixed that, so that you don&rsquo;t have to instantiate your socket
+and set something as essential as a topic, in the subscribe case, via some kind
+of &ldquo;obscure&rdquo; method. Just compare how you would instantiate a subscriber socket
+with <a href="https://github.com/zmqless/python-zeroless">Zeroless</a>:</p>
+
+<pre><code class="language-python">listen_for_pub = client.sub(topics=[b''])
+</code></pre>
+
+<h5 id="generators-and-high-order-functions-as-first-class-citizens">Generators and high-order functions as first class citizens</h5>
+
+<p><a href="https://github.com/zeromq/pyzmq">PyZMQ</a> sockets tend to use <a href="https://zeromq.github.io/pyzmq/api/zmq.html#zmq.Socket.send">send()</a> and <a href="https://zeromq.github.io/pyzmq/api/zmq.html#zmq.Socket.recv">recv()</a> methods
+for the message exchange part. However, it always felt wrong to me to do stuff like:</p>
+
+<pre><code class="language-python">while True:
+    data = socket.recv()
+    # do something with data
+</code></pre>
+
+<p>That is, if Python has built-in support for iterables, or generators if you prefer,
+why don&rsquo;t we just do something like:</p>
+
+<pre><code class="language-python">listen_for_push = Server(port=12345).pull()
+
+for data in listen_for_push:
+    # do something with data
+</code></pre>
+
+<p>Way more idiomatic to read incoming messages that way, right? As for sending them,
+I also followed a different path.</p>
+
+<pre><code class="language-python">push = client.push()
+push(b&quot;Msg1&quot;)
+</code></pre>
+
+<p>Therefore, in <a href="https://github.com/zmqless/python-zeroless">Zeroless</a>, every time you instantiate a message pattern that is
+suposed to send messages, use it as a function. Otherwise, treat it as a generator.</p>
+
+<h5 id="multi-part-made-easy">Multi-part made easy</h5>
+
+<p>In <a href="https://github.com/zeromq/pyzmq">PyZMQ</a>, if you want to send a multipart message, you have to use the
+<a href="https://zeromq.github.io/pyzmq/api/zmq.html#zmq.Socket.recv_multipart">recv_multipart()</a> and <a href="https://zeromq.github.io/pyzmq/api/zmq.html#zmq.Socket.send_multipart">send_multipart()</a>
+methods. Methods that instead of a single message, will deal with a list of them.
+In <a href="https://github.com/zmqless/python-zeroless">Zeroless</a>, I favoured consistency for a quicker and easier learning path,
+therefore there is no difference between the singlepart and the multipart API.</p>
+
+<p>If you want to send a multipart message, just consider that your send function have
+a printf like interface and you are set. So, for instance, if you want to send an
+id separated from your message body, you could:</p>
+
+<pre><code class="language-python">push = client.push()
+push(b'1', b'OK')
+</code></pre>
+
+<p>Additionally, if someone send you a multipart message, your generator will return a
+tuple with all of its parts. As a result of that, to get the message from the previous
+example you would need to:</p>
+
+<pre><code class="language-python">listen_for_push = Server(port=12345).pull()
+for id, msg in listen_for_push:
+    # do something with id and msg
+</code></pre>
+
+<h5 id="the-future">The future</h5>
+
+<p>Although feature parity was never part of my plans, there still some of <a href="https://github.com/zeromq/pyzmq">PyZMQ</a>&rsquo;s
+functionalities I would like to provide in <a href="https://github.com/zmqless/python-zeroless">Zeroless</a>. Like both <a href="https://zeromq.github.io/pyzmq/api/zmq.html#poller">poller</a>
+and <a href="https://zeromq.github.io/pyzmq/api/zmq.devices.html">devices</a> APIs, for instance. So expect more on the way o/. While
+that, if you felt compelled to help shape this project, please clone our <a href="https://github.com/zmqless/python-zeroless.git">repository</a>
+and see our <a href="http://python-zeroless.readthedocs.org/en/latest/development.html#contributing">guidelines</a>.
+    </article>
+
+    <div align="center">
+        <div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--6-col">
+        <a id="previous-post" class="mdl-button mdl-js-button mdl-button--primary"
+             href="/post/moving-to-pelican/" >
+            Previous Post
+        </a>
+
+        
+            <div class="mdl-tooltip" data-mdl-for="previous-post">
+                Moving to Pelican
+            </div>
+        
+    </div>
+    <div class="mdl-cell mdl-cell--6-col">
+        <a id="next-post" class="mdl-button mdl-js-button mdl-button--primary"
+         href="/post/connected-but-still-not-interoperable/" >
+            Next Post
+        </a>
+
+        
+            <div class="mdl-tooltip" data-mdl-for="next-post">
+                Connected, but still not interoperable
+            </div>
+        
+    </div>
+</div>
+
+    </div>
+
+                                </div>
+                                </div>
+                                <div class="mdl-cell mdl-cell--1-col"></div>
+                            </div>
+                            <div id="menu-share" class="mdl-card__menu">
+    <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+        <i class="material-icons">share</i>
+    </button>
+    
+<div class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="menu-share">
+    
+    <a class="mdl-menu__item" href="//twitter.com/share?url=%2fpost%2fzeroless%2f&text=Zeroless&via=x8lucas8x" target="_blank" class="share-btn twitter">
+        <i class="fa fa-twitter"></i>
+        <span>Twitter</span>
+    </a>
+
+    
+    <a class="mdl-menu__item" href="//plus.google.com/share?url=%2fpost%2fzeroless%2f" target="_blank" class="share-btn google-plus">
+        <i class="fa fa-google-plus"></i>
+        <span>Google+</span>
+    </a>
+
+    
+    <a class="mdl-menu__item" href="//www.facebook.com/sharer/sharer.php?u=%2fpost%2fzeroless%2f" target="_blank" class="share-btn facebook">
+        <i class="fa fa-facebook"></i>
+        <span>Facebook</span>
+    </a>
+
+    
+    <a class="mdl-menu__item" href="//reddit.com/submit?url=%2fpost%2fzeroless%2f&title=Zeroless" target="_blank" class="share-btn reddit">
+        <i class="fa fa-reddit-alien"></i>
+        <span>Reddit</span>
+    </a>
+
+    
+    <a class="mdl-menu__item" href="//www.linkedin.com/shareArticle?url=%2fpost%2fzeroless%2f&title=Zeroless" target="_blank" class="share-btn linkedin">
+        <i class="fa fa-linkedin"></i>
+        <span>LinkedIn</span>
+    </a>
+
+    
+    <a class="mdl-menu__item" href="//www.stumbleupon.com/submit?url=%2fpost%2fzeroless%2f&title=Zeroless" target="_blank" class="share-btn stumbleupon">
+        <i class="fa fa-stumbleupon"></i>
+        <span>StumbleUpon</span>
+    </a>
+
+    
+    <a class="mdl-menu__item" href="mailto:?subject=Check out this post by &body=%2fpost%2fzeroless%2f" target="_blank" class="share-btn email">
+        <i class="fa fa-envelope"></i>
+        <span>Email</span>
+    </a>
+</div>
+
+</div>
+
+                        </div>
+                        <div class="mdl-cell mdl-cell--1-col"></div>
+                    </div>
+                
+
+                
+    <div class="mdl-grid">
+        <div class="mdl-cell mdl-cell--1-col"></div>
+        <div class="mdl-card mdl-cell mdl-cell--10-col mdl-shadow--2dp">
+            <div>
+                <div class="mdl-grid">
+                    <div class="mdl-cell mdl-cell--1-col"></div>
+                    <div class="mdl-card mdl-cell mdl-cell--10-col">
+                        
+                            <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'lucasrefuge';
+    var disqus_identifier = '\/post\/zeroless\/';
+    var disqus_title = 'Zeroless';
+    var disqus_url = '\/post\/zeroless\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+                        
+                    </div>
+
+                    <div class="mdl-cell mdl-cell--1-col"></div>
+                </div>
+
+                <div class="mdl-cell mdl-cell--1-col"></div>
+            </div>
+        </div>
+    </div>
+
+
+                
+<footer class="mdl-mini-footer mdl-color--grey-800" style="justify-content:center;">
+    <div align="center">
+        <p>You can find me on</p>
+
+        <ul class="mdl-mega-footer__link-list list__horizontal">
+    
+
+    
+        <li>
+            <a href="//github.com/x8lucas8x" target="_blank" title="GitHub" class="fa fa-2x fa-github"></a>
+        </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <li>
+            <a href="//youtube.com/x8lucas8x" target="_blank" title="YouTube" class="fa fa-2x fa-youtube"></a>
+        </li>
+    
+
+    
+        <li>
+            <a href="//vimeo.com/x8lucas8x" target="_blank" title="Vimeo" class="fa fa-2x fa-vimeo"></a>
+        </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <li>
+            <a href="//linkedin.com/in/x8lucas8x" target="_blank" title="LinkedIn" class="fa fa-2x fa-linkedin"></a>
+        </li>
+    
+
+    
+        <li>
+            <a href="//slideshare.com/x8lucas8x" target="_blank" title="SlideShare" class="fa fa-2x fa-slideshare"></a>
+        </li>
+    
+
+    
+
+    
+        <li>
+            <a href="//reddit.com/user/x8lucas8x" target="_blank" title="Reddit" class="fa fa-2x fa-reddit"></a>
+        </li>
+    
+
+    
+
+    
+
+    
+        <li>
+            <a href="//facebook.com/x8lucas8x" target="_blank" title="Facebook" class="fa fa-2x fa-facebook"></a>
+        </li>
+    
+
+    
+        <li>
+            <a href="//twitter.com/x8lucas8x" target="_blank" title="Twitter" class="fa fa-2x fa-twitter"></a>
+        </li>
+    
+
+    
+        <li>
+            <a href="mailto:x8lucas8x@gmail.com" title="Email" class="fa fa-2x fa-envelope"></a>
+        </li>
+    
+</ul>
+
+    </div>
+</footer>
+
+<footer class="mdl-mega-footer mdl-color--grey-900">
+    <div class="mdl-mega-footer__bottom-section">
+        <div class="mdl-logo">Lucas&#39; Refuge</div>
+        <div class="mdl-mega-footer__left-section">
+            <ul class="mdl-mega-footer__link-list">
+                
+                    <div>We copyleft</div>
+                
+                <div>Design by <a class="mdl-mega-footer__link" href="//github.com/x8lucas8x" target="_blank">Lucas Lira Gomes</a></div>
+                <div>Powered by <a href="//gohugo.io" target="_blank">Hugo</a></div>
+            </ul>
+        </div>
+        <div class="mdl-mega-footer__right-section">
+				<a itemprop="license"
+				   href="http://creativecommons.org/licenses/by-nc-sa/4.0"
+				   title="Lucas&#39; Refuge by Lucas Lira Gomes is licensed under a Creative Commons International License"
+				   target="_blank"
+				   rel="nofollow">
+					<img src="http://mirrors.creativecommons.org/presskit/icons/cc.svg" style="text-align: center;" />
+				</a>
+        </div>
+    </div>
+
+    
+    
+        
+    
+
+    
+</footer>
+
+            </main>
+        </div>
+    </body>
+</html>

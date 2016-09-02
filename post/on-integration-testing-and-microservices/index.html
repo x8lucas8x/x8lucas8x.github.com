@@ -1,0 +1,675 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+    
+        
+            <title>On Integration Testing and Microservices</title>
+        
+    
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content="Hugo 0.16" />
+    
+    
+        
+            <meta name="description" content="We copyleft">
+        
+    
+
+    
+
+  <meta name="twitter:card" content="summary"/>
+
+
+
+<meta name="twitter:title" content="On Integration Testing and Microservices"/>
+<meta name="twitter:description" content="Some weeks ago I was asked how to properly do integration testing in a microservices environment. At that time, I was aware that testing basic behaviour with integration tests was not a smart move. Guaranteeing compatibility among services&rsquo; interfaces, however, was something I could see the value of. The dos and don&rsquo;ts, in such effort, were not familiar to me, though. Therefore, I decided to dive in and find some answers."/>
+<meta name="twitter:site" content="@x8lucas8x"/>
+
+
+    <meta property="og:title" content="On Integration Testing and Microservices" />
+<meta property="og:description" content="Some weeks ago I was asked how to properly do integration testing in a microservices environment. At that time, I was aware that testing basic behaviour with integration tests was not a smart move. Guaranteeing compatibility among services&rsquo; interfaces, however, was something I could see the value of. The dos and don&rsquo;ts, in such effort, were not familiar to me, though. Therefore, I decided to dive in and find some answers." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/post/on-integration-testing-and-microservices/" />
+
+
+<meta property="og:updated_time" content="2015-10-18T20:40:00&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+    
+<meta itemprop="name" content="On Integration Testing and Microservices">
+<meta itemprop="description" content="Some weeks ago I was asked how to properly do integration testing in a microservices environment. At that time, I was aware that testing basic behaviour with integration tests was not a smart move. Guaranteeing compatibility among services&rsquo; interfaces, however, was something I could see the value of. The dos and don&rsquo;ts, in such effort, were not familiar to me, though. Therefore, I decided to dive in and find some answers.">
+
+
+<meta itemprop="dateModified" content="2015-10-18T20:40:00&#43;00:00" />
+<meta itemprop="wordCount" content="1526">
+
+
+
+<meta itemprop="keywords" content="Code,Life,automation,blog,consumer-driven contracts,generators,golang,integration testing,ioe,iot,messaging,microservices,networking,pelican,publishing,python,pyzmq,soa,test doubles,zen,zeroless,zeromq," />
+
+    
+
+    
+    
+        
+    
+
+    
+    
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/monokai-sublime.css"> 
+    
+
+    
+        
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-66386613-1', 'auto');
+ga('send', 'pageview');
+</script>
+
+    
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.2.0/material.red-indigo.min.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+    <script defer src="https://code.getmdl.io/1.2.0/material.min.js"></script>
+</head>
+
+    <body>
+        <div class="mdl-layout mdl-js-layout">
+            
+            
+<header class="mdl-layout__header">
+    <div class="mdl-layout__header-row">
+        <a class="mdl-layout-title mdl-navigation__link" href="/">Lucas&#39; Refuge</a>
+        
+        <nav class="mdl-navigation">
+            
+            <a class="mdl-navigation__link" href="/categories">Categories</a> 
+            <a class="mdl-navigation__link" href="/tags">Tags</a> 
+            <a class="mdl-navigation__link" href="/contact">Contact</a> 
+        </nav>
+        
+        <div class="mdl-layout-spacer"></div>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable
+                  mdl-textfield--floating-label mdl-textfield--align-right">
+            <label class="mdl-button mdl-js-button mdl-button--icon" for="waterfall-exp">
+                <i class="material-icons">search</i>
+            </label>
+            <div class="mdl-textfield__expandable-holder">
+                <form action="//google.com/search" method="get" accept-charset="UTF-8">
+                <input class="mdl-textfield__input" id="waterfall-exp" name="q" type="search"/>
+                <input name="sitesearch" value="" type="hidden"/>
+                </form>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="mdl-layout__drawer">
+    <span class="mdl-layout-title">Lucas&#39; Refuge</span>
+    <span class="mdl-layout-title">Menu</span>
+
+    <nav class="mdl-navigation">
+        <a class="mdl-navigation__link" href="">Home</a>
+        
+            <a class="mdl-navigation__link" href="/categories">Categories</a>
+        
+            <a class="mdl-navigation__link" href="/tags">Tags</a>
+        
+            <a class="mdl-navigation__link" href="/contact">Contact</a>
+        
+    </nav>
+        <span class="mdl-layout-title">Newsletter</span>
+        <div class="mdl-grid">
+            <form action="http://x8lucas8x.us8.list-manage.com/subscribe?u=9df6482d825b354c5e8d36738&amp;id=6c7409d43e" method="post">
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type="submit">
+                    Subscribe
+                </button>
+            </form>
+        </div>
+</div>
+
+            
+            <main class="mdl-layout__content">
+                <header class="blog-header">
+    <h1>
+        <a class="blog-header__title" href="">Lucas&#39; Refuge</a>
+    </h1>
+    <section>
+        
+            <ul class="mdl-mega-footer__link-list list__horizontal">
+    
+
+    
+        <li>
+            <a href="//github.com/x8lucas8x" target="_blank" title="GitHub" class="fa fa-2x fa-github"></a>
+        </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <li>
+            <a href="//youtube.com/x8lucas8x" target="_blank" title="YouTube" class="fa fa-2x fa-youtube"></a>
+        </li>
+    
+
+    
+        <li>
+            <a href="//vimeo.com/x8lucas8x" target="_blank" title="Vimeo" class="fa fa-2x fa-vimeo"></a>
+        </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <li>
+            <a href="//linkedin.com/in/x8lucas8x" target="_blank" title="LinkedIn" class="fa fa-2x fa-linkedin"></a>
+        </li>
+    
+
+    
+        <li>
+            <a href="//slideshare.com/x8lucas8x" target="_blank" title="SlideShare" class="fa fa-2x fa-slideshare"></a>
+        </li>
+    
+
+    
+
+    
+        <li>
+            <a href="//reddit.com/user/x8lucas8x" target="_blank" title="Reddit" class="fa fa-2x fa-reddit"></a>
+        </li>
+    
+
+    
+
+    
+
+    
+        <li>
+            <a href="//facebook.com/x8lucas8x" target="_blank" title="Facebook" class="fa fa-2x fa-facebook"></a>
+        </li>
+    
+
+    
+        <li>
+            <a href="//twitter.com/x8lucas8x" target="_blank" title="Twitter" class="fa fa-2x fa-twitter"></a>
+        </li>
+    
+
+    
+        <li>
+            <a href="mailto:x8lucas8x@gmail.com" title="Email" class="fa fa-2x fa-envelope"></a>
+        </li>
+    
+</ul>
+
+        
+    </section>
+
+    
+        <h4 class="blog-header__subtitle">We copyleft</h4>
+    
+</header>
+
+
+                
+                    
+                    <div class="mdl-grid">
+                        <div class="mdl-cell mdl-cell--1-col"></div>
+                        <div class="mdl-card mdl-cell mdl-cell--10-col mdl-shadow--2dp">
+                            <div class="mdl-grid">
+                                <div class="mdl-cell mdl-cell--1-col"></div>
+                                <div class="mdl-cell mdl-cell--10-col">
+                                    <h1 class="mdl-card__title-text">
+    On Integration Testing and Microservices
+</h1>
+                                    <h3 class="mdl-card__subtitle-text">
+    
+        Written by <strong>Lucas Lira Gomes</strong> at
+    
+    <time datetime="2015-10-18T20:40:00Z">
+        18 October 2015
+    </time>
+</h3>
+
+                                    <div class="mdl-card__supporting-text">
+                                    
+    <article align="justify">
+        <hr />
+
+<p>Some weeks ago I was asked how to properly do integration testing in a
+microservices environment. At that time, I was aware that testing basic
+behaviour with integration tests was not a smart move. Guaranteeing
+compatibility among services&rsquo; interfaces, however, was something I could
+see the value of. The dos and don&rsquo;ts, in such effort, were not familiar
+to me, though. Therefore, I decided to dive in and find some answers.</p>
+
+<p>To begin with, higher level (e.g. end-to-end, integration) testing lacks several
+benefits of unit testing, many of which we have come to value as an industry. On
+the other hand, not all bugs are apparent at an unit level. They could also
+happen on the wiring between components or even in those off-the-shelf solutions
+that you employed to speed up your development. Yet you often heard the agile
+community endorsing unit tests as the backbone of a solid testing strategy. People
+like <a href="https://twitter.com/mikewcohn">@mikewcohn</a>, who established the initial model of the <a href="http://martinfowler.com/bliki/TestPyramid.html">testing pyramid</a>, were
+key in developing the notion that the ratio of a particular kind of test, in your
+test suite, should be inversely proportional to the degree of granularity of the
+tested scope. Principle that helps a solid test suite to be built in the most
+cost-effective way. And beware, since going in the opposite direction may result
+in an instance of the <a href="http://watirmelon.com/2012/01/31/introducing-the-software-testing-ice-cream-cone/">ice cream cone</a> anti pattern. So, even though you certainly
+could find several definitions for the properties of good unit tests out there,
+those roughly translate to:</p>
+
+<ul>
+<li>Fast</li>
+<li>Automated</li>
+<li>Isolated</li>
+<li>Informative</li>
+<li>Idempotent</li>
+</ul>
+
+<p>The first one is easy to explain, as long-running tests are the easiest way to make
+programmers develop the bad habit of avoid running tests frequently. And, if that
+happens, what is the point anyway? Automated since the intention is to facilitate
+adoption, not making people do repetitive work. Isolated because they should not
+overlap, otherwise you would have more places to look for when something fails.
+Informative, because the context of the failure should be explicit. Yep, you probably
+do not want people to analyse your test&rsquo;s source so that they can understand what
+went wrong. Finally, idempotency implies that they should behave the same, no matter
+which order or how many times they were run. Believe me, tests that randomly fail
+are a recipe for madness. They are worse than no tests at all, as they undermine
+developers&rsquo; trust in their test suite.</p>
+
+<p>So, how do those properties apply to higher level (e.g. end-to-end, integration)
+testing. First, they are not as fast as unit tests. Especially if you are testing
+two <a href="http://martinfowler.com/articles/microservices.html">microservices</a>, process that would involve exchanging some packets over the
+network (latency sucks :/). They are not idempotent too, as there are many ways
+they could go wrong. Units that rely in global state (e.g. singleton pattern)
+can also suffer from that unpredictability, but a proper use of dependency
+injection can fix the problem. As for lost packets, network partition, good luck
+with it. Informative, well, you know something in between a set of components/services
+is not working well. Isolated? Nope, even though you can be cautious enough to avoid
+chatty components/services, one bug in one of them and you would suddenly find
+yourself in a situation in which every code path along the way fail. But hey, they
+could be automated.</p>
+
+<p>Did you find my point of view a bit extreme? Then try <a href="https://twitter.com/jbrains">@jbrains</a> amazing talk titled
+<a href="https://vimeo.com/80533536">Integrated Tests Are a Scam</a>. Seriously, if you want to laugh a bit with integrated
+tests&rsquo; infamous positive feedback loop of negative emotions, watch it. Additionally,
+a written equivalent of it is available on <a href="http://www.jbrains.ca/permalink/integrated-tests-are-a-scam-part-1">Integrated Tests are a Scam: Part 1</a>. In
+the aforementioned talk, <a href="https://twitter.com/jbrains">@jbrains</a> shows how the promises of high level testing
+lures developers into favouring writing more tests of the same kind that, at the end,
+would provide very few coverage. Due to the combinatorial explosion of required tests,
+needed for the continuously increasing code paths. Instead, he advocates that we should
+spend our time with worthwhile tests. By worthwhile he means tests that help assessing
+the quality of our architecture, allowing us to improve its design in the long run.
+Position that is understandable, since he is a test-driven development (TDD) practitioner.
+After all, TDD is not about testing, it is about design. As for the tests, they are solely
+a pleasant by-product.</p>
+
+<p>In <a href="http://www.jbrains.ca/permalink/part-2-some-hidden-costs-of-integration-tests">Part 2: Some Hidden Costs of Integration Tests</a>, he also discusses about an important
+side-effect of slow tests, they destroy developers&rsquo; productivity. Waiting for a few seconds
+is OK, but it is not rare to find tests suites that take ten minutes or more. Unfortunately,
+one cannot simply return to him/her peak performance right after such a long interruption.
+In <a href="http://www.jbrains.ca/permalink/part-3-the-risks-associated-with-lengthy-tests">Part 3: The risks associated with lengthy tests</a>, the focus changes to the insidious
+consequences of frequent false alerts, given the lack of isolation when things fail. And
+with less trust in the test suite, a fear of change starts to evolve among developers.
+Individuals that tend to justify their behaviour by mentioning an old engineering saying
+<em>&ldquo;If it works, why change it?&rdquo;</em>. Rationale that will ultimately lead to an architectural
+stagnation and to high interest rates in the form of <a href="http://martinfowler.com/bliki/TechnicalDebt.html">technical debt</a>. Quite the contrary
+to what you expected when you got bought into the practice of <a href="http://martinfowler.com/bliki/SelfTestingCode.html">self testing code</a>, right?</p>
+
+<p>But do not get him wrong, his disregard for integration testing limits itself to cases
+in which they are used for assessing basic correctness. Role that is better suited to
+unit tests, in the first place. In <a href="http://www.jbrains.ca/permalink/using-integration-tests-mindfully-a-case-study">Using integration tests mindfully: a case study</a>, for
+instance, he does see a value in employing integration tests for identifying system-level
+issues like broken database schema, mistaken cache integration, and more complex problems.
+That is, using integration tests to check the presence of a expected feature, is perfectly
+fine.</p>
+
+<p>Still, in <a href="https://vimeo.com/80533536">Integrated Tests Are a Scam</a>, <a href="https://twitter.com/jbrains">@jbrains</a> proposes an alternative for testing the
+interaction between components without resorting to integration testing. He suggests
+combining collaboration and contract tests. Collaboration tests are a well known practice,
+often named as <a href="http://martinfowler.com/bliki/TestDouble.html">test doubles</a>. More specifically, stubs are the the kind of doubles we
+are interested in. Stubs tend to mimic others&rsquo; interfaces, but instead of doing real work,
+they return pre-computed results. Behaviour that is really useful when non-deterministic
+or slow operations (e.g. IO) are at stake, as we can employ fast and predictable unit-like
+tests to achieve a similar end. As for contract tests, they check the format of an
+component/service response, not its data. So, in the case of <a href="http://martinfowler.com/articles/microservices.html">microservices</a>, you would
+be testing if the outcome of a particular call has the fields you expected and if so,
+whether they comply with your use cases. Similarly, <a href="https://twitter.com/martinfowler">@martinfowler</a> also see the combination
+of stubs and contract tests as a good way to tackle the slowness and unreliability of
+integration tests, as stated in <a href="http://martinfowler.com/bliki/IntegrationContractTest.html">integration contract test</a>.</p>
+
+<p>One challenge though is that testing against a double does not guarantee that the external
+component/service is being accurately represented. And even if so, future changes would
+require the double to be updated accordingly. One alternative to streamline the updates of
+stubs would be what <a href="https://twitter.com/martinfowler">@martinfowler</a> calls <a href="http://martinfowler.com/bliki/SelfInitializingFake.html">self initialising fakes</a>. Similarly, contract
+testing also suffers from the same synchronisation burden, however <a href="http://martinfowler.com/bliki/SelfInitializingFake.html">self initialising fakes</a>
+cannot help contract tests in the same manner. Additionally, there is also the possibility of
+contracts and stubs getting out of sync. Problem that could be mitigated by a shared metadata
+file or data structure that specifies available calls and what should be received in response,
+so that you do not have to concern yourself with it.</p>
+
+<p>To reduce the odds of getting out of sync, therefore breaking your test cases, or even
+worse, being misled by passing tests that should have failed, it is recommended to adopt
+a consumer-driven contract approach. In <a href="http://martinfowler.com/articles/consumerDrivenContracts.html">Consumer-Driven Contracts: A Service Evolution
+Pattern</a>, the concept is explained in a relatively implementation agnostic fashion. In a
+nutshell, consumer-driven contracts are a means of applying &ldquo;just enough&rdquo; validation, as
+proposed by <a href="https://en.wikipedia.org/wiki/Robustness_principle">John Postel&rsquo;s Law</a>, which puts the responsibility to specify what the service
+provider must comply on the clients. The service provider must then check the union of
+its consumers&rsquo; expectations, in order to verify that there were no regressions. Additionally,
+that approach has some notable design advantages. First, it facilitates evolving your
+interface, as you wouldn&rsquo;t have to rely on schema extension points for adding new fields
+to your messages. Second, since what is consumed is explicitly stated, deprecating a field
+that nobody is using is way easier.</p>
+
+<p>Fortunately, the usefulness of mixing stubs and consumer-driven contract tests have led
+to the development of frameworks such as <a href="https://github.com/realestate-com-au/pact">Pact</a> and <a href="https://thoughtworks.github.io/pacto/">Pacto</a>, both written in Ruby. More
+importantly, they facilitate your stubs and contract tests to be in sync. Personally, I
+think that frameworks like that are a really promising way for guaranteeing compatibility
+among services&rsquo; interfaces, while maintaining many of the unit testing properties. So, next
+time you get yourself considering to test some <a href="http://martinfowler.com/articles/microservices.html">microservices</a> with integration testing,
+think twice. If you just want to check compatibility among services&rsquo; interfaces, invest in
+stubs and consumer-driven contract testing instead.
+    </article>
+
+    <div align="center">
+        <div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--6-col">
+        <a id="previous-post" class="mdl-button mdl-js-button mdl-button--primary"
+             href="/post/pythonic-interfaces-in-go-generators/" >
+            Previous Post
+        </a>
+
+        
+            <div class="mdl-tooltip" data-mdl-for="previous-post">
+                Pythonic interfaces in Go Generators
+            </div>
+        
+    </div>
+    <div class="mdl-cell mdl-cell--6-col">
+        <a id="next-post" class="mdl-button mdl-js-button mdl-button--primary"
+         disabled >
+            Next Post
+        </a>
+
+        
+    </div>
+</div>
+
+    </div>
+
+                                </div>
+                                </div>
+                                <div class="mdl-cell mdl-cell--1-col"></div>
+                            </div>
+                            <div id="menu-share" class="mdl-card__menu">
+    <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+        <i class="material-icons">share</i>
+    </button>
+    
+<div class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="menu-share">
+    
+    <a class="mdl-menu__item" href="//twitter.com/share?url=%2fpost%2fon-integration-testing-and-microservices%2f&text=On%20Integration%20Testing%20and%20Microservices&via=x8lucas8x" target="_blank" class="share-btn twitter">
+        <i class="fa fa-twitter"></i>
+        <span>Twitter</span>
+    </a>
+
+    
+    <a class="mdl-menu__item" href="//plus.google.com/share?url=%2fpost%2fon-integration-testing-and-microservices%2f" target="_blank" class="share-btn google-plus">
+        <i class="fa fa-google-plus"></i>
+        <span>Google+</span>
+    </a>
+
+    
+    <a class="mdl-menu__item" href="//www.facebook.com/sharer/sharer.php?u=%2fpost%2fon-integration-testing-and-microservices%2f" target="_blank" class="share-btn facebook">
+        <i class="fa fa-facebook"></i>
+        <span>Facebook</span>
+    </a>
+
+    
+    <a class="mdl-menu__item" href="//reddit.com/submit?url=%2fpost%2fon-integration-testing-and-microservices%2f&title=On%20Integration%20Testing%20and%20Microservices" target="_blank" class="share-btn reddit">
+        <i class="fa fa-reddit-alien"></i>
+        <span>Reddit</span>
+    </a>
+
+    
+    <a class="mdl-menu__item" href="//www.linkedin.com/shareArticle?url=%2fpost%2fon-integration-testing-and-microservices%2f&title=On%20Integration%20Testing%20and%20Microservices" target="_blank" class="share-btn linkedin">
+        <i class="fa fa-linkedin"></i>
+        <span>LinkedIn</span>
+    </a>
+
+    
+    <a class="mdl-menu__item" href="//www.stumbleupon.com/submit?url=%2fpost%2fon-integration-testing-and-microservices%2f&title=On%20Integration%20Testing%20and%20Microservices" target="_blank" class="share-btn stumbleupon">
+        <i class="fa fa-stumbleupon"></i>
+        <span>StumbleUpon</span>
+    </a>
+
+    
+    <a class="mdl-menu__item" href="mailto:?subject=Check out this post by &body=%2fpost%2fon-integration-testing-and-microservices%2f" target="_blank" class="share-btn email">
+        <i class="fa fa-envelope"></i>
+        <span>Email</span>
+    </a>
+</div>
+
+</div>
+
+                        </div>
+                        <div class="mdl-cell mdl-cell--1-col"></div>
+                    </div>
+                
+
+                
+    <div class="mdl-grid">
+        <div class="mdl-cell mdl-cell--1-col"></div>
+        <div class="mdl-card mdl-cell mdl-cell--10-col mdl-shadow--2dp">
+            <div>
+                <div class="mdl-grid">
+                    <div class="mdl-cell mdl-cell--1-col"></div>
+                    <div class="mdl-card mdl-cell mdl-cell--10-col">
+                        
+                            <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'lucasrefuge';
+    var disqus_identifier = '\/post\/on-integration-testing-and-microservices\/';
+    var disqus_title = 'On Integration Testing and Microservices';
+    var disqus_url = '\/post\/on-integration-testing-and-microservices\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+                        
+                    </div>
+
+                    <div class="mdl-cell mdl-cell--1-col"></div>
+                </div>
+
+                <div class="mdl-cell mdl-cell--1-col"></div>
+            </div>
+        </div>
+    </div>
+
+
+                
+<footer class="mdl-mini-footer mdl-color--grey-800" style="justify-content:center;">
+    <div align="center">
+        <p>You can find me on</p>
+
+        <ul class="mdl-mega-footer__link-list list__horizontal">
+    
+
+    
+        <li>
+            <a href="//github.com/x8lucas8x" target="_blank" title="GitHub" class="fa fa-2x fa-github"></a>
+        </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <li>
+            <a href="//youtube.com/x8lucas8x" target="_blank" title="YouTube" class="fa fa-2x fa-youtube"></a>
+        </li>
+    
+
+    
+        <li>
+            <a href="//vimeo.com/x8lucas8x" target="_blank" title="Vimeo" class="fa fa-2x fa-vimeo"></a>
+        </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <li>
+            <a href="//linkedin.com/in/x8lucas8x" target="_blank" title="LinkedIn" class="fa fa-2x fa-linkedin"></a>
+        </li>
+    
+
+    
+        <li>
+            <a href="//slideshare.com/x8lucas8x" target="_blank" title="SlideShare" class="fa fa-2x fa-slideshare"></a>
+        </li>
+    
+
+    
+
+    
+        <li>
+            <a href="//reddit.com/user/x8lucas8x" target="_blank" title="Reddit" class="fa fa-2x fa-reddit"></a>
+        </li>
+    
+
+    
+
+    
+
+    
+        <li>
+            <a href="//facebook.com/x8lucas8x" target="_blank" title="Facebook" class="fa fa-2x fa-facebook"></a>
+        </li>
+    
+
+    
+        <li>
+            <a href="//twitter.com/x8lucas8x" target="_blank" title="Twitter" class="fa fa-2x fa-twitter"></a>
+        </li>
+    
+
+    
+        <li>
+            <a href="mailto:x8lucas8x@gmail.com" title="Email" class="fa fa-2x fa-envelope"></a>
+        </li>
+    
+</ul>
+
+    </div>
+</footer>
+
+<footer class="mdl-mega-footer mdl-color--grey-900">
+    <div class="mdl-mega-footer__bottom-section">
+        <div class="mdl-logo">Lucas&#39; Refuge</div>
+        <div class="mdl-mega-footer__left-section">
+            <ul class="mdl-mega-footer__link-list">
+                
+                    <div>We copyleft</div>
+                
+                <div>Design by <a class="mdl-mega-footer__link" href="//github.com/x8lucas8x" target="_blank">Lucas Lira Gomes</a></div>
+                <div>Powered by <a href="//gohugo.io" target="_blank">Hugo</a></div>
+            </ul>
+        </div>
+        <div class="mdl-mega-footer__right-section">
+				<a itemprop="license"
+				   href="http://creativecommons.org/licenses/by-nc-sa/4.0"
+				   title="Lucas&#39; Refuge by Lucas Lira Gomes is licensed under a Creative Commons International License"
+				   target="_blank"
+				   rel="nofollow">
+					<img src="http://mirrors.creativecommons.org/presskit/icons/cc.svg" style="text-align: center;" />
+				</a>
+        </div>
+    </div>
+
+    
+    
+        
+    
+
+    
+</footer>
+
+            </main>
+        </div>
+    </body>
+</html>

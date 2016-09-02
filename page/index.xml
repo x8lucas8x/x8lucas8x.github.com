@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Pages on Lucas&#39; Refuge</title>
+    <link>/page/</link>
+    <description>Recent content in Pages on Lucas&#39; Refuge</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="/page/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Contact</title>
+      <link>contact</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>contact</guid>
+      <description>&lt;hr /&gt;
+
+&lt;p&gt;Just email me at:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;contact at x8lucas8x dot com&lt;/li&gt;
+&lt;li&gt;contato at x8lucas8x dot com&lt;/li&gt;
+&lt;li&gt;x8lucas8x at x8lucas8x dot com&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

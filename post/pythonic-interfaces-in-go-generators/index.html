@@ -1,0 +1,690 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+    
+        
+            <title>Pythonic interfaces in Go Generators</title>
+        
+    
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content="Hugo 0.16" />
+    
+    
+        
+            <meta name="description" content="We copyleft">
+        
+    
+
+    
+
+  <meta name="twitter:card" content="summary"/>
+
+
+
+<meta name="twitter:title" content="Pythonic interfaces in Go Generators"/>
+<meta name="twitter:description" content="One of the amazing things about Python is that once you embody the so called Zen of Python, no matter which language you are using, the philosophy will prevail. Or, in other words, even if you are learning the Go language, the extent of the pythonistas&rsquo; ethos will probably find its way in. So, in order to contextualise a bit, this post will dwell on the implementation of a lazy list evaluation mechanism, equivalent to Python&rsquo;s generators, in the Go language."/>
+<meta name="twitter:site" content="@x8lucas8x"/>
+
+
+    <meta property="og:title" content="Pythonic interfaces in Go Generators" />
+<meta property="og:description" content="One of the amazing things about Python is that once you embody the so called Zen of Python, no matter which language you are using, the philosophy will prevail. Or, in other words, even if you are learning the Go language, the extent of the pythonistas&rsquo; ethos will probably find its way in. So, in order to contextualise a bit, this post will dwell on the implementation of a lazy list evaluation mechanism, equivalent to Python&rsquo;s generators, in the Go language." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/post/pythonic-interfaces-in-go-generators/" />
+
+
+<meta property="og:updated_time" content="2015-09-12T19:30:00&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+    
+<meta itemprop="name" content="Pythonic interfaces in Go Generators">
+<meta itemprop="description" content="One of the amazing things about Python is that once you embody the so called Zen of Python, no matter which language you are using, the philosophy will prevail. Or, in other words, even if you are learning the Go language, the extent of the pythonistas&rsquo; ethos will probably find its way in. So, in order to contextualise a bit, this post will dwell on the implementation of a lazy list evaluation mechanism, equivalent to Python&rsquo;s generators, in the Go language.">
+
+
+<meta itemprop="dateModified" content="2015-09-12T19:30:00&#43;00:00" />
+<meta itemprop="wordCount" content="773">
+
+
+
+<meta itemprop="keywords" content="Code,Life,automation,blog,consumer-driven contracts,generators,golang,integration testing,ioe,iot,messaging,microservices,networking,pelican,publishing,python,pyzmq,soa,test doubles,zen,zeroless,zeromq," />
+
+    
+
+    
+    
+        
+    
+
+    
+    
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/monokai-sublime.css"> 
+    
+
+    
+        
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-66386613-1', 'auto');
+ga('send', 'pageview');
+</script>
+
+    
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.2.0/material.red-indigo.min.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+    <script defer src="https://code.getmdl.io/1.2.0/material.min.js"></script>
+</head>
+
+    <body>
+        <div class="mdl-layout mdl-js-layout">
+            
+            
+<header class="mdl-layout__header">
+    <div class="mdl-layout__header-row">
+        <a class="mdl-layout-title mdl-navigation__link" href="/">Lucas&#39; Refuge</a>
+        
+        <nav class="mdl-navigation">
+            
+            <a class="mdl-navigation__link" href="/categories">Categories</a> 
+            <a class="mdl-navigation__link" href="/tags">Tags</a> 
+            <a class="mdl-navigation__link" href="/contact">Contact</a> 
+        </nav>
+        
+        <div class="mdl-layout-spacer"></div>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable
+                  mdl-textfield--floating-label mdl-textfield--align-right">
+            <label class="mdl-button mdl-js-button mdl-button--icon" for="waterfall-exp">
+                <i class="material-icons">search</i>
+            </label>
+            <div class="mdl-textfield__expandable-holder">
+                <form action="//google.com/search" method="get" accept-charset="UTF-8">
+                <input class="mdl-textfield__input" id="waterfall-exp" name="q" type="search"/>
+                <input name="sitesearch" value="" type="hidden"/>
+                </form>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="mdl-layout__drawer">
+    <span class="mdl-layout-title">Lucas&#39; Refuge</span>
+    <span class="mdl-layout-title">Menu</span>
+
+    <nav class="mdl-navigation">
+        <a class="mdl-navigation__link" href="">Home</a>
+        
+            <a class="mdl-navigation__link" href="/categories">Categories</a>
+        
+            <a class="mdl-navigation__link" href="/tags">Tags</a>
+        
+            <a class="mdl-navigation__link" href="/contact">Contact</a>
+        
+    </nav>
+        <span class="mdl-layout-title">Newsletter</span>
+        <div class="mdl-grid">
+            <form action="http://x8lucas8x.us8.list-manage.com/subscribe?u=9df6482d825b354c5e8d36738&amp;id=6c7409d43e" method="post">
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type="submit">
+                    Subscribe
+                </button>
+            </form>
+        </div>
+</div>
+
+            
+            <main class="mdl-layout__content">
+                <header class="blog-header">
+    <h1>
+        <a class="blog-header__title" href="">Lucas&#39; Refuge</a>
+    </h1>
+    <section>
+        
+            <ul class="mdl-mega-footer__link-list list__horizontal">
+    
+
+    
+        <li>
+            <a href="//github.com/x8lucas8x" target="_blank" title="GitHub" class="fa fa-2x fa-github"></a>
+        </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <li>
+            <a href="//youtube.com/x8lucas8x" target="_blank" title="YouTube" class="fa fa-2x fa-youtube"></a>
+        </li>
+    
+
+    
+        <li>
+            <a href="//vimeo.com/x8lucas8x" target="_blank" title="Vimeo" class="fa fa-2x fa-vimeo"></a>
+        </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <li>
+            <a href="//linkedin.com/in/x8lucas8x" target="_blank" title="LinkedIn" class="fa fa-2x fa-linkedin"></a>
+        </li>
+    
+
+    
+        <li>
+            <a href="//slideshare.com/x8lucas8x" target="_blank" title="SlideShare" class="fa fa-2x fa-slideshare"></a>
+        </li>
+    
+
+    
+
+    
+        <li>
+            <a href="//reddit.com/user/x8lucas8x" target="_blank" title="Reddit" class="fa fa-2x fa-reddit"></a>
+        </li>
+    
+
+    
+
+    
+
+    
+        <li>
+            <a href="//facebook.com/x8lucas8x" target="_blank" title="Facebook" class="fa fa-2x fa-facebook"></a>
+        </li>
+    
+
+    
+        <li>
+            <a href="//twitter.com/x8lucas8x" target="_blank" title="Twitter" class="fa fa-2x fa-twitter"></a>
+        </li>
+    
+
+    
+        <li>
+            <a href="mailto:x8lucas8x@gmail.com" title="Email" class="fa fa-2x fa-envelope"></a>
+        </li>
+    
+</ul>
+
+        
+    </section>
+
+    
+        <h4 class="blog-header__subtitle">We copyleft</h4>
+    
+</header>
+
+
+                
+                    
+                    <div class="mdl-grid">
+                        <div class="mdl-cell mdl-cell--1-col"></div>
+                        <div class="mdl-card mdl-cell mdl-cell--10-col mdl-shadow--2dp">
+                            <div class="mdl-grid">
+                                <div class="mdl-cell mdl-cell--1-col"></div>
+                                <div class="mdl-cell mdl-cell--10-col">
+                                    <h1 class="mdl-card__title-text">
+    Pythonic interfaces in Go Generators
+</h1>
+                                    <h3 class="mdl-card__subtitle-text">
+    
+        Written by <strong>Lucas Lira Gomes</strong> at
+    
+    <time datetime="2015-09-12T19:30:00Z">
+        12 September 2015
+    </time>
+</h3>
+
+                                    <div class="mdl-card__supporting-text">
+                                    
+    <article align="justify">
+        <hr />
+
+<p>One of the amazing things about Python is that once you embody the so called Zen
+of Python, no matter which language you are using, the philosophy will prevail.
+Or, in other words, even if you are learning the Go language, the extent of the
+pythonistas&rsquo; ethos will probably find its way in. So, in order to contextualise
+a bit, this post will dwell on the implementation of a lazy list evaluation
+mechanism, equivalent to Python&rsquo;s generators, in the Go language.</p>
+
+<p>Among <a href="https://www.python.org/">Python</a>&rsquo;s many superpowers, generators is clearly a major one. Brought from
+functional languages, like <a href="https://www.haskell.org/">Haskell</a>, which have demonstrated how better being lazy
+is in terms of speed and memory management, especially when collections&rsquo; size
+can grow indefinitely.</p>
+
+<p>In <a href="https://www.python.org/">Python</a>, besides list comprehension, there are also the less known dictionary
+and generator comprehensions. Being the later, what we are interested in the scope
+of this post. So, considering we want a program that receives an user input and
+then print all the multiples of 2 up to a certain limit, unknown a priori. For
+such, we could:</p>
+
+<pre><code class="language-python">from itertools import (count, takewhile)
+
+limit = int(input())
+multiples_of_2 = takewhile(lambda x: x &lt;= limit, (x*2 for x in count()))
+
+for x in multiples_of_2:
+    print(x)
+</code></pre>
+
+<p>For the sake of simplicity, note that no error checking concerning the user input
+was done in the previous example. The same rule will apply for next examples.
+Despite that, one could use the yield operator instead of employing generator
+comprehension:</p>
+
+<pre><code class="language-python">from itertools import count
+
+def multiples_of_2(limit):
+    for x in (x*2 for x in count()):
+        if limit &gt; 25:
+            raise StopIteration
+        yield x
+
+limit = int(input())
+
+for x in multiples_of_2(limit):
+    print(x)
+</code></pre>
+
+<p>For your information, those Python&rsquo;s examples were meant to <a href="https://www.python.org/">Python</a> 3. As some of
+you may know, the input() function, in <a href="https://www.python.org/">Python</a> 2, also evals the input string,
+behaviour that can lead to serious security flaws. Therefore, if you still use
+<a href="https://www.python.org/">Python</a> 2, favour the raw_input() function instead.</p>
+
+<p>Even though we do not have the same constructs in Go, we still can employ <a href="https://golang.org/">Go</a>&rsquo;s
+channels to end with a very similar effect. In such effort, two channels could be
+used. One for passing the data per se and another to signal that the upper bound
+limit was reached, therefore closing the data&rsquo;s channel. That is needed to emulate
+the <a href="https://www.python.org/">Python</a>&rsquo;s StopIteration exception, which signals that the generator is now
+empty. So, without further ado:</p>
+
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func multiples_of_2(c chan int, quit chan struct{}, limit int) {
+    for x := 0; true; x += 2 {
+        if x &gt; limit {
+            quit &lt;- struct{}{}
+            break
+        }
+
+        c &lt;- x
+    }
+}
+
+func main() {
+    var limit int
+    fmt.Scan(&amp;limit)
+
+    c := make(chan int)
+    quit := make(chan struct{})
+
+    defer close(c)
+    defer close(quit)
+
+    go multiples_of_2(c, quit, limit)
+    for {
+        select {
+        case x := &lt;-c:
+            fmt.Println(x)
+        case &lt;-quit:
+            return
+        }
+    }
+}
+</code></pre>
+
+<p>Note that the quit channel uses an empty struct. The reason is twofold. First,
+empty structs does not occupy memory space, amount that could be substantial at
+scale. Second, as the <a href="https://www.python.org/dev/peps/pep-0020/">Zen of Python</a> states: &ldquo;explicit is better than implicit&rdquo;.
+So, by passing an empty struct we make it clear that the whole point of that
+particular channel is for signalling only, therefore avoiding users to wonder if
+there is a difference between true and false if, otherwise, we have declared that
+channel as a bool channel for instance.</p>
+
+<p>Besides that, the multiples_of_2&rsquo;s interface expose a lot about the business logic
+of our custom generator. Besides that, the whole process of initialising/closing a
+channel is quite repetitive. And as the <a href="https://en.wikipedia.org/wiki/Don't_repeat_yourself">DRY</a> principle preaches, repetition is the
+root of all evil. Not to mention the fact that we could solve this problem with a
+single channel, instead of two. But fear not, that required channel can be
+encapsulated inside multiples_of_2, leading to an interface that is very similar to
+the pythonic one.</p>
+
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func multiples_of_2(limit int) (chan int) {
+    c := make(chan int)
+
+    go func() {
+        defer close(c)
+        for x := 0 ; true; x+=2 {
+            if x &gt; limit { break }
+
+            c &lt;- x
+        }
+    }()
+
+    return c
+}
+
+func main() {
+    var limit int
+    fmt.Scan(&amp;limit)
+
+    for x:= range multiples_of_2(limit) {
+        fmt.Println(x)
+    }
+}
+</code></pre>
+
+<p>So, that is all. At the expense of some extra work in our APIs, we can provide
+very pythonic interfaces for lazy evaluated lists in <a href="https://golang.org/">Go</a>. Now without the need
+to worry about channels or concurrency at all. As a matter of fact, synchronous
+APIs, like the last example, should be favoured in <a href="https://golang.org/">Go</a>, given using synchronous
+APIs in a asynchronous manner is easy in <a href="https://golang.org/">Go</a>, while the contrary is not.
+    </article>
+
+    <div align="center">
+        <div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--6-col">
+        <a id="previous-post" class="mdl-button mdl-js-button mdl-button--primary"
+             href="/post/connected-but-still-not-interoperable/" >
+            Previous Post
+        </a>
+
+        
+            <div class="mdl-tooltip" data-mdl-for="previous-post">
+                Connected, but still not interoperable
+            </div>
+        
+    </div>
+    <div class="mdl-cell mdl-cell--6-col">
+        <a id="next-post" class="mdl-button mdl-js-button mdl-button--primary"
+         href="/post/on-integration-testing-and-microservices/" >
+            Next Post
+        </a>
+
+        
+            <div class="mdl-tooltip" data-mdl-for="next-post">
+                On Integration Testing and Microservices
+            </div>
+        
+    </div>
+</div>
+
+    </div>
+
+                                </div>
+                                </div>
+                                <div class="mdl-cell mdl-cell--1-col"></div>
+                            </div>
+                            <div id="menu-share" class="mdl-card__menu">
+    <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+        <i class="material-icons">share</i>
+    </button>
+    
+<div class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="menu-share">
+    
+    <a class="mdl-menu__item" href="//twitter.com/share?url=%2fpost%2fpythonic-interfaces-in-go-generators%2f&text=Pythonic%20interfaces%20in%20Go%20Generators&via=x8lucas8x" target="_blank" class="share-btn twitter">
+        <i class="fa fa-twitter"></i>
+        <span>Twitter</span>
+    </a>
+
+    
+    <a class="mdl-menu__item" href="//plus.google.com/share?url=%2fpost%2fpythonic-interfaces-in-go-generators%2f" target="_blank" class="share-btn google-plus">
+        <i class="fa fa-google-plus"></i>
+        <span>Google+</span>
+    </a>
+
+    
+    <a class="mdl-menu__item" href="//www.facebook.com/sharer/sharer.php?u=%2fpost%2fpythonic-interfaces-in-go-generators%2f" target="_blank" class="share-btn facebook">
+        <i class="fa fa-facebook"></i>
+        <span>Facebook</span>
+    </a>
+
+    
+    <a class="mdl-menu__item" href="//reddit.com/submit?url=%2fpost%2fpythonic-interfaces-in-go-generators%2f&title=Pythonic%20interfaces%20in%20Go%20Generators" target="_blank" class="share-btn reddit">
+        <i class="fa fa-reddit-alien"></i>
+        <span>Reddit</span>
+    </a>
+
+    
+    <a class="mdl-menu__item" href="//www.linkedin.com/shareArticle?url=%2fpost%2fpythonic-interfaces-in-go-generators%2f&title=Pythonic%20interfaces%20in%20Go%20Generators" target="_blank" class="share-btn linkedin">
+        <i class="fa fa-linkedin"></i>
+        <span>LinkedIn</span>
+    </a>
+
+    
+    <a class="mdl-menu__item" href="//www.stumbleupon.com/submit?url=%2fpost%2fpythonic-interfaces-in-go-generators%2f&title=Pythonic%20interfaces%20in%20Go%20Generators" target="_blank" class="share-btn stumbleupon">
+        <i class="fa fa-stumbleupon"></i>
+        <span>StumbleUpon</span>
+    </a>
+
+    
+    <a class="mdl-menu__item" href="mailto:?subject=Check out this post by &body=%2fpost%2fpythonic-interfaces-in-go-generators%2f" target="_blank" class="share-btn email">
+        <i class="fa fa-envelope"></i>
+        <span>Email</span>
+    </a>
+</div>
+
+</div>
+
+                        </div>
+                        <div class="mdl-cell mdl-cell--1-col"></div>
+                    </div>
+                
+
+                
+    <div class="mdl-grid">
+        <div class="mdl-cell mdl-cell--1-col"></div>
+        <div class="mdl-card mdl-cell mdl-cell--10-col mdl-shadow--2dp">
+            <div>
+                <div class="mdl-grid">
+                    <div class="mdl-cell mdl-cell--1-col"></div>
+                    <div class="mdl-card mdl-cell mdl-cell--10-col">
+                        
+                            <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'lucasrefuge';
+    var disqus_identifier = '\/post\/pythonic-interfaces-in-go-generators\/';
+    var disqus_title = 'Pythonic interfaces in Go Generators';
+    var disqus_url = '\/post\/pythonic-interfaces-in-go-generators\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+                        
+                    </div>
+
+                    <div class="mdl-cell mdl-cell--1-col"></div>
+                </div>
+
+                <div class="mdl-cell mdl-cell--1-col"></div>
+            </div>
+        </div>
+    </div>
+
+
+                
+<footer class="mdl-mini-footer mdl-color--grey-800" style="justify-content:center;">
+    <div align="center">
+        <p>You can find me on</p>
+
+        <ul class="mdl-mega-footer__link-list list__horizontal">
+    
+
+    
+        <li>
+            <a href="//github.com/x8lucas8x" target="_blank" title="GitHub" class="fa fa-2x fa-github"></a>
+        </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <li>
+            <a href="//youtube.com/x8lucas8x" target="_blank" title="YouTube" class="fa fa-2x fa-youtube"></a>
+        </li>
+    
+
+    
+        <li>
+            <a href="//vimeo.com/x8lucas8x" target="_blank" title="Vimeo" class="fa fa-2x fa-vimeo"></a>
+        </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <li>
+            <a href="//linkedin.com/in/x8lucas8x" target="_blank" title="LinkedIn" class="fa fa-2x fa-linkedin"></a>
+        </li>
+    
+
+    
+        <li>
+            <a href="//slideshare.com/x8lucas8x" target="_blank" title="SlideShare" class="fa fa-2x fa-slideshare"></a>
+        </li>
+    
+
+    
+
+    
+        <li>
+            <a href="//reddit.com/user/x8lucas8x" target="_blank" title="Reddit" class="fa fa-2x fa-reddit"></a>
+        </li>
+    
+
+    
+
+    
+
+    
+        <li>
+            <a href="//facebook.com/x8lucas8x" target="_blank" title="Facebook" class="fa fa-2x fa-facebook"></a>
+        </li>
+    
+
+    
+        <li>
+            <a href="//twitter.com/x8lucas8x" target="_blank" title="Twitter" class="fa fa-2x fa-twitter"></a>
+        </li>
+    
+
+    
+        <li>
+            <a href="mailto:x8lucas8x@gmail.com" title="Email" class="fa fa-2x fa-envelope"></a>
+        </li>
+    
+</ul>
+
+    </div>
+</footer>
+
+<footer class="mdl-mega-footer mdl-color--grey-900">
+    <div class="mdl-mega-footer__bottom-section">
+        <div class="mdl-logo">Lucas&#39; Refuge</div>
+        <div class="mdl-mega-footer__left-section">
+            <ul class="mdl-mega-footer__link-list">
+                
+                    <div>We copyleft</div>
+                
+                <div>Design by <a class="mdl-mega-footer__link" href="//github.com/x8lucas8x" target="_blank">Lucas Lira Gomes</a></div>
+                <div>Powered by <a href="//gohugo.io" target="_blank">Hugo</a></div>
+            </ul>
+        </div>
+        <div class="mdl-mega-footer__right-section">
+				<a itemprop="license"
+				   href="http://creativecommons.org/licenses/by-nc-sa/4.0"
+				   title="Lucas&#39; Refuge by Lucas Lira Gomes is licensed under a Creative Commons International License"
+				   target="_blank"
+				   rel="nofollow">
+					<img src="http://mirrors.creativecommons.org/presskit/icons/cc.svg" style="text-align: center;" />
+				</a>
+        </div>
+    </div>
+
+    
+    
+        
+    
+
+    
+</footer>
+
+            </main>
+        </div>
+    </body>
+</html>

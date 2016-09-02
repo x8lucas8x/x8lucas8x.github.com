@@ -1,2 +1,0 @@
-User-agent: *
-Sitemap: http://x8lucas8x.com/sitemap.xml

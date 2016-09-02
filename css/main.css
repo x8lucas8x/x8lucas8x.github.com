@@ -1,0 +1,34 @@
+.blog-header {
+	min-height: 180px;
+	padding-top: 70px;
+	width: auto;
+	text-align: center;
+}
+
+.blog-header__title {
+	color: #F00;
+	font-weight: bold;
+	font-size: 100px;
+	margin: 0px;
+	text-decoration:none; 
+	text-transform: uppercase;
+	text-rendering: optimizeLegibility;
+}
+
+.blog-header__subtitle" {
+	color: #666;
+	display: inline-block;
+	font-size: 14px;
+	font-weight: 300;
+	margin-top: 0;
+	margin-bottom: 50px;
+	padding: 6px 10px;
+}
+
+.list__horizontal {
+	display: inline;
+}
+
+.list__horizontal > li {
+	display: inline;
+}
