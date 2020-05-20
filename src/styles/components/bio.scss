@@ -1,0 +1,28 @@
+.bio-image-container img {
+    @apply mb-0
+}
+
+.bio-content-container p {
+    @apply mb-0
+}
+
+.bio-image {
+    @apply rounded-full mx-auto mb-0
+}
+
+.bio-container {
+    @screen sm {
+        @apply flex flex-row text-justify my-6
+    }
+    @apply flex flex-col items-center text-center my-6
+}
+
+.bio-image-container {
+    width: 64px;
+    height: 64px;
+    @screen sm {
+        @apply mb-0 mr-3
+    }
+    @apply mb-6 mr-0
+
+}

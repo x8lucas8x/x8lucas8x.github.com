@@ -1,0 +1,37 @@
+.post-navigation {
+    @apply my-6
+}
+
+.post-navigation-container {
+    @screen sm {
+        @apply flex flex-row text-justify items-stretch
+    }
+    @apply flex flex-col items-center text-center list-none content-around items-stretch
+}
+
+.post-navigation-container .navigation-btn {
+    @screen sm {
+        @apply w-full
+    }
+    &:hover {
+        @apply bg-gray-100
+    }
+    + .navigation-btn {
+        @screen sm {
+            @apply mt-0 ml-3
+        }
+        @apply mt-3
+    }
+    @apply flex flex-row items-center bg-white text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow
+}
+
+.post-navigation-container .navigation-disabled {
+    &:hover {
+        @apply bg-white
+    }
+    @apply opacity-50 cursor-not-allowed
+}
+
+.navigation-title {
+    @apply flex-grow
+}

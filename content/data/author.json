@@ -1,0 +1,11 @@
+{
+  "pk": "author",
+  "name": "Lucas Lira Gomes",
+  "description": "A starter blog demonstrating what Gatsby & Tina can do.",
+  "siteUrl": "https://x8lucas8x.com/",
+  "social": {
+    "twitter": "x8lucas8x",
+    "linkedin": "x8lucas8x",
+    "github": "x8lucas8x"
+  }
+}

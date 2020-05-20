@@ -1,0 +1,19 @@
+a {
+    @apply text-red-700
+}
+
+main {
+    @apply flex-1
+}
+
+article > section {
+   @apply text-justify
+}
+
+body, body > div {
+    @apply h-screen
+}
+
+hr {
+  @apply my-0
+}
