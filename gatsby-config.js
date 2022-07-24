@@ -5,7 +5,7 @@ module.exports = {
     title: `Lucas' Refuge`,
     subTitle: `We copyleft`,
     author: `Lucas Lira Gomes`,
-    description: `A blog on all things tech by Lucas Lira Gomes.`,
+    description: `Lucas Lira Gomes' personal blog.`,
     siteUrl: `https://x8lucas8x.com/`,
   },
   plugins: [

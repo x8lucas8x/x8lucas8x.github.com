@@ -51,8 +51,7 @@ const Bio = () => {
       </div>
       <div className="bio-content-container">
         <p>
-          Written by <strong>{name}</strong> who is fond of doing things that
-          last and all that jazz. You should follow him on
+          Written by <strong>{name}</strong>. You should follow him on
           {` `}
           <a href={`https://twitter.com/${social.twitter}`}>Twitter</a>,{` `}
           <a href={`https://github.com/${social.github}`}>GitHub</a>, and{` `}
