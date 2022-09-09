@@ -46,7 +46,7 @@ class BlogPostTemplate extends React.Component {
                 marginBottom: rhythm(1),
               }}
             >
-              {post.frontmatter.date} - {post.fields.readingTime.text}
+              {post.frontmatter.date}
             </p>
             {post.frontmatter.tags && (
               <p
@@ -60,6 +60,14 @@ class BlogPostTemplate extends React.Component {
               </p>
             )}
           </header>
+          {post.frontmatter.quote && post.frontmatter.quoteAuthor && (
+            <section>
+              <blockquote className="article-quote">
+                "<i>{post.frontmatter.quote}</i>"<br/>
+                {post.frontmatter.quoteAuthor}
+              </blockquote>
+            </section>
+          )}
           <section dangerouslySetInnerHTML={{ __html: post.html }} />
           <hr />
           <footer>
@@ -135,11 +143,8 @@ export const pageQuery = graphql`
         title
         date(formatString: "MMMM DD, YYYY")
         tags
-      }
-      fields {
-        readingTime {
-          text
-        }
+        quote
+        quoteAuthor
       }
     }
   }

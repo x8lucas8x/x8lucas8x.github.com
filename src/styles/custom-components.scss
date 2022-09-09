@@ -20,3 +20,7 @@
 .top-accent > div {
     @apply h-screen
 }
+
+.article-quote {
+    @apply text-right border-l-0
+}
