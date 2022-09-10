@@ -9,7 +9,7 @@ tags:
 
 For a long time, I thought doing good work would be enough – my code, among other things, being testament to that. It would be all I had to do for my manager to systematically recognize my impact. Possibly awarding me with plenty of interesting projects and, hopefully, a promotion.
 
- Was I wrong to think so? Not entirely, but I've definitely missed the mark. I can say I got it on the spot regarding understanding that the outcome, which I anticipated, was something outside my control. To me, that was never at odds with my goals, nor was I a cynic to the point of seeing no value in whichever venture fortune presents me. It just meant my energy could be better spent elsewhere.
+Was I wrong to think so? Not entirely, but I've definitely missed the mark. I can say I got it on the spot regarding understanding that the outcome, which I anticipated, was something outside my control. To me, that was never at odds with my goals, nor was I a cynic to the point of seeing no value in whichever venture fortune presents me. It just meant my energy could be better spent elsewhere.
 
 That may sound cheesy, but I'll say it anyway – at the risk of sounding like the proverbial coach. I wanted to control my narrative. I wanted to mold the perception of my work by others, before they've formed it.
 
