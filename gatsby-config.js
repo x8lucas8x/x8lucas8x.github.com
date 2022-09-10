@@ -154,6 +154,7 @@ module.exports = {
     `gatsby-plugin-typescript`,
     `gatsby-plugin-brotli`,
     `gatsby-plugin-sitemap`,
+    `gatsby-plugin-preload-fonts`,
     {
       resolve: `gatsby-plugin-disqus`,
       options: {
