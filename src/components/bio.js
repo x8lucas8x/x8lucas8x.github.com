@@ -46,6 +46,8 @@ const Bio = () => {
         <Image
           className="bio-image"
           fixed={avatar.childImageSharp.fixed}
+          width={64}
+          height={64}
           alt={name}
         />
       </div>
