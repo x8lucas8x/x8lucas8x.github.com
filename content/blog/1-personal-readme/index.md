@@ -1,4 +1,5 @@
 ---
+slug: personal-readme
 title: Personal README
 date: "2022-07-24T19:30:00.000Z"
 tags:
