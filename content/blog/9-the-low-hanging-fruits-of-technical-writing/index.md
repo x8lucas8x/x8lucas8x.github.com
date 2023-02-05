@@ -16,7 +16,7 @@ Proper technical writing shouldn't require you to be a master writer, though. Ju
 Yes, allow me to reveal the ultimate truth. Being right, about an architectural choice or design, is only the beginning. You still need to present your ideas convincingly, which is a subject for another day, and to convey the information as you want it to be received. So that you don't fall short on that last one, here goes a few soft and hard things to consider.
 
 ## The soft things
-That's what I call the common sense. A set of principles that will help you write better, without teaching you anything linguistic.
+That's what I call the common sense – rules to live by. A set of principles that will help you write better, without teaching you anything linguistic.
 
 ### Have some structure
 Whenever I see an introduction section of a technical document, I get ready for three things. They are: the context, the problem, and the solution's outcome. All in this precise order. A failure in that regard, will likely mean that your reader will have to skim back and forth in your text, trying to figure out the missing information. However, just like a code full of goto expressions can be a context switch nightmare. This isn't far, either. Being predictable in technical text is good.
@@ -24,9 +24,9 @@ Whenever I see an introduction section of a technical document, I get ready for 
 ### Helping others to help you
 If you write clear, concise and well-written text – the trifecta of writing – you will have less trouble when it comes to the long-lasting peer-review rounds. While that is still truth, I want to talk about an often overlooked aspect: the peer-review round itself. 
 
-How many times have I see engineers reply to a comment on their text, stating that they have explained whatever the commentor is asking in section X? That's it. They think, they already explained that well somewhere, and the commentor might not have been paying attention.
+How many times have I seen engineers reply to a comment on their text, stating that they have explained whatever the commentor is asking in section X? That's it. They think, they already explained that well somewhere, and the commentor might not have been paying attention.
 
-Let me tell you one truth: when I see a comment like this, I think, oh well. I'll have a look later – more likely some other day. And there it goes, another day in which you are likely blocked waiting for a response of mine, which could be prevented, if you had put the effort to summarize why my question isn't a problem. And then definitely mention that I can find more on section X.
+Let me tell you one truth: when I see a comment like this, I think, oh well. I'll have a look later – more likely some other day. And there it goes, another day in which you are likely blocked waiting for a response of mine, which could be prevented, if you had put the effort to summarize why my question isn't a problem. And then definitely mentioned that I can find more on section X.
 
 Why would a reviewer behave like this? Well, because that someone has other stuff to care about. Plus, there is no downside in replying later. So, you should probably consider this dynamic, next time you make it hard for anyone else to help you. For more on the topic of getting help, there is a previous post of mine, which you might find useful: https://x8lucas8x.com/how-can-i-help-you.
 
@@ -46,7 +46,7 @@ Or that proverbial academic paper verbiage, which although has proper punctuatio
 Don't be that person. Readability trumps any of this, provided you care about your point reaching anyone else besides yourself. Readability that can be ensured by writing short and to the point phrases.
 
 ### Clarity is king
-No, you can't assume I know what you mean, unless you have made me walk through your shoes – ideally through one story that grows in complexity incrementally. It isn't obvious, really. That you're meant to rely on system A or B and that's right because: 1) you have being at the company long enough to know that or 2) your team is familiar with it. So say it.
+No, you can't assume I know what you mean, unless you have made me walk through your shoes – ideally through one story that grows in complexity incrementally. It isn't obvious, really. That you're meant to rely on system A or B and that's right because: 1) you have been at the company long enough to know that or 2) your team is familiar with it. So write it down.
 
 It's not my fault, if I couldn't understand what you had to say. It might not even be your fault, either, since I might lack business or technical context to realize why something is important. But be certain it will be your fault, have you failed to make your point to the “right” people. Who are they? Think leadership planning whether your project should be on Q1's shortlist, the platform team that act as a gateway in anything X, and the security team in that effort to integrate with a third party.
 
@@ -74,7 +74,7 @@ Moreover, vocabulary isn't always a matter of knowing synonyms, but rather of wo
 Good writing takes yet greater reading. The more you read, the more vocabulary you collect, the better you become at writing. There is no rule here. My wife, for instance, loves romances. Anything Tolstoy, Roth, Houellebecq, Dostoevsky, Pasternak, Shakespeare is game for her. I, on the other hand, prefer to focus on anything ancient, think Plutarch for history or Sophocles for theater. Then add some philosophical works here and there, such as the ones of Seneca. Not to mention the technical reading oriented towards my craft – currently reading "The Staff Engineer's Path" by Tanya Reilly. So try finding some time. For us, reading just before bed is what works best habit-wise.
 
 ### When in Rome
-I certainly won't be the first person telling you to know your audience. The reason is simple. If people cannot relate to your writing style, it will be harder for you to get your way into their minds. Politicians are doing this when they, for instance, resort to regionalisms or double down on the accent. So blend in. How can you do that in text? Well, for starters, I'd look for pieces from someone's writing you admire in your team or organization. Then analyse its composition until you can answer what makes their writing worthy of your admiration. Those points are likely something you can also do yourself. That's it, sheer mimesis (i.e., imitation) is still a great tool for learning something or blending in.
+I certainly won't be the first person telling you to know your audience. The reason is simple. If people cannot relate to your writing style, it will be harder for you to find a way into their minds. Politicians are doing this when they, for instance, resort to regionalisms or double down on the accent. So blend in. How can you do that in text? Well, for starters, I'd look for pieces from someone's writing you admire in either your team or organization. Then analyse its composition until you can answer what makes their writing worthy of your admiration. Those points are likely something you can also do yourself. That's it, sheer mimesis (i.e., imitation) is still a great tool for learning something or blending in.
 
 ### Be respectful
 Time is a very precious resource – especially when we are talking about the time of others. So be respectful and do your due dilligence, before asking someone to look into your document. Basic grammar mistakes and sloppy sentence building aren't really acceptable. It communicates you don't think that your time is as valuable as that of your reader. So try to be mindful. You can't simply expect that the first version of anything you write is proper. Mine isn't. Yours aren't. That means you should read yourself a couple times – sometimes even out loud. Improve what can be improved. Put some effort really. Only then you should consider sharing it.
@@ -166,7 +166,7 @@ Do you see how "moreover" (addition relation), "however" (opposition/contrast re
 
 > The only considerable cost is the cost of Service A. We were able to get the following pricing scheme from Product B and we have signed up for 3 parallel processes for now and later we will evaluate if we need more parallel processes.
 
-The coordinating conjunction "and" (addition relation), in the aforementioned example, isn't really fulfilling its purpose. That's so the case, that removing them and keeping distinct sentences instead works just as fine. Additionally, shorter phrases end up being a plus, as can be seen on:
+The coordinating conjunction "and" (addition relation), in the aforementioned example, isn't really fulfilling its purpose. That's so the case, that removing its occurrences and keeping distinct sentences instead work just as fine. Additionally, shorter phrases end up being a plus, as can be seen on:
 
 > The only considerable cost is the cost of Service A. We were able to get the following pricing scheme from Product B. We have signed up for 3 parallel processes for now. Later we will evaluate if we need more parallel processes.
 
