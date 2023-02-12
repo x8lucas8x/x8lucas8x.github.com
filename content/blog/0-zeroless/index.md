@@ -9,16 +9,16 @@ tags:
 
 I have been an enthusiast of ZeroMQ for quite some time. If there was an opportunity
 that required some sockets on steroids, I would not think twice. Ah, how those three
-messaging pattern were useful (i.e. Request/Reply, Push/Pull, Publish/Subscribe).
-They had the amazing trait of being able to drastically streamline the development of
+messaging pattern were useful (i.e., Request/Reply, Push/Pull, Publish/Subscribe).
+They had the remarkable trait of being able to drastically streamline the development of
 distributed systems. And its portability, with wrappers for more than 30 languages,
-brokerlessness and amazing documentation made it a no brainer for me to favour ZeroMQ
+brokerlessness and amazing documentation made it a no-brainer for me to favour ZeroMQ
 over other messaging alternatives.
 
 Using [ZeroMQ] in Python with [PyZMQ], however, always made me feel like I'm coding in
 C/C++, which I also love by the way. Unfortunately, that lack of [PyZMQ] API's, if I
-may say, "pythonicity", just felt wrong to me. And by the end of last January, I
-decided to do something about it. So that is how [Zeroless] was born.
+may say, “pythonicity”, just felt wrong to me. And by the end of last January, I
+decided to do something about it. So, that is how [Zeroless] was born.
 
 My mission was to leverage on [PyZMQ] to build a more elegant wrapper for [ZeroMQ].
 Something more aligned with the python way of doing things. And, to a certain degree,
@@ -30,7 +30,7 @@ decisions I have made for [Zeroless]:
 
 ##### TCP only for the win
 
-Ok, I know PGM, INPROC and IPC have their use cases. PGM for instance provides a
+Ok, I know PGM, INPROC and IPC have their use cases. PGM, for instance, provides a
 Publish/Subscribe specific transport, that scales better than TCP in the
 Publish/Subscribe use case, as it cut out the ACK flood publishers gets on
 every new message. There are also some extra reliability, that you also cannot
@@ -40,7 +40,7 @@ only. As for INPROC's particular case, which efficient applicability is being
 hindered by the Python's GIL, I do not see why bother with it.
 
 Nevertheless, I have a feeling that the vast majority of the users, like myself,
-are quite good with just TCP. Which is exactly what you need when building really
+are ok with just TCP being supported. Which is precisely what you need when building really
 horizontally scalable networked services, especially in this time of a renewed
 vision for SOA, with microservices having a lot of attention. So let us just use
 TCP and free our minds to think about other matters.
@@ -49,11 +49,11 @@ TCP and free our minds to think about other matters.
 
 [PyZMQ] applications require users to create a context, in order to instantiate
 sockets. Technically, a context serves as a container for all your sockets and
-usually one of it, per process, is just what you need. As a matter of fact, you
+usually one of it, per process, is just what you require. As a matter of fact, you
 could have more, but why bother your runtime with more event loops, for your
-socket stuff, when one suffices? Also, if you are using INPROC as transport,
+socket stuff, when one suffices? Moreover, if you are using INPROC as transport,
 you may also need to share a context for the communication to happen. But again,
-if INPROC is is not that useful in Python as aforementioned, do we really need
+if INPROC is not that useful in Python as aforementioned, do we really need
 explicitly manage contexts?
 
 Not at all, so that is why in [Zeroless] you just have to manage Clients, sockets
@@ -81,15 +81,15 @@ messaging pattern, which are the subject of our next topic.
 One thing I never liked about [PyZMQ] sockets's instantiation is that we have to call
 a method called socket, which receives an enum representing the type of the socket.
 Why don't they just provide a separate method for every socket possible, like as if
-it was a factory method pattern kind of interface. That would allow a more
+it were a factory method pattern kind of interface? That would allow a more
 straightforward experience for developers, that could then rely on their favourite
 IDE's code complete to quickly understand what kind of sockets and parameters they
 could set. That enum approach, however, will probably make your users go to the
 documentation, but solely because of the way the [PyZMQ]'s interface is.
 
 In [Zeroless], we fixed that, so you don't need to check the documentation every
-time you want to instantiate a socket, instead just have a descent code complete
-support and you are done. For instance, compare how you would instantiate a
+time you want to instantiate a socket, instead just have a decent code complete
+support, and you are done. For instance, compare how you would instantiate a
 publisher socket with [Zeroless]:
 
 ```python
@@ -101,7 +101,7 @@ pub = Server(port=12345).pub(topic=b'')
 One of the questions you may ask is to whom your clients are connected to. And
 for that, [PyZMQ] cannot help you. Unless you manage that list of connections by
 yourself, you wouldn't be able to get it afterwards. Therefore, in [Zeroless],
-we provide an addresses property, so that you can retrieve all your ip and port
+we provide an addresses property, so that you can retrieve all your IP and port
 pairs as a list of tuples. But that is only for clients of course, as there is
 no way to know which sockets are connected to your server without building
 some sort of infrastructure for that yourself.
@@ -123,7 +123,7 @@ that damn subscriber socket does not receive your published messages.
 
 In [Zeroless], we fixed that, so that you don't have to instantiate your socket
 and set something as essential as a topic, in the subscribe case, via some kind
-of "obscure" method. Just compare how you would instantiate a subscriber socket
+of “obscure” method. Just compare how you would instantiate a subscriber socket
 with [Zeroless]:
 
 ```python
@@ -160,18 +160,18 @@ push(b"Msg1")
 ```
 
 Therefore, in [Zeroless], every time you instantiate a message pattern that is
-suposed to send messages, use it as a function. Otherwise, treat it as a generator.
+supposed to send messages, use it as a function. Otherwise, treat it as a generator.
 
 ##### Multi-part made easy
 
 In [PyZMQ], if you want to send a multipart message, you have to use the
 [recv_multipart()][recv_multipart_method] and [send_multipart()][send_multipart_method]
-methods. Methods that instead of a single message, will deal with a list of them.
-In [Zeroless], I favoured consistency for a quicker and easier learning path,
-therefore there is no difference between the singlepart and the multipart API.
+methods. Methods that, instead of a single message, will deal with a list of them.
+In [Zeroless], I favoured consistency for a quicker and easier learning path. Therefore,
+there is no difference between the single part and the multipart API.
 
 If you want to send a multipart message, just consider that your send function have
-a printf like interface and you are set. So, for instance, if you want to send an
+a printf like interface, and you are set. So, for instance, if you wish to send an
 id separated from your message body, you could:
 
 ```python
@@ -179,7 +179,7 @@ push = client.push()
 push(b'1', b'OK')
 ```
 
-Additionally, if someone send you a multipart message, your generator will return a
+Additionally, if someone sends you a multipart message, your generator will return a
 tuple with all of its parts. As a result of that, to get the message from the previous
 example you would need to:
 
@@ -191,7 +191,7 @@ for id, msg in listen_for_push:
 
 ##### The future
 
-Although feature parity was never part of my plans, there still some of [PyZMQ]'s
+Although feature parity was never part of my plans, there are still some of [PyZMQ]'s
 functionalities I would like to provide in [Zeroless]. Like both [poller][poller_api]
 and [devices][devices_api] APIs, for instance. So expect more on the way o/. While
 that, if you felt compelled to help shape this project, please clone our [repository]
