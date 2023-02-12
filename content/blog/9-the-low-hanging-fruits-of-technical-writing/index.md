@@ -39,7 +39,7 @@ Let me say it once and for all. That isn't fine. You lost me – at the expense 
 
 > q = lambda l: q([x for x in l[1:] if x <= l[0]]) + [l[0]] + q([x for x in l if x > l[0]]) if l else []
 
-Or that proverbial academic paper verbiage, which although has proper punctuation in place, chain four-plus subordinate clauses, instead of splitting them in multiple sentences. Let's see a non-academic example of the same issue:
+Or that proverbial academic paper verbiage, in which the text has proper punctuation in place, but chain four-plus subordinate clauses, instead of splitting them in multiple sentences. Let's see a non-academic example of the same issue:
 
 > The solution, proposed by team A, can address solution X, provided team A finds a way to convince leadership, which might be wary to schedule it for Q1, given the CEO's push for the new design, which has been in discussion for a while.
 
@@ -51,7 +51,7 @@ No, you can't assume I know what you mean, unless you have made me walk through 
 It's not my fault, if I couldn't understand what you had to say. It might not even be your fault, either, since I might lack business or technical context to realize why something is important. But be certain it will be your fault, have you failed to make your point to the “right” people. Who are they? Think leadership planning whether your project should be on Q1's shortlist, the platform team that act as a gateway in anything X, and the security team in that effort to integrate with a third party.
 
 ### Saying more than you need
-Be laconic, my friend, said no one. But seriously, why say with more words that which can be said with less. Fun fact: Laconic is an adjective that refers to Laconia. A region in Greece most known for residing Sparta – the famed war-oriented city state of Ancient Greece. Less known is however the fact that Spartans valued being “laconic”. Not following? Then read the following paragraph:
+Be laconic [^1], my friend, said no one. But seriously, why say with more words that which can be said with less. Not following? Then read the following paragraph:
 
 > In light of the time and effort you have spent and may otherwise continue to spend on dealing with their repeated requests for assistance, we can support you for the forthcoming term should the requirements be agreed.
 
@@ -66,21 +66,23 @@ Ha, you don't need to be so extreme and that's likely omitting relevant details,
 The point is, why write that long code comment, when a better variable name would have addressed the issue? Same thing.
 
 ### Improve your vocabulary game
-Please don't be that person, who overuses a single word. There is a reason you have myriad, plethora, and cornucopia in your belt after you've spent your share of many and several. You might not know them at first, but it pays off to extend your vocabulary. To add nuances to your text. I know that might be hard. After all, I am a non-native speaker myself – Portuguese is my mother tongue. Despite, the secret is to make it a habit to learn new words – one a day is no big ask.
+Please, don't be that person, who overuses a single word. There is a reason you have myriad, plethora, and cornucopia in your belt after you've spent your share of many and several. You might not know them at first, but it pays off to extend your vocabulary. That way adding nuances to your text. I know that might be hard. After all, I am a non-native speaker myself – Portuguese is my mother tongue. Despite, the secret is to make it a habit to learn new words – one a day is no big ask.
 
-Moreover, vocabulary isn't always a matter of knowing synonyms, but rather of word choice precision. That is why every profession has jargon. Think Lawyers and their "quid pro quo"s. Or us and “deadlock”. We could write a whole phrase to mean yet the same thing, but precision demands them.
+Moreover, vocabulary isn't always a matter of knowing synonyms, but rather of word choice precision. That is why every profession has jargon. Think Lawyers and their “quid pro quo”. Or us and “deadlock”. We could write a whole phrase to mean yet the same thing, but precision demands them.
 
 ### Be a reader yourself
-Good writing takes yet greater reading. The more you read, the more vocabulary you collect, the better you become at writing. There is no rule here. My wife, for instance, loves romances. Anything Tolstoy, Roth, Houellebecq, Dostoevsky, Pasternak, Shakespeare is game for her. I, on the other hand, prefer to focus on anything ancient, think Plutarch for history or Sophocles for theater. Then add some philosophical works here and there, such as the ones of Seneca. Not to mention the technical reading oriented towards my craft – currently reading "The Staff Engineer's Path" by Tanya Reilly. So try finding some time. For us, reading just before bed is what works best habit-wise.
+Good writing takes yet greater reading. The more you read, the more vocabulary you collect, the better you become at writing. There is no rule here. My wife, for instance, loves romances. Anything Tolstoy, Roth, Houellebecq, Dostoevsky, Pasternak, Shakespeare is game for her. I, on the other hand, prefer to focus on anything ancient, think Plutarch for history or Sophocles for theater. Then add some philosophical works here and there, such as the ones of Seneca. Not to mention the technical reading oriented towards my craft – currently reading “The Staff Engineer's Path” by Tanya Reilly. So try finding some time. For us, reading just before bed is what works best habit-wise.
 
 ### When in Rome
-I certainly won't be the first person telling you to know your audience. The reason is simple. If people cannot relate to your writing style, it will be harder for you to find a way into their minds. Politicians are doing this when they, for instance, resort to regionalisms or double down on the accent. So blend in. How can you do that in text? Well, for starters, I'd look for pieces from someone's writing you admire in either your team or organization. Then analyse its composition until you can answer what makes their writing worthy of your admiration. Those points are likely something you can also do yourself. That's it, sheer mimesis (i.e., imitation) is still a great tool for learning something or blending in.
+I certainly won't be the first person telling you to know your audience. The reason is simple. If people cannot relate to your writing style, it will be harder for you to find a way into their minds. Politicians are doing this when they, for instance, resort to regionalisms or double down on the accent. So blend in. How can you do that in text? Well, for starters, I'd look for pieces from someone's writing you admire in either your team or organization. Then analyze its composition until you can answer what makes their writing worthy of your admiration. Those points are likely something you can also do yourself. That's it, sheer mimesis (i.e., imitation) is still a great tool for learning something or blending in.
 
 ### Be respectful
-Time is a very precious resource – especially when we are talking about the time of others. So be respectful and do your due dilligence, before asking someone to look into your document. Basic grammar mistakes and sloppy sentence building aren't really acceptable. It communicates you don't think that your time is as valuable as that of your reader. So try to be mindful. You can't simply expect that the first version of anything you write is proper. Mine isn't. Yours aren't. That means you should read yourself a couple times – sometimes even out loud. Improve what can be improved. Put some effort really. Only then you should consider sharing it.
+Time is a very precious resource – especially when we are talking about the time of others. So be respectful and do your due diligence, before asking someone to look into your document. Basic grammar mistakes and sloppy sentence building aren't really acceptable. It communicates you don't consider that your time is as valuable as that of your reader. So try to be mindful. You can't simply expect that the first version of anything you write is proper. Mine isn't. Yours aren't. That means you should read yourself a couple of times – sometimes even out loud. Improve what can be improved. Put some effort, really. Is this preciousness? No, do justice to your subject first. Only then you should consider sharing it.
+
+When you do so, understand that it won't be perfect either, but good enough is good enough. Take this very article, for instance. The first time I've published it, even though I had someone proofreading it, I could still find a few things to correct. Furthermore, two days after having it published, a fellow at work asked me if I wanted feedback about the article, which of course I did want. As part of the feedback, though, there were still some grammar mistakes. Is that the end of the world? No, as long as you keep your conscience clear by knowing you've done your part – to the best of your knowledge.
 
 ### Tools of the trade
-Don't shy away from using grammar checkers. It would be stubborn of you to have aid and, yet, to ignore it. In this spirit, I'd greatly recommend https://languagetool.org/ or similar alternatives (e.g., https://grammarly.com). I've been using LanguageTool's premium plan for at least six months, since I started being more serious about blogging, and it has helped. Don't get me wrong – they're no panacea, just like linters. Bad text and code are still bad, after all. Unfortunately, there is no tool in the word that can help you with that. However, it's nice to have something suggesting you synonyms to prevent word overuse, fixing basic typos, providing you alternatives for far-fetched expressions, and so on.
+Don't shy away from using grammar checkers. It would be stubborn of you to have aid and, yet, to ignore it. In this spirit, I'd greatly recommend https://languagetool.org/ or similar alternatives (e.g., https://grammarly.com, https://hemingwayapp.com/). I've been using LanguageTool's premium plan for at least six months, since I started being more serious about blogging, and it has helped. Don't get me wrong – they're no panacea, just like linters. Bad text and code are still bad, after all. Unfortunately, there is no tool in the word that can help you with that. However, it's nice to have something suggesting you synonyms to prevent word overuse, fixing basic typos, providing you alternatives for far-fetched expressions, and so on.
 
 ## The hard things
 This is grammar and style territory. Many people hate it, but just like you can't write idiomatic code without mastering a programming language's syntax, you won't be able to write elegantly without understanding its building blocks.
@@ -88,20 +90,20 @@ This is grammar and style territory. Many people hate it, but just like you can'
 ### Tone down on your pronouns
 Oh, I understand we hate to repeat ourselves in text. Pronouns are there to prevent that, but pronouns can also make your technical piece, less precise. Pay attention to the following example:
 
-> As a consequence of the company's positive results, a few longer-term experiments were approved by leadership. They ...
+> As a consequence of the company's positive results, a few longer-term experiments were approved by leadership. They …
 
-When I see that personal pronoun (i.e., they), I know someone is making me have the trouble of figuring out, who or what that "they" might be. Is it about the results? Can it be about the experiments? Or is that person talking about leadership? Who knows? That will require understanding the context, which might mean having to go through a whole paragraph and then get back – until that's figured out. All that could be avoided, had the person avoided a dubious pronoun. Such as on:
+When I see that personal pronoun (i.e., they), I know someone is making me have the trouble of figuring out, who or what that “they” might be. Is it about the results? Can it be about the experiments? Or is that person talking about leadership? Who knows? That will require understanding the context, which might mean having to go through a whole paragraph and then get back – until that's figured out. All that could be avoided, had the person avoided a dubious pronoun. Such as on:
 
-> As a consequence of the company's positive results, a few longer-term experiments were approved by leadership. The results ... \
-> As a consequence of the company's positive results, a few longer-term experiments were approved by leadership. The experiments ... \
-> As a consequence of the company's positive results, a few longer-term experiments were approved by leadership. The leadership ...
+> As a consequence of the company's positive results, a few longer-term experiments were approved by leadership. The results … \
+> As a consequence of the company's positive results, a few longer-term experiments were approved by leadership. The experiments … \
+> As a consequence of the company's positive results, a few longer-term experiments were approved by leadership. The leadership …
 
 You don't need to reuse the precise noun (e.g., results, experiments, leadership), as the examples above. In fact, any synonym would have worked. Additionally, this doesn't mean you shouldn't use pronouns in your technical writing. The takeaway is that you should avoid them, if clarity demands. To leave to context, that which could be clear from the get go, is no way of treating your reader.  
 
 ### Images/tables/code samples too deserve names
 If there is one thing that is just annoying, is to have to say something like:
 
-> Hey, you know that second image you have on page 82, I think that ...
+> Hey, you know that second image you have on page 82, I think that …
 
 Don't do that. If you have an image, table, or code sample in a technical document, please add a label under it, which can go like:
 
@@ -111,11 +113,11 @@ Don't do that. If you have an image, table, or code sample in a technical docume
 
 Now, your readers can just say:
 
-> On image C1.1, you seem to ...
+> On image C1.1, you seem to …
 
 It just facilitates communication. And that's what you want. Not to stay on the path of people trying to help you. Make it easy to be helped. That also reminds of something my professor of scientific methodology said during my graduation. It went like: If you are not going to mention your image/table/code sample in your text, don't bother adding it. And I have to agree. Worst case, just write something like:
 
-> On Image C1.1, the architecture of the proposed solution is depicted. Essentially, ...
+> On Image C1.1, the architecture of the proposed solution is depicted. Essentially, …
 
 That will prepare your readers for what is ahead, or tie with something that came before.
 
@@ -162,11 +164,11 @@ Now look how much better it is when I throw a few conjunctions here and there:
 
 > Python is a powerful language. Moreover, it is simple, however, some bits of it, such as metaclasses, can be hard to grasp. Therefore, it might be better not to focus on it as a newcomer. Even though it might be a complicated feature of Python, many popular frameworks use it under the hood, such as sqlalchemy's model and Django's models.
 
-Do you see how "moreover" (addition relation), "however" (opposition/contrast relation), "therefore" (cause/effect/result relation) and "even though" (opposition/contrast relation) just made it clearer, what was the sort of relation those phrases had? So don't shy away from them. Ah, and please keep in mind your compound versions (e.g., neither ... nor ..., either ... or ..., not only ... but also ..., both ... and ...). Anyway, you can find more examples of conjunctions on https://www.fluentu.com/blog/english/english-conjunctions/, https://www.grammarly.com/blog/conjunctions/ and https://eslforums.com/list-of-conjunctions/. Before closing this topic, let me warn you that conjunctions for the sake of using them, isn't necessarily better – especially if they are poorly employed. See the following redacted example, which I've reviewed recently as part of a design doc:
+Do you see how “moreover” (addition relation), “however” (opposition/contrast relation), “therefore” (cause/effect/result relation) and “even though” (opposition/contrast relation) just made it clearer, what was the sort of relation those phrases had? So don't shy away from them. Ah, and please keep in mind your compound versions (e.g., neither … nor …, either … or …, not only … but also …, both … and …). Anyway, you can find more examples of conjunctions on https://www.fluentu.com/blog/english/english-conjunctions/, https://www.grammarly.com/blog/conjunctions/ and https://eslforums.com/list-of-conjunctions/. Before closing this topic, let me warn you that conjunctions for the sake of using them, isn't necessarily better – especially if they are poorly employed. See the following redacted example, which I've reviewed recently as part of a design doc:
 
 > The only considerable cost is the cost of Service A. We were able to get the following pricing scheme from Product B and we have signed up for 3 parallel processes for now and later we will evaluate if we need more parallel processes.
 
-The coordinating conjunction "and" (addition relation), in the aforementioned example, isn't really fulfilling its purpose. That's so the case, that removing its occurrences and keeping distinct sentences instead work just as fine. Additionally, shorter phrases end up being a plus, as can be seen on:
+The coordinating conjunction “and” (addition relation), in the aforementioned example, isn't really fulfilling its purpose. That's so the case, that removing its occurrences and keeping distinct sentences instead work just as fine. Additionally, shorter phrases end up being a plus, as can be seen on:
 
 > The only considerable cost is the cost of Service A. We were able to get the following pricing scheme from Product B. We have signed up for 3 parallel processes for now. Later we will evaluate if we need more parallel processes.
 
@@ -177,7 +179,7 @@ This can be definitely improved by toning down on the use of personal pronouns (
 Do you see how that just feels neater?
 
 ### Have a style guide of choice
-I honestly don't care if you write color or colour, as long as you stick to a version of English. That's the same attitude I have towards the indentation you choose for your C code (e.g., GNU, K&R, Allman) or the linter rules you are going to apply. The important thing is to adopt one style. To stay consistent.
+I honestly don't care if you write color or colour, as long as you stick to a version of English. That's the same attitude I have towards the indentation you choose for your C code (e.g., GNU, K&R, Allman) or the linter rules you are going to apply. The important thing is to adopt one style – to stay consistent.
 
 Likewise, there is no such a thing as an ultimate style guide for writing. You can decide to adopt any among https://developers.google.com/style, https://learn.microsoft.com/en-us/style-guide/welcome/, https://www.chicagomanualofstyle.org/home.html, and https://www.ox.ac.uk/sites/files/oxford/media_wysiwyg/University%20of%20Oxford%20Style%20Guide.pdf – the latter being my favorite. What is indispensable, is that you adhere to one.
 
@@ -191,4 +193,6 @@ My friend, if you can't make yourself available for going through the thirty sli
 
 Writing is one of those skills that if you think you are good at it, that's because you don't care enough to keep growing. Like coding, it can take a whole life. You might realize you need to delve deep and get yourself a good grammar book. That might be particularly useful for native speakers, which often have a sense for what is right or wrong, but often can't put on a finger why. 
 
-Finally, if writing ever becomes a passion, like it is for me, you might find yourself reading about how to write. Last year I've felt that need by reading "On Writing Well" by William Zinsser, which I'd greatly recommend.
+Finally, if writing ever becomes a passion, like it is for me, you might find yourself reading about how to write. Last year I've felt that need by reading “On Writing Well” by William Zinsser, which I'd greatly recommend.
+
+[^1]: Fun fact: Laconic is an adjective that refers to Laconia. A region in Greece most known for residing Sparta – the famed war-oriented city state of Ancient Greece. Less known is however the fact that Spartans valued being “laconic”.
