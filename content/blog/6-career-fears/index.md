@@ -4,6 +4,7 @@ title: Career fears
 date: "2022-10-09T19:30:00.000Z"
 quote: "We can easily forgive a child who is afraid of the dark; the real tragedy of life is when men are afraid of the light."
 quoteAuthor: Plato
+socialShare: ./hero-share.png
 tags:
   - work
 ---

@@ -4,6 +4,7 @@ title: Deep thinking time
 date: "2022-08-14T19:30:00.000Z"
 quote: "Things which matter most must never be at the mercy of things which matter least."
 quoteAuthor: Goethe
+socialShare: ./hero-share.png
 tags:
   - work
 ---

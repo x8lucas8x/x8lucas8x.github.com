@@ -4,6 +4,7 @@ title: Narrative matters
 date: "2022-09-09T19:30:00.000Z"
 quote: "I am the master of my fate, I am the captain of my soul."
 quoteAuthor: William Ernest Henley
+socialShare: ./hero-share.png
 tags:
   - work
 ---

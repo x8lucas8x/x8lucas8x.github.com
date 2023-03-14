@@ -4,6 +4,7 @@ title: I used to hate 1on1s
 date: "2022-09-10T19:30:00.000Z"
 quote: "A ship in harbor is safe, but that is not what ships are built for."
 quoteAuthor: John A. Shedd
+socialShare: ./hero-share.png
 tags:
   - work
 ---

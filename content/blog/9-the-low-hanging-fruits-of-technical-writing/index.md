@@ -4,6 +4,7 @@ title: The low-hanging fruits of technical writing
 date: "2023-02-05T19:30:00.000Z"
 quote: "What is written without effort is in general read without pleasure."
 quoteAuthor: Samuel Johnson
+socialShare: ./hero-share.png
 tags:
   - work
   - writing

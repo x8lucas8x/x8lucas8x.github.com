@@ -5,6 +5,8 @@ exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
 
   const blogPost = path.resolve(`./src/templates/blogPost.js`)
+  const blogPostPreview = path.resolve(`./src/templates/blogPostPreview.js`)
+
   const result = await graphql(
     `
       {
@@ -40,18 +42,28 @@ exports.createPages = async ({ graphql, actions }) => {
     const previous = index === posts.length - 1 ? null : posts[index + 1].node;
     const next = index === 0 ? null : posts[index - 1].node;
     const slug = post.node.fields.slug;
+    const context = {
+      slug,
+      previous,
+      next,
+    };
 
-
+    // create the blog post page
     createPage({
       path: slug,
       component: blogPost,
-      context: {
-        slug,
-        previous,
-        next,
-      },
-    })
-  })
+      context: context,
+    });
+
+    if (process.env.gatsby_executing_command.includes('develop')) {
+      // create the blog post page preview
+      createPage({
+        path: `${slug}/preview_image`,
+        component: blogPostPreview,
+        context: context,
+      });
+    }
+  });
 }
 
 exports.onCreateNode = ({ node, actions, getNode }) => {
@@ -69,6 +81,7 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
 
 exports.createSchemaCustomization = ({ actions }) => {
   const { createTypes } = actions
+
   const typeDefs = `
     type MarkdownRemark implements Node {
       frontmatter: Frontmatter
@@ -78,6 +91,8 @@ exports.createSchemaCustomization = ({ actions }) => {
       title: String!
       date: Date @dateformat(formatString: "DD-MM-YYYY")
       tags: [String!]
+      imageShare: File @fileByRelativePath
+      socialShare: File! @fileByRelativePath
     }
   `
   createTypes(typeDefs)

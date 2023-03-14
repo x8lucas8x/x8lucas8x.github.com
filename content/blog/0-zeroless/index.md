@@ -2,6 +2,7 @@
 slug: zeroless
 title: Zeroless
 date: "2015-08-18T20:40:00.000Z"
+socialShare: ./hero-share.png
 tags:
   - zeromq
   - python

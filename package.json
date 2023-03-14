@@ -43,11 +43,13 @@
     "node-sass": "7.0.3",
     "prismjs": "1.29.0",
     "prop-types": "^15.8.1",
+    "pupeteer": "^0.0.1",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-helmet": "6.1.0",
     "react-typography": "^0.16.20",
     "slugify": "1.6.5",
+    "styled-components": "^5.3.8",
     "tailwindcss": "3.1.8",
     "typeface-merriweather": "1.1.13",
     "typeface-montserrat": "1.1.13",
@@ -75,6 +77,7 @@
     "dev": "gatsby develop -p 8786",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "serve": "gatsby serve -p 8786",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing \""
+    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing \"",
+    "generatePostPreviewImages": "./scripts/generatePostPreviewImages.js"
   }
 }

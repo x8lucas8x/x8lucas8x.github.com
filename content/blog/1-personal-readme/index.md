@@ -2,6 +2,7 @@
 slug: personal-readme
 title: Personal README
 date: "2022-07-24T19:30:00.000Z"
+socialShare: ./hero-share.png
 tags:
   - personal
 ---

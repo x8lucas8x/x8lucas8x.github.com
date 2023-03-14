@@ -4,6 +4,7 @@ title: How can I help you?
 date: "2022-08-10T19:30:00.000Z"
 quote: "It is not the answer that enlightens, but the question."
 quoteAuthor: Eugene Ionesco
+socialShare: ./hero-share.png
 tags:
   - work
 ---

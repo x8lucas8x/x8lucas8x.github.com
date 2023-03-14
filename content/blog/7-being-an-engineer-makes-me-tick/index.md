@@ -4,6 +4,7 @@ title: Being an engineer makes me tick
 date: "2022-10-13T19:30:00.000Z"
 quote: "Find what you love and let it kill you."
 quoteAuthor: Charles Bukowski
+socialShare: ./hero-share.png
 tags:
   - work
 ---

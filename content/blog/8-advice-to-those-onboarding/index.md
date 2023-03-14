@@ -4,6 +4,7 @@ title: Advice to those onboarding
 date: "2022-10-16T19:30:00.000Z"
 quote: "He who chooses the beginning of the road chooses the place it leads to."
 quoteAuthor: Harry Emerson Fosdick
+socialShare: ./hero-share.png
 tags:
   - work
 ---

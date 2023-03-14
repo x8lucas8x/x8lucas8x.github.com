@@ -28,6 +28,8 @@ class BlogPostTemplate extends React.Component {
         <SEO
           title={post.frontmatter.title}
           description={post.frontmatter.description || post.excerpt}
+          ogType="article"
+          imageShare={post.frontmatter.socialShare?.publicURL}
         />
         <article>
           <header>
@@ -145,6 +147,9 @@ export const pageQuery = graphql`
         tags
         quote
         quoteAuthor
+        socialShare {
+          publicURL
+        }
       }
     }
   }
