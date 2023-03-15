@@ -12,7 +12,7 @@ tags:
   - brag docs
 ---
 
-At the surface, a brag doc seems like a simple enough technique. In fact, it can be and, even in the cases you don't put much effort, you'll start noticing its benefits, nevertheless, provided you give the method enough time. For optimal experience, though, I urge you to not become complacent. In [part 1] of this brag/hype docs series, I've already shared a few things you have to pay attention to, in order to leverage your brag doc right. To continue in this journey, I'd like to proceed by sharing some additional best practices and pro-tips I've compiled, which you might find useful:
+At the surface, a brag doc seems like a simple enough technique. In fact, it can be and, even in the cases you don't put much effort, you'll start noticing its benefits, nevertheless – provided you give the method enough time. For optimal experience, though, I urge you to not become complacent. In [part 1] of this brag/hype docs series, I've already shared a few things you have to pay attention to, in order to leverage your brag doc right. To continue in this journey, I'd like to proceed by sharing some additional best practices and pro-tips I've compiled:
 
 ## Use active verbs
 
