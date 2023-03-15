@@ -10,24 +10,22 @@ const puppeteer = require('puppeteer')
 
 const baseUrl = process.argv[2] || 'http://localhost:8786/'
 
-const takeScreenshot = async (url, width, height, destination) => {
+const takeScreenshot = async (url, destination) => {
   const browser = await puppeteer.launch({
     args: ['--no-sandbox', '--disable-setuid-sandbox'],
   })
   const page = await browser.newPage()
+
+  // Set viewport width and height
+  await page.setViewport({ width: 1200, height: 630 });
   await page.goto(url, {
     waitUntil: 'networkidle2',
   })
   await page.screenshot({
     path: destination,
-    clip: {
-      x: 0,
-      y: 0,
-      width,
-      height,
-    },
+    fullPage: true,
   })
-
+  await page.close();
   await browser.close()
 }
 
@@ -67,8 +65,6 @@ const main = async () => {
     ) {
       await takeScreenshot(
         `${baseUrl}${file.slug}/preview_image`,
-        440,
-        220,
         destinationFile
       )
       console.log(`Created ${destinationFile}`)

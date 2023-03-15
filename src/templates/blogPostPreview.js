@@ -4,6 +4,9 @@ import { GatsbyImage } from "gatsby-plugin-image";
 import styled from 'styled-components'
 import { createGlobalStyle } from 'styled-components'
 
+const DEFAULT_WIDTH = 1200
+const DEFAULT_HEIGHT = 630
+
 const GlobalPageStyle = createGlobalStyle`
   * {
     box-sizing: border-box;
@@ -16,8 +19,8 @@ const GlobalPageStyle = createGlobalStyle`
 `
 
 const Wrapper = styled.div`
-  width: ${props => props.width || 440}px;
-  height: ${props => props.height || 220}px;
+  width: ${props => props.width || DEFAULT_WIDTH}px;
+  height: ${props => props.height || DEFAULT_HEIGHT}px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -28,16 +31,16 @@ const Wrapper = styled.div`
 `
 
 const Square = styled.div`
-  width: ${props => props.width || 440}px;
-  height: ${props => props.height || 220}px;
+  width: ${props => props.width || DEFAULT_WIDTH}px;
+  height: ${props => props.height || DEFAULT_HEIGHT}px;
   position: absolute;
-  outline: 3px solid red !important;
-  outline-offset: -25px;
+  outline: 8px solid red !important;
+  outline-offset: -50px;
 `
 
 const Title = styled.h1`
   font-weight: 600;
-  font-size: 1.2rem;
+  font-size: 4.0rem;
   font-style: italic;
   font-family: 'Merriweather','Georgia',serif;
   margin: 10px 60px;
@@ -48,7 +51,7 @@ const Title = styled.h1`
 `
 
 const SiteTitle = styled.p`
-  font-size: 1rem;
+  font-size: 2.5rem;
   left: 50%;
   font-weight: 700;
   text-align: center;
@@ -116,8 +119,8 @@ const BlogPostShareImage = props => {
         <GatsbyImage
           image={authorImage}
           className="bio-image"
-          width={32}
-          height={32}
+          width={200}
+          height={200}
           style={{
             position: "absolute",
             bottom: 8,
@@ -134,12 +137,12 @@ export default BlogPostShareImage
 export const pageQuery = graphql`query BlogPostShareImage($slug: String!) {
   authorImage: file(absolutePath: {regex: "/lucasProfile.jpeg/"}) {
     childImageSharp {
-      gatsbyImageData(width: 64, height: 64, layout: FIXED)
+      gatsbyImageData(width: 200, height: 200, layout: FIXED)
     }
   }
   defaultPreviewImage: file(absolutePath: {regex: "/defaultPreviewImage.jpeg/"}) {
     childImageSharp {
-      gatsbyImageData(width: 440, height: 220, layout: FIXED)
+      gatsbyImageData(width: 1200, height: 630, layout: FIXED)
     }
   }
   markdownRemark(fields: {slug: {eq: $slug}}) {
@@ -151,7 +154,7 @@ export const pageQuery = graphql`query BlogPostShareImage($slug: String!) {
       quoteAuthor
       imageShare {
         childImageSharp {
-          gatsbyImageData(width: 440, height: 220, layout: FIXED)
+          gatsbyImageData(width: 1200, height: 630, layout: FIXED)
         }
       }
     }
