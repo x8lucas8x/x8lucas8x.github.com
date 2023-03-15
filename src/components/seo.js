@@ -10,7 +10,7 @@ import PropTypes from "prop-types"
 import { Helmet } from "react-helmet"
 import { useStaticQuery, graphql } from "gatsby"
 
-function SEO({ description, lang, meta, title, imageShare, ogType }) {
+function SEO({ description, lang, meta, title, imageShare, ogType, twitterCard }) {
   const { site } = useStaticQuery(
     graphql`
       query {
@@ -19,6 +19,7 @@ function SEO({ description, lang, meta, title, imageShare, ogType }) {
             title
             description
             author
+            siteUrl
           }
         }
       }
@@ -26,6 +27,7 @@ function SEO({ description, lang, meta, title, imageShare, ogType }) {
   )
 
   const metaDescription = description || site.siteMetadata.description
+  const imageShareAbsoluteUrl = `${site.siteMetadata.siteUrl}${imageShare}`
 
   return (
     <Helmet
@@ -53,11 +55,11 @@ function SEO({ description, lang, meta, title, imageShare, ogType }) {
         },
         {
           property: `og:image`,
-          content: imageShare,
+          content: imageShareAbsoluteUrl,
         },
         {
           name: `twitter:card`,
-          content: `summary_large_image`,
+          content: twitterCard,
         },
         {
           name: `twitter:creator`,
@@ -73,7 +75,7 @@ function SEO({ description, lang, meta, title, imageShare, ogType }) {
         },
         {
           name: `twitter:image`,
-          content: imageShare,
+          content: imageShareAbsoluteUrl,
         },
       ].concat(meta)}
     />
@@ -85,6 +87,7 @@ SEO.defaultProps = {
   meta: [],
   description: ``,
   ogType: `website`,
+  twitterCard: `summary`,
 }
 
 SEO.propTypes = {
@@ -93,6 +96,7 @@ SEO.propTypes = {
   meta: PropTypes.arrayOf(PropTypes.object),
   title: PropTypes.string.isRequired,
   ogType: PropTypes.string,
+  twitterCard: PropTypes.string,
   imageShare: PropTypes.string,
 }
 

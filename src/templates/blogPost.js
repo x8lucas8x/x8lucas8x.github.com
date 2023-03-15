@@ -29,6 +29,7 @@ class BlogPostTemplate extends React.Component {
           title={post.frontmatter.title}
           description={post.frontmatter.description || post.excerpt}
           ogType="article"
+          twitterCard="summary_large_image"
           imageShare={post.frontmatter.socialShare?.publicURL}
         />
         <article>
