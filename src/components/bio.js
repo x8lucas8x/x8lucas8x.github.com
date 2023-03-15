@@ -7,33 +7,29 @@
 
 import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
-import Image from "gatsby-image"
+import { GatsbyImage } from "gatsby-plugin-image";
 
 const Bio = () => {
   /**
    * STEP 2: Add the `fileRelativePath` and `rawJson` to your gatsby query
    */
-  const data = useStaticQuery(graphql`
-    query BioQuery {
-      avatar: file(absolutePath: { regex: "/lucasProfile.jpeg/" }) {
-        childImageSharp {
-          fixed(width: 64, height: 64) {
-            ...GatsbyImageSharpFixed
-          }
-        }
-      }
-      author: dataJson(pk: { eq: "author" }) {
-        name
-        description
-        siteUrl
-        social {
-          twitter
-          linkedin
-          github
-        }
-      }
+  const data = useStaticQuery(graphql`query BioQuery {
+  avatar: file(absolutePath: {regex: "/lucasProfile.jpeg/"}) {
+    childImageSharp {
+      gatsbyImageData(width: 64, height: 64, layout: FIXED)
     }
-  `)
+  }
+  author: dataJson(pk: {eq: "author"}) {
+    name
+    description
+    siteUrl
+    social {
+      twitter
+      linkedin
+      github
+    }
+  }
+}`)
 
   const {
     author: { name, social },
@@ -43,13 +39,12 @@ const Bio = () => {
   return (
     <div className="bio-container">
       <div className="bio-image-container">
-        <Image
+        <GatsbyImage
+          image={avatar.childImageSharp.gatsbyImageData}
           className="bio-image"
-          fixed={avatar.childImageSharp.fixed}
           width={64}
           height={64}
-          alt={name}
-        />
+          alt={name} />
       </div>
       <div className="bio-content-container">
         <p>
@@ -61,7 +56,7 @@ const Bio = () => {
         </p>
       </div>
     </div>
-  )
+  );
 }
 
 export default Bio

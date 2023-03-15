@@ -1,6 +1,6 @@
 import React from 'react'
-import { graphql, withPrefix } from 'gatsby'
-import Image from "gatsby-image"
+import { graphql } from 'gatsby'
+import { GatsbyImage } from "gatsby-plugin-image";
 import styled from 'styled-components'
 import { createGlobalStyle } from 'styled-components'
 
@@ -33,17 +33,6 @@ const Square = styled.div`
   position: absolute;
   outline: 3px solid red !important;
   outline-offset: -25px;
-`
-
-const Preview = styled.div`
-  width: ${props => props.width || 440}px;
-  height: ${props => props.height || 220}px;
-  background-image: url('${props =>
-    props.hero || withPrefix(props.siteCover)}');
-  background-position: center;
-  background-size: cover;
-  position: absolute;
-  opacity: 0.1;
 `
 
 const Title = styled.h1`
@@ -84,10 +73,10 @@ const SubTitle = styled.div`
 const BlogPostShareImage = props => {
   const post = props.data.markdownRemark
 
-  const authorImage = props.data.authorImage.childImageSharp.fixed
-  const defaultPreviewImage = props.data.defaultPreviewImage.childImageSharp.fixed
+  const authorImage = props.data.authorImage.childImageSharp.gatsbyImageData
+  const defaultPreviewImage = props.data.defaultPreviewImage.childImageSharp.gatsbyImageData
   const { width, height } = props.pageContext
-  const heroImgUrl = post.frontmatter.imageShare?.publicURL || defaultPreviewImage.src
+  const heroImg = post.frontmatter.imageShare?.childImageSharp?.gatsbyImageData || defaultPreviewImage
 
   return (
     <Wrapper width={width} height={height}>
@@ -111,58 +100,60 @@ const BlogPostShareImage = props => {
             </Title>
         )
      }
-      {heroImgUrl && (
-        <Preview
-            hero={heroImgUrl}
-        />
+      {heroImg && (
+        <GatsbyImage
+          image={heroImg}
+          width={width}
+          height={height}
+          style={{
+            position: "absolute",
+            backgroundPosition: "center",
+            backgroundSize: "cover",
+            opacity: 0.1,
+          }} />
       )}
       <SubTitle>
-        <Image
+        <GatsbyImage
+          image={authorImage}
           className="bio-image"
-          fixed={authorImage}
           width={32}
           height={32}
           style={{
             position: "absolute",
             bottom: 8,
             right: 8,
-          }}
-        />
+          }} />
       </SubTitle>
       <Square width={width} height={height} />
     </Wrapper>
-  )
+  );
 }
 
 export default BlogPostShareImage
 
-export const pageQuery = graphql`
-query BlogPostShareImage($slug: String!) {
-    authorImage: file(absolutePath: { regex: "/lucasProfile.jpeg/" }) {
+export const pageQuery = graphql`query BlogPostShareImage($slug: String!) {
+  authorImage: file(absolutePath: {regex: "/lucasProfile.jpeg/"}) {
+    childImageSharp {
+      gatsbyImageData(width: 64, height: 64, layout: FIXED)
+    }
+  }
+  defaultPreviewImage: file(absolutePath: {regex: "/defaultPreviewImage.jpeg/"}) {
+    childImageSharp {
+      gatsbyImageData(width: 440, height: 220, layout: FIXED)
+    }
+  }
+  markdownRemark(fields: {slug: {eq: $slug}}) {
+    id
+    excerpt(pruneLength: 120)
+    frontmatter {
+      title
+      quote
+      quoteAuthor
+      imageShare {
         childImageSharp {
-            fixed(width: 64, height: 64) {
-            ...GatsbyImageSharpFixed
-            }
+          gatsbyImageData(width: 440, height: 220, layout: FIXED)
         }
+      }
     }
-    defaultPreviewImage: file(absolutePath: { regex: "/defaultPreviewImage.jpeg/" }) {
-        childImageSharp {
-            fixed(width: 440, height: 220) {
-            ...GatsbyImageSharpFixed
-            }
-        }
-    }
-    markdownRemark(fields: { slug: { eq: $slug } }) {
-        id
-        excerpt(pruneLength: 120)
-        frontmatter {
-            title
-            quote
-            quoteAuthor
-            imageShare {
-                publicURL
-            }
-        }
-    }
-}
-`
+  }
+}`
