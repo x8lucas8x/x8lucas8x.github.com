@@ -92,7 +92,7 @@ exports.createSchemaCustomization = ({ actions }) => {
       date: Date @dateformat(formatString: "DD-MM-YYYY")
       tags: [String!]
       imageShare: File @fileByRelativePath
-      socialShare: File! @fileByRelativePath
+      socialShare: File @fileByRelativePath
     }
   `
   createTypes(typeDefs)
