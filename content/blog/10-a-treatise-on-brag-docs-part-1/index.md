@@ -1,6 +1,6 @@
 ---
-slug: a-treaty-on-brag-docs-part-1
-title: A Treaty on Brag/Hype Docs (Part 1)
+slug: a-treatise-on-brag-docs-part-1
+title: A Treatise on Brag/Hype Docs (Part 1)
 date: "2023-03-15T19:30:00.000Z"
 quote: "It’s not bragging if you can back it up."
 quoteAuthor: Muhammad Ali
@@ -68,4 +68,4 @@ Finally, this is part of a two piece series on the topic of brag/hype docs. At t
 
 [infinite-monkey-theorem]: https://en.wikipedia.org/wiki/Infinite_monkey_theorem
 [road-not-taken-poem]: https://www.poetryfoundation.org/poems/44272/the-road-not-taken
-[part 2]: /a-treaty-on-brag-docs-part-2
+[part 2]: /a-treatise-on-brag-docs-part-2

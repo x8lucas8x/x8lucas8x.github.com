@@ -1,6 +1,6 @@
 ---
-slug: a-treaty-on-brag-docs-part-2
-title: A Treaty on Brag/Hype Docs (Part 2)
+slug: a-treatise-on-brag-docs-part-2
+title: A Treatise on Brag/Hype Docs (Part 2)
 date: "2023-03-16T19:30:00.000Z"
 quote: "If you can't brag of knowing something, then brag of not knowing it. At any rate brag."
 quoteAuthor: Ralph Waldo Emerson
@@ -126,7 +126,7 @@ When the time comes for you to present your brag doc to your manager, don't just
 
 I'm not the first person advocating for brag docs (aka hype docs). In fact, there are interesting articles out there besides mine. I particularly recommend https://jvns.ca/blog/brag-documents/, but that's far from being the only one you will find, so don't stop here.
 
-[part 1]: /a-treaty-on-brag-docs-part-1
+[part 1]: /a-treatise-on-brag-docs-part-1
 [STAR method]: https://www.themuse.com/advice/star-interview-method
 [lucas-linkedin]: https://www.linkedin.com/in/x8lucas8x/
 [on-writting-well-book]: https://www.goodreads.com/book/show/53343.On_Writing_Well
